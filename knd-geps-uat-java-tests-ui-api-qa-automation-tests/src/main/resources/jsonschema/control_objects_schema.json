@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "pageNumber": {
+      "type": "integer"
+    },
+    "pageSize": {
+      "type": "integer"
+    },
+    "total": {
+      "type": "integer"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "registryObjectId": {
+            "type": "string"
+          },
+          "objectId": {
+            "type": "string"
+          },
+          "objectName": {
+            "type": "string"
+          },
+          "controlType": {
+            "type": "string"
+          },
+          "riskCategory": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "objectType": {
+            "type": "string"
+          },
+          "objectSpecType": {
+            "type": "string"
+          },
+          "objectSubspecType": {
+            "type": "string"
+          },
+          "controlOrganId": {
+            "type": "string"
+          },
+          "controlOrganOGRN": {
+            "type": "string"
+          },
+          "controlOrganTitle": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "registryObjectId",
+          "objectId",
+          "objectName",
+          "controlType",
+          "riskCategory",
+          "address",
+          "objectType",
+          "objectSpecType",
+          "objectSubspecType",
+          "controlOrganId",
+          "controlOrganOGRN",
+          "controlOrganTitle"
+        ]
+      }
+    }
+  },
+  "required": [
+    "pageNumber",
+    "pageSize",
+    "total",
+    "items"
+  ]
+}

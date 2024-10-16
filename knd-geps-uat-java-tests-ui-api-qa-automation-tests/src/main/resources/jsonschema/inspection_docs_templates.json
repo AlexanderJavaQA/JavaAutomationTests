@@ -1,0 +1,929 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "pageNumber": {
+      "type": "integer"
+    },
+    "pageSize": {
+      "type": "integer"
+    },
+    "total": {
+      "type": "integer"
+    },
+    "items": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "extId": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "integer"
+            },
+            "feedId": {
+              "type": "integer"
+            },
+            "innerTitle": {
+              "type": "string"
+            },
+            "serviceName": {
+              "type": "string"
+            },
+            "messages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "sendDate": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "sendDate",
+                    "text",
+                    "attachments"
+                  ]
+                }
+              ]
+            },
+            "files": {
+              "type": "array",
+              "items": {}
+            },
+            "status": {
+              "type": "object",
+              "properties": {
+                "orderStatusName": {
+                  "type": "string"
+                },
+                "currentStatusHistory": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string"
+                    },
+                    "statusId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "date",
+                    "statusId"
+                  ]
+                }
+              },
+              "required": [
+                "orderStatusName",
+                "currentStatusHistory"
+              ]
+            },
+            "typeEvent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "extId",
+            "orderId",
+            "feedId",
+            "innerTitle",
+            "serviceName",
+            "messages",
+            "files",
+            "status",
+            "typeEvent"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "pageNumber",
+    "pageSize",
+    "total",
+    "items"
+  ]
+}
