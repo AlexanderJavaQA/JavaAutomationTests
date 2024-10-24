@@ -1,6 +1,7 @@
 package api;
 
 import apimodels.appeals.Items;
+import apimodels.businessActivity.BusinessActivityCardListPojo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,11 +9,11 @@ import java.util.Map;
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
 
-public class DraftsListService {
+public class AppealsListService {
 
-    public static Items getDraftsList(String accTValue, String sortOrder) {
+    public static Items getAppealsList(String accTValue, String sortOrder ) {
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("sort", sortOrder);
+        requestBody.put("sort", sortOrder );
         requestBody.put("pageSize", PAGE_SIZE_LARGE );
 
         installSpec(requestSpec(), responseSpecOK());
@@ -22,7 +23,8 @@ public class DraftsListService {
                 .contentType("application/json")
                 .body(requestBody)
                 .when()
-                .post("api/knd/v2/appeals/drafts")
+                .post("api/knd/v2/appeals")
                 .then()
                 .extract().as(Items.class);
-}}
+    }
+}
