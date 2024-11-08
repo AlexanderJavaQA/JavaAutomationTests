@@ -1,4 +1,4 @@
-package ui.knd;
+package ui.knd.template;
 
 
 import baseTest.BaseTestSelenide;

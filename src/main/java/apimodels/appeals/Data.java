@@ -26,23 +26,4 @@ public class Data{
 	@JsonProperty("controlName")
 	private String controlName;
 
-	public String getControlCode(){
-		return controlCode;
-	}
-
-	public String getCheckNumber(){
-		return checkNumber;
-	}
-
-	public String getOrgName(){
-		return orgName;
-	}
-
-	public String getKnoName(){
-		return knoName;
-	}
-
-	public String getControlName(){
-		return controlName;
-	}
 }

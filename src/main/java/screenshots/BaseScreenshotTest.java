@@ -1,14 +1,15 @@
 package screenshots;
 
-import appconfig.AppConfig;
 import com.codeborne.selenide.*;
-import doknd.pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Allure;
 import lombok.SneakyThrows;
-import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import pages.doknd.FillDetailsComplaintPage;
+import pages.doknd.HandleFilingComplaintPage;
+import pages.doknd.LoginPage;
+import pages.doknd.SmevRequestPage;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;

@@ -444,7 +444,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
         handleFilingComplaint.handleTypeOfSignature("PEP");
         handleFilingComplaint.handleSelectRadioButton(false);
         executeJavaScript("window.scrollTo(0, 0);");
-        Thread.sleep(5000);// Радио-кнопка false
+        Thread.sleep(5000);
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 

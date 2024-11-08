@@ -1,8 +1,7 @@
 package ui.doknd.ip;
 
 import baseTest.BaseTestSelenide;
-import com.codeborne.selenide.SelenideElement;
-import doknd.pages.LoginPage;
+import pages.doknd.LoginPage;
 import org.junit.jupiter.api.*;
 
 @Tag("additionalActions")

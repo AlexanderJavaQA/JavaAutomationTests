@@ -1,6 +1,6 @@
 package apimodels.erp;
 
-import apimodels.erknm.Object;
+import apimodels.erknm.InspectionObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,10 +13,10 @@ import java.util.ArrayList;
 @Builder
 public class Result {
 
-    public Object actDate;
+    public InspectionObject actDate;
     public String actPlace;
     public String actNotReaded;
-    public Object startDate;
+    public InspectionObject startDate;
     public String inspDurDays;
     public boolean hasViolations;
     public int violNumber;
@@ -25,6 +25,6 @@ public class Result {
     public ArrayList<ObjInspector> objInspectors;
     public ArrayList<InspViolation> inspViolations;
     public ArrayList<ObjRepresentative> objRepresentatives;
-    public ArrayList<Object> resultInfos;
+    public ArrayList<InspectionObject> resultInfos;
     public String inspDurHours;
 }

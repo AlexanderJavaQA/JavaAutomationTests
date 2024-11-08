@@ -73,7 +73,6 @@ public class ErknmInspectionsListTests extends BaseApiTests {
         erknmInspectionsList.stream()
                 .map(SurveillanceItemsList::getKind)
                 .forEach(kind -> assertTrue(typeKind.contains(kind), "Не фильтрует по типу проверки"));
-
     }
 
     private void assertTypeNameList(String type, Integer total, List<String> typeName, String accTValue) {

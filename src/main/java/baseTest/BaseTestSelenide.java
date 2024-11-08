@@ -1,7 +1,6 @@
 package baseTest;
 
 import appconfig.AppConfig;
-import doknd.pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import listener.RetryListener;
@@ -11,10 +10,9 @@ import org.junit.jupiter.api.AfterAll;
 
 import com.codeborne.selenide.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
+import pages.doknd.*;
+import pages.knd.ControlSupervisionPage;
 
-@ExtendWith(RetryListener.class)
 public abstract class BaseTestSelenide {
     protected SmevPage smevPage = new SmevPage();
     protected LoginPage loginPage = new LoginPage();
@@ -23,6 +21,8 @@ public abstract class BaseTestSelenide {
     protected SmevRequestPage smevRequest = new SmevRequestPage();
     protected RepeatFilingPage repeatFilingPage = new RepeatFilingPage();
     protected SubmitAdditionalDocumentsPage submitAdditionalDocumentsPage = new SubmitAdditionalDocumentsPage();
+    protected ControlSupervisionPage controlSupervisionPage = new ControlSupervisionPage();
+
     protected AppConfig config = ConfigFactory.create(AppConfig.class);
 
     @BeforeAll

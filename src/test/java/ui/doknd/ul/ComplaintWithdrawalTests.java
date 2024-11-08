@@ -1,7 +1,7 @@
 package ui.doknd.ul;
 
 import baseTest.BaseTestSelenide;
-import doknd.pages.LoginPage;
+import pages.doknd.LoginPage;
 import listener.RetryListener;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,7 @@
 package apimodels.erp;
 
 import apimodels.erknm.Inspector;
-import apimodels.erknm.Object;
+import apimodels.erknm.InspectionObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +18,5 @@ public class Authority{
     public String ctrlOrgFRGU;
     public ArrayList<Function> functions;
     public ArrayList<Inspector> inspectors;
-    public ArrayList<Object> koJointlyFRGU;
+    public ArrayList<InspectionObject> koJointlyFRGU;
 }

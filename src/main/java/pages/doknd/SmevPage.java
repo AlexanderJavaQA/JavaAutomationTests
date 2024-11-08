@@ -1,4 +1,4 @@
-package doknd.pages;
+package pages.doknd;
 
 
 import appconfig.AppConfig;
@@ -61,6 +61,11 @@ public class SmevPage {
         return this;
     }
 
+    public SmevPage createERPStubTemplateDev2(String inn, String ogrn, String erpId) {
+        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseDev2()).createERPStubTemplate(inn, ogrn, erpId);
+        return this;
+    }
+
     public SmevPage ccreateErknmStubTemplateUat(String isFiz, String inn, String ogrn, String erknmIdStubs) {
         new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).createErknmStubTemplate(isFiz, inn, ogrn, erknmIdStubs);
         return this;
@@ -89,12 +94,12 @@ public class SmevPage {
     }
 
     public SmevPage enableSmevaFlag() {
-        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).enableSmevaFlag();
+        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).enableERPSmevaFlag();
         return this;
     }
 
     public SmevPage disableSmevaFlag() {
-        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).disableSmevaFlag();
+        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).disableERPSmevaFlag();
         return this;
     }
 
@@ -132,6 +137,13 @@ public class SmevPage {
     public SmevPage createBroadcastRequest(String erpIdValue) {
         textareaXmlRequest.setValue("<erp:Broadcast xmlns:erp=\"urn://ru.gov.proc.erp.broadcast/3.0.1\" xmlns:erp_types=\"urn://ru.gov.proc.erp.broadcast/types/3.0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn://ru.gov.proc.erp.broadcast/3.0.1 ru.gov.proc.erp.broadcast.smev.xsd\">\n" +
                 "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\"" + erpIdValue + "\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"CREATE\" guid=\"20170915-1311-0134-2344-000000383432\"/>\n" +
+                "</erp:Broadcast>");
+        return this;
+    }
+
+    public SmevPage createERPBroadcastRequest(String erpId) {
+        textareaXmlRequest.setValue("<erp:Broadcast xmlns:erp=\"urn://ru.gov.proc.erp.broadcast/2.0.1\" xmlns:erp_types=\"urn://ru.gov.proc.erp.broadcast/types/2.0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn://ru.gov.proc.erp.broadcast/2.0.1 ru.gov.proc.erp.broadcast.smev.xsd\">\n" +
+                "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\""+erpId+"\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"CREATE\"/>\n" +
                 "</erp:Broadcast>");
         return this;
     }

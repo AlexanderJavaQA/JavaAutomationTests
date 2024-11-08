@@ -1,4 +1,4 @@
-package doknd.pages;
+package pages.doknd;
 
 import com.codeborne.selenide.*;
 import com.codeborne.selenide.ex.ElementNotFound;

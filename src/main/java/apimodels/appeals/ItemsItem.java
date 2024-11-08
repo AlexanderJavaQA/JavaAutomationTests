@@ -24,6 +24,9 @@ public class ItemsItem{
 	@JsonProperty("ot")
 	private String ot;
 
+	@JsonProperty("branchId")
+	private String branchId;
+
 	@JsonProperty("hasQuiz")
 	private boolean hasQuiz;
 
@@ -66,75 +69,4 @@ public class ItemsItem{
 	@JsonProperty("status")
 	private String status;
 
-	public String getDate(){
-		return date;
-	}
-
-	public Data getData(){
-		return data;
-	}
-
-	public boolean isUnread(){
-		return unread;
-	}
-
-	public String getOt(){
-		return ot;
-	}
-
-	public boolean isHasQuiz(){
-		return hasQuiz;
-	}
-
-	public boolean isArchive(){
-		return archive;
-	}
-
-	public boolean isChiefOnly(){
-		return chiefOnly;
-	}
-
-	public long getOwnerId(){
-		return ownerId;
-	}
-
-	public String getTitle(){
-		return title;
-	}
-
-	public long getUserId(){
-		return userId;
-	}
-
-	public String getArchiveLevel(){
-		return archiveLevel;
-	}
-
-	public String getSubTitle(){
-		return subTitle;
-	}
-
-	public boolean isHiddenEvents(){
-		return hiddenEvents;
-	}
-
-	public String getFeedType(){
-		return feedType;
-	}
-
-	public List<Object> getPowerMnemonics(){
-		return powerMnemonics;
-	}
-
-	public long getId(){
-		return id;
-	}
-
-	public String getExtId(){
-		return extId;
-	}
-
-	public String getStatus(){
-		return status;
-	}
 }

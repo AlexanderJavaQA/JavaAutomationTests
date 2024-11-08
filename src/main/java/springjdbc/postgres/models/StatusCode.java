@@ -1,5 +1,6 @@
 package springjdbc.postgres.models;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -8,10 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @lombok.Data
 @Builder
-public class KndAppeal {
-
-    private String sp_sign_type;
+public class StatusCode {
     private String status_code;
-    private Long order_id;
 
+    @Override
+    public String toString() {
+        return status_code;
+    }
 }

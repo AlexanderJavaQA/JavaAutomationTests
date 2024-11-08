@@ -1,6 +1,6 @@
 package apimodels.erp;
 
-import apimodels.erknm.Object;
+import apimodels.erknm.InspectionObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +17,5 @@ public class InspViolation{
     public String violType;
     public String violTypeCode;
     public ArrayList<ViolJudList> violJudList;
-    public ArrayList<Object> violOrders;
+    public ArrayList<InspectionObject> violOrders;
 }

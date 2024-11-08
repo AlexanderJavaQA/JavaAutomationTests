@@ -1,4 +1,4 @@
-package doknd.pages;
+package pages.doknd;
 
 import appconfig.AppConfig;
 import com.codeborne.selenide.ElementsCollection;

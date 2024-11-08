@@ -19,7 +19,6 @@ public class Specifications {
     public static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int DEFAULT_PAGE_SIZE = 20;
     public static final int PAGE_SIZE_LARGE = 100;
-
     public static final String TYPE_KND_APPEAL = "KND_APPEAL";
     public static final String KND_APPEAL_DRAFT = "KND_APPEAL_DRAFT";
     public static final int INITIAL_SITUATION = 1;
@@ -29,7 +28,7 @@ public class Specifications {
         AppConfig config = create(AppConfig.class);
 
         return new RequestSpecBuilder()
-                .setBaseUri(config.doKndApiBaseUrlDev2())
+                .setBaseUri(config.doKndApiBaseUrlUat())
                 .setContentType(JSON)
                 .build();
     }
@@ -39,7 +38,6 @@ public class Specifications {
                 .expectStatusCode(200)
                 .build();
     }
-
     public static void installSpec (RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
         RestAssured.requestSpecification = requestSpecification;
         RestAssured.responseSpecification = responseSpecification;

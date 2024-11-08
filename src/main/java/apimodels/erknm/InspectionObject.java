@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class Object{
+public class InspectionObject {
     public String address;
     public String objectType;
     public String objectKind;

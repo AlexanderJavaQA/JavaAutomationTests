@@ -8,7 +8,7 @@ import apimodels.erknm.InspectionDocsTemplatesPojo;
 import apimodels.erknm.Item;
 import apimodels.erknm.Message;
 import apimodels.erknm.SurveillanceItemsList;
-import ui.knd.TorTemplateTests;
+import ui.knd.template.TorTemplateTests;
 import ui.knd.erknm.ErknmTemplateTests;
 
 import java.util.ArrayList;

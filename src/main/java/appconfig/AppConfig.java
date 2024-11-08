@@ -50,6 +50,9 @@ public interface AppConfig extends Config {
         @Key("pgu_org_profile_knd_url_uat")
         String pguOrgProfileKndUrlUat();
 
+        @Key("pgu_org_profile_knd_url_dev2")
+        String pguOrgProfileKndUrlDev2();
+
         @Key("pgu_org_profile_inspect_url_uat")
         String pguOrgProfileInspectUrlUat();
 

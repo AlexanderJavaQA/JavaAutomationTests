@@ -1,7 +1,7 @@
 package apimodels.erp;
 
 import apimodels.erknm.GepsDatum;
-import apimodels.erknm.Object;
+import apimodels.erknm.InspectionObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +36,7 @@ public class ErpInspectionListPojo {
     public InspSub inspSub;
     public ArrayList<InspObject> inspObjects;
     public InspApprovement inspApprovement;
-    public ArrayList<Object> linkedInspections;
+    public ArrayList<InspectionObject> linkedInspections;
     public PublishInfo publishInfo;
     public boolean notificationSent;
     public Integer yearMonth;

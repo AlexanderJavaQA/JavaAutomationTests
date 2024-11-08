@@ -1,92 +1,73 @@
 package api.knd;
 
-import api.ErknmInspectionsListService;
-import apimodels.erknm.SurveillanceItemsList;
+import apimodels.erknm.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static api.ErknmInspectionSearchService.getErknmInspectionSearch;
 import static api.ErknmInspectionSortService.getErknmInspectionsSort;
+import static api.knd.ErknmInspectionsListTests.SORT_ORDER_DESC;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("API")
 @DisplayName("Поиск ЕРКНМ проверок в личном кабинете")
 public class ErknmInspectionSearchTests extends BaseApiTests {
 
-    public static final String SORT_ORDER_DESC = "desc";
-    public static final String SORT_ORDER_ASC = "asc";
 
-    public void shouldSearchKNMInspections(String accTValue) {
-        List<SurveillanceItemsList> erknmInspectionsList = getErknmInspectionsSort(accTValue, 30, SORT_ORDER_DESC, "KNM").getList();
-        List<String> erknmIdList = erknmInspectionsList.stream()
-                .map(SurveillanceItemsList::getErknmId)
-                .collect(Collectors.toList());
-        System.out.printf("ЕРКНМ проверок всего: %d %s%n", erknmIdList.size(), erknmIdList.toString());
 
-        for (String erknmId : erknmIdList) {
-            getErknmInspectionSearch(accTValue, 10, "desc", "KNM", erknmId);
-            for (SurveillanceItemsList item : erknmInspectionsList) {
-                if (item.getErknmId().equals(erknmId)) {
-                    System.out.println("ЕРКНМ проверка найдена: " + erknmId);
-                }
-            }
-        }
+    public void shouldValidateInspectionsSearchResults(String accTValue) {
+
+        shouldSearchInspections(accTValue, SurveillanceItemsList::getErknmId, "Несоответствие идентификатора ERKNM в ответе API поиска.");
+        shouldSearchInspections(accTValue, SurveillanceItemsList::getKind, "Несоответствие типа проверки в ответе API поиска.");
+        shouldSearchInspections(accTValue, SurveillanceItemsList::getKindControl, "Несоответствие типа контроля в ответе API поиска.");
+        shouldSearchInspections(accTValue, SurveillanceItemsList::getKnoOrganization, "Несоответствие организации КНО в ответе API поиска.");
+        shouldSearchInspections(accTValue, SurveillanceItemsList::getStatusName, "Несоответствие статуса проверки в ответе API поиска.");
+        shouldSearchInspections(accTValue, SurveillanceItemsList::getTypeName, "Несоответствие наименования типа проверки в ответе API поиска.");
     }
 
-    public void shouldSearchPMInspections(String accTValue) {
-        List<SurveillanceItemsList> erknmInspectionsList = getErknmInspectionsSort(accTValue, 30, SORT_ORDER_DESC, "PM").getList();
-        List<String> erknmIdList = erknmInspectionsList.stream()
-                .map(SurveillanceItemsList::getErknmId)
-                .collect(Collectors.toList());
-        System.out.printf("Профмероприятий всего: %d %s%n", erknmIdList.size(), erknmIdList.toString());
+    public void shouldSearchInspections(String accTValue, Function<SurveillanceItemsList, String> getField, String errorMessage) {
+        List<SurveillanceItemsList> erknmInspectionsList = getErknmInspectionsSort(accTValue, 30, SORT_ORDER_DESC, "all").getList();
 
-        for (String erknmId : erknmIdList) {
-            getErknmInspectionSearch(accTValue, 10, "desc", "PM", erknmId);
-            for (SurveillanceItemsList item : erknmInspectionsList) {
-                if (item.getErknmId().equals(erknmId)) {
-                    System.out.println("Профмероприятие найдено: " + erknmId);
-                }
+        List<String> values = erknmInspectionsList.stream()
+                .map(getField)
+                .collect(Collectors.toList());
+
+        for (String value : values) {
+            List<SurveillanceItemsList> inspectionList = getErknmInspectionSearch(accTValue, 10, "desc", "all", value).getList();
+
+            List<String> valuesFromApi = inspectionList.stream()
+                    .map(getField)
+                    .collect(Collectors.toList());
+
+            for (String testValue : valuesFromApi) {
+                assertTrue(testValue.contains(value),
+                        errorMessage);
             }
         }
     }
 
     @Test
-    @DisplayName("Поиск КНМ проверок для юридических лиц")
+    @DisplayName("Поиск ЕРКНМ проверок для юридических лиц")
     public void shouldSearchKNMInspectionsForUL() {
-        shouldSearchKNMInspections(accTValueUl);
+        shouldValidateInspectionsSearchResults(accTValueUl);
     }
 
     @Test
-    @DisplayName("Поиск КНМ проверок для физических лиц")
+    @DisplayName("Поиск ЕРКНМ проверок для физических лиц")
     public void shouldSearchKNMInspectionsForFL() {
-        shouldSearchKNMInspections(accTValueFl);
+        shouldValidateInspectionsSearchResults(accTValueFl);
     }
 
     @Test
-    @DisplayName("Поиск КНМ проверок для индивидуальных предпринимателей")
+    @DisplayName("Поиск ЕРКНМ проверок для индивидуальных предпринимателей")
     public void shouldSearchKNMInspectionsForIP() {
-        shouldSearchKNMInspections(accTValueIp);
-    }
-
-    @Test
-    @DisplayName("Поиск профмероприятий для юридических лиц")
-    public void shouldSearchPMInspectionsForUL() {
-        shouldSearchPMInspections(accTValueUl);
-    }
-
-    @Test
-    @DisplayName("Поиск профмероприятий для физических лиц")
-    public void shouldSearchPMInspectionsForFL() {
-        shouldSearchPMInspections(accTValueFl);
-    }
-
-    @Test
-    @DisplayName("Поиск профмероприятий для индивидуальных предпринимателей")
-    public void shouldSearchPMInspectionsForIP() {
-        shouldSearchPMInspections(accTValueIp);
+        shouldValidateInspectionsSearchResults(accTValueIp);
     }
 
 }

@@ -1,6 +1,6 @@
 package apimodels.erp;
 
-import apimodels.erknm.Object;
+import apimodels.erknm.InspectionObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +21,6 @@ public class InspApprovement{
     public ArrayList<ApproveDoc> approveDocs;
     public ArrayList<ControlEvent> controlEvents;
     public ArrayList<Reason> reasons;
-    public ArrayList<Object> denyReasons;
+    public ArrayList<InspectionObject> denyReasons;
     public String durHours;
 }

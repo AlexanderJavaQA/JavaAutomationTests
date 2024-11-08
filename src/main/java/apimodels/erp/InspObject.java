@@ -1,6 +1,6 @@
 package apimodels.erp;
 
-import apimodels.erknm.Object;
+import apimodels.erknm.InspectionObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class InspObject{
     public boolean hasResult;
     public Result result;
     public ArrayList<ObjectSupervision> objectSupervisions;
-    public ArrayList<Object> chLists;
+    public ArrayList<InspectionObject> chLists;
     public String riskObjCode;
     public String riskObj;
 }

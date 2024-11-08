@@ -29,11 +29,12 @@ public class KNMInspectionDetailsCardPojo {
     public String ogrn;
     public String inn;
     public String organizationName;
-    public ArrayList<Object> objects;
+    public String supervisionId;
+    public ArrayList<InspectionObject> objects;
     public ArrayList<String> reasons;
     public ArrayList<String> places;
     public ArrayList<Inspector> inspectors;
-    public ArrayList<Object> manuallyRequirements;
+    public ArrayList<InspectionObject> manuallyRequirements;
     public ArrayList<LinkedErknmId> linkedErknmIds;
     public ArrayList<String> collaboratingOrganizations;
     public String noticeDate;

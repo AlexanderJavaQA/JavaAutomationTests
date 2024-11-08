@@ -1,4 +1,4 @@
-package doknd.pages;
+package pages.doknd;
 
 public class SmevRequestPage {
 
