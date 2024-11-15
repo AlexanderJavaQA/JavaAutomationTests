@@ -35,7 +35,6 @@ public class RepeatFilingTests extends BaseTestSelenide {
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
                 .getKuberCorrelationId();
-        elasticPage.getSmevMessageIdByCorrelation();
 
         String messageId = elasticPage.getSmevMessageIdByCorrelation();
 

@@ -33,7 +33,6 @@ public class SubmitAdditionalDocumentsTests  extends BaseTestSelenide {
                 .setOrderIdInQueryInput(typeSignature)
                 .clickUpdateButton()
                 .getKuberCorrelationId();
-        elasticPage.getSmevMessageIdByCorrelation();
 
         String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
