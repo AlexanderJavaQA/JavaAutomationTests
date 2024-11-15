@@ -1,7 +1,6 @@
 package pages.doknd;
 
 import appconfig.AppConfig;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import lombok.SneakyThrows;
@@ -17,46 +16,64 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class RepeatFilingPage {
 
-    private SelenideElement inputAttachDocuments = $x("//input[@class='input']");
+    // Поле для загрузки файлов
+    private SelenideElement fileUploadInput = $x("//input[@class='input']");
+
+    // Поле для поиска решения, которое будет обжаловано
     private SelenideElement fieldReasonDisagreement = $x("//input[@aria-labelledby='Введите минимум 6 символов']");
+
+    // Кнопка для перехода к следующему шагу (Продолжить)
     private SelenideElement buttonContinue = $x("//span[contains(text(),'Продолжить')]");
-    private SelenideElement fieldReasonForDisagreementTextarea = $x("//textarea[@id='repeat-form-why-not-decision']");
+
+    // Текстовое поле для ввода причины несогласия с принятым решением
+    private SelenideElement disagreementReasonTextarea = $x("//textarea[@id='repeat-form-why-not-decision']");
+
+    // Текстовое поле для отображения имени загруженного файла
     private SelenideElement textFileName = $x("//span[@class='filename text-plain black']");
+
+    // Выпадающее меню для выбора типа электронной подписи
     private SelenideElement dropdownTypeOfElectronicSignature = $x("//a[@class='dropdown-arrow']");
+
+    // Модальное окно с предупреждением о наличии сохраненных черновиков
     private SelenideElement modalWindowSavedDrafts = $x("//span[contains(text(),'Начать заново')]");
+
+    // Опция выбора Усиленной Квалифицированной Электронной Подписи (УКЭП)
     private SelenideElement signatureUKEP = $x("//span[contains(text(),'Усиленная квалифицированная электронная подпись')]");
+
+    // Опция выбора Усиленной Квалифицированной Электронной Подписи для Государственных Клиентов (УКЭП ГК)
     private SelenideElement signatureUKEPGK = $x("//span[contains(text(),'Усиленная квалифицированная электронная подпись Го')]");
+
+    // Опция выбора Усиленной Неквалифицированной Электронной Подписи (УНЭП)
     private SelenideElement signatureUNEP = $x("//span[contains(text(),'Усиленная неквалифицированная электронная подпись')]");
+
+    // Блок для отображения прикрепленных к заявлению документов
     private SelenideElement attachedDocuments = $x("//*[contains(text(), 'Прикрепленные документы')]");
-    private ElementsCollection spanFileInfoPdf = $$x(".//span[contains(@class, 'file-info') and text()='pdf']");
+
+    // Заголовок с номером заявления
     private SelenideElement orderID = $x("//h3[contains(text(),'Заявление №')]");
+
     private String newOrderId;
+
     File file = new File(("C:\\Users\\aleksandr.kurbanov\\Desktop\\Тестовые данные.pdf"));
 
     AppConfig config = ConfigFactory.create(AppConfig.class);
     MyСomplaintsPage myСomplaintsPage = new MyСomplaintsPage();
     FillDetailsComplaintPage fillDetailsComplaintPage = new FillDetailsComplaintPage();
 
-    public RepeatFilingPage checkSpanFileInfoPdf() {
-        spanFileInfoPdf.forEach(element -> element.shouldHave(text("pdf")));
-        spanFileInfoPdf.forEach(System.out::println);
-        return this;
-    }
 
     public RepeatFilingPage checkAttachedDocuments() {
         attachedDocuments.shouldHave(text("Прикрепленные документы"));
-        System.out.printf(attachedDocuments.getText());
         return this;
     }
 
-    public RepeatFilingPage openRepeatFilingPage() {
+    public RepeatFilingPage openNewTabForRepeatFilingPage() {
         switchTo().newWindow(WindowType.TAB);
         open(config.doKndRepeatedAppealFormUrlUat());
         return this;
     }
 
     @SneakyThrows
-    public RepeatFilingPage clickModalWindowSavedDrafts() {
+    public RepeatFilingPage clickStartOverInSavedDraftsModal() {
         try {
             modalWindowSavedDrafts.shouldBe(enabled, Duration.ofSeconds(5)).click();
         } catch (ElementNotFound e) {
@@ -72,10 +89,8 @@ public class RepeatFilingPage {
         return this;
     }
 
-    public RepeatFilingPage enterReasonForDisagreement() {
-        fieldReasonForDisagreementTextarea
-                .shouldBe(visible)
-                .setValue("Тестовые данные");
+    public RepeatFilingPage setReasonForDisagreement() {
+        disagreementReasonTextarea.shouldBe(visible).setValue("Тестовые данные");
         return this;
     }
 
@@ -83,23 +98,23 @@ public class RepeatFilingPage {
         return $x("//span[@class='highlighted' and text()='" + orderId + "']");
     }
 
+
     @SneakyThrows
-    public RepeatFilingPage scrollAndClickButtonContinue() {
-        executeJavaScript("arguments[0].scrollIntoView(true);", buttonContinue); // Скролл до элемента с помощью javaScript
+    public RepeatFilingPage scrollIntoViewAndClick(SelenideElement element) {
+        executeJavaScript("arguments[0].scrollIntoView(true);", element);
         Thread.sleep(300);
-        buttonContinue.click();
+        element.click();
+
         return this;
     }
 
 
     public RepeatFilingPage uploadDocumentIfHidden() {
-        inputAttachDocuments
-                .shouldBe(hidden)
-                .uploadFile(file);
+        fileUploadInput.shouldBe(hidden).uploadFile(file);
         return this;
     }
 
-    public RepeatFilingPage verifyFileNameIsDisplayed() {
+    public RepeatFilingPage checkFileNameIsDisplayed () {
         textFileName.shouldHave(text("Тестовые данные.pdf"));
         return this;
     }
@@ -164,11 +179,11 @@ public class RepeatFilingPage {
         switch (selectSignature) {
             case "UKEP":
                 signingComplaintPage.scrollInputAttachSignatureFile()
-                        .attachSignatureFileAndVerify()
+                        .uploadSigFile()
+                        .verifySigFileIsAttached()
                         .scrollButtonSend()
                         .clickButtonSend()
-                        .clickLinkComplaintDetails()
-                        .getOldWindow();
+                        .clickLinkComplaintDetails();
                 break;
 
             case "UNEP":
@@ -176,15 +191,13 @@ public class RepeatFilingPage {
                 signingComplaintPage
                         .scrollButtonSend()
                         .clickButtonSend()
-                        .clickLinkComplaintDetails()
-                        .getOldWindow();
+                        .clickLinkComplaintDetails();
                 break;
 
             case "PEP":
                 signingComplaintPage
                         .clickButtonSignAndSend()
-                        .clickLinkComplaintDetails()
-                        .getOldWindow();
+                        .clickLinkComplaintDetails();
                 break;
 
             default:
@@ -193,35 +206,22 @@ public class RepeatFilingPage {
         return this;
     }
 
-    public RepeatFilingPage getOrderIdRepeatFilling() {
+    public RepeatFilingPage extractOrderIdForRepeatFiling () {
         String orderId = orderID.text();
         newOrderId = orderId.substring(12);
         return this;
     }
 
-    public RepeatFilingPage enterInspectionNumberAndSelect() {
+    public RepeatFilingPage setInspectionNumber() {
         fieldReasonDisagreement.shouldBe(visible).setValue(newOrderId);
+        return this;
+    }
+
+    public RepeatFilingPage clickInspectionNumberFromList() {
         getHighlightedSpanElement(newOrderId).shouldBe(visible, Duration.ofSeconds(5)).click();
         return this;
     }
 
-    public void submitRepeatComplaint(String typeSignature) {
-        myСomplaintsPage.openMyСomplaintsPage()
-                .clickAppealDecisionText();
 
-        getOrderIdRepeatFilling()
-                .openRepeatFilingPage()
-                .clickModalWindowSavedDrafts()
-                .scrollBannerInformerFillDetails()
-                .enterInspectionNumberAndSelect()
-                .enterReasonForDisagreement()
-                .uploadDocumentIfHidden()
-                .verifyFileNameIsDisplayed()
-                .handleTypeOfSignature(typeSignature)
-                .scrollAndClickButtonContinue()
-                .checkAttachedDocuments()
-                .checkSpanFileInfoPdf()
-                .handleSendInputAttachSignatureFile(typeSignature);
-    }
 }
 

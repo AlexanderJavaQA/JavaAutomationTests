@@ -9,6 +9,7 @@ import static pages.knd.ControlSupervisionPage.performNavigationTest;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Проверка кнопок и элементов страницы Контроль и Надзор")
 public class ControlSupervisionTests extends BaseTestSelenide {
+
     @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ЮЛ")
@@ -111,5 +112,14 @@ public class ControlSupervisionTests extends BaseTestSelenide {
                 ControlSupervisionPage::clickAndWaitForDownloadAppButton,
                 "https://knd.gov.ru/document/mp"
         );
+    }
+
+    @Test
+    @DisplayName("Проверка открытия и валидации всех ссылок типов контроля")
+    public void clickAndValidateAllControlTypeLinksTest() {
+        controlSupervisionPage
+                .getAccountTokenValue()
+                .validateTypesOfControlExistence()
+                .clickAndValidateAllControlTypeLinks();
     }
 }

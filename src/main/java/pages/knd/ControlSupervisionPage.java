@@ -1,19 +1,22 @@
 package pages.knd;
 
+import apimodels.erknm.ControlTypesResponseItem;
 import appconfig.AppConfig;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.*;
 import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import pages.doknd.FillDetailsComplaintPage;
 
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
+import static api.TypesOfContolService.getTypesOfContolList;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.url;
+import static com.codeborne.selenide.WebDriverConditions.urlContaining;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.aeonbits.owner.ConfigFactory.create;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,9 +47,16 @@ public class ControlSupervisionPage {
     // Кнопка "Скачать приложение" в блоке с мобильным баннером
     private final SelenideElement downloadAppButton = $x("//lk-mobile-banner[@class='desktop-banner']//span[contains(text(),'Скачать приложение')]");
 
+    // Коллекция ссылок на доступные виды контроля на странице
+    private final ElementsCollection controlTypeLinks = $$x("//div[contains(@class, 'pt-horizontal')]//li//a");
+
     FillDetailsComplaintPage fillDetailsComplaintPage = new FillDetailsComplaintPage();
     static ControlSupervisionPage controlSupervisionPage = new ControlSupervisionPage();
     private String originalWindow;
+    private String controlTypeTitle;
+    private String accTValue;
+    private String supervisionId;
+    private List<ControlTypesResponseItem>  typesOfControl;
     AppConfig config = create(AppConfig.class);
 
     public ControlSupervisionPage openControlSupervisionPage() {
@@ -55,7 +65,7 @@ public class ControlSupervisionPage {
     }
 
     public ControlSupervisionPage closeAllTabs() {
-        WebDriver driver = WebDriverRunner.getWebDriver();
+        WebDriver driver = getWebDriver();
 
         for (String tab : driver.getWindowHandles()) {
             driver.switchTo().window(tab);
@@ -67,9 +77,31 @@ public class ControlSupervisionPage {
         return this;
     }
 
-    private void scrollAndClick(SelenideElement element) {
+    public void scrollAndClick(SelenideElement element) {
         fillDetailsComplaintPage.scrollToElement(element);
         element.shouldBe(Condition.visible).click();
+    }
+
+    public ControlSupervisionPage validateTypesOfControlExistence(String accTValue) {
+        List<ControlTypesResponseItem> typesOfControl = (List<ControlTypesResponseItem>) getTypesOfContolList(accTValue);
+
+        if (typesOfControl.isEmpty()) {
+            throw new AssertionError("Список typesOfControl пуст, тест не может быть завершен.");
+        }
+
+        return this;
+    }
+
+
+    public ControlSupervisionPage уцу(String accTValue) {
+        for (SelenideElement controlTypeLink : controlTypeLinks) {
+            controlTypeLink.shouldBe(enabled).click();
+          //  webdriver().shouldHave(url.);
+
+        }
+
+
+        return this;
     }
 
     public ControlSupervisionPage waitForAndClickGoToSectionControlAndPrevention() {
@@ -95,6 +127,53 @@ public class ControlSupervisionPage {
     public ControlSupervisionPage clickAndWaitForSubmitObjectionLink() {
         scrollAndClick(submitObjectionLink);
         return this;
+    }
+
+    public ControlSupervisionPage getAccountTokenValue() {
+        accTValue = getWebDriver().manage().getCookieNamed("acc_t").getValue();
+        return this;
+    }
+
+
+    public ControlSupervisionPage validateTypesOfControlExistence() {
+        typesOfControl = (List<ControlTypesResponseItem>) getTypesOfContolList(accTValue);
+        if (typesOfControl.isEmpty()) {
+            throw new AssertionError("Список typesOfControl пуст, тест не может быть завершен.");
+        }
+
+        return this;
+    }
+
+    public ControlSupervisionPage clickAndValidateAllControlTypeLinks() {
+        for (SelenideElement controlTypeLink : controlTypeLinks) {
+            getControlTypeTitle(controlTypeLink);
+            scrollAndClick(controlTypeLink);
+            switchToNewWindow();
+            getSupervisionIdForControlType(controlTypeTitle);
+            verifyUrlContainsSupervisionId(supervisionId);
+            closeNewWindow();
+            switchToOldWindow();
+        }
+
+        return this;
+    }
+
+
+    private void getControlTypeTitle(SelenideElement controlTypeLink) {
+        controlTypeTitle = controlTypeLink.shouldBe(enabled).getText();
+    }
+
+
+    private void getSupervisionIdForControlType(String controlTypeTitle) {
+        supervisionId = typesOfControl.stream()
+                .filter(x -> x.getTitle().contains(controlTypeTitle))
+                .map(ControlTypesResponseItem::getSupervisionId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не найден supervisionId для: " + controlTypeTitle));
+    }
+
+    private void verifyUrlContainsSupervisionId(String supervisionId) {
+        webdriver().shouldHave(urlContaining(supervisionId));
     }
 
     public ControlSupervisionPage closeAboutBlankTabs() {
@@ -148,6 +227,7 @@ public class ControlSupervisionPage {
         switchTo().window(0);
         return this;
     }
+
     public ControlSupervisionPage closeNewWindow() {
         switchTo().window(1).close();
         return this;

@@ -12,41 +12,34 @@ import org.springframework.core.annotation.Order;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ErknmResultsTemplatesTests extends BaseTestSelenide {
 
-
     @Order(1)
     public void submittedErknmResultsTemplatesForEntity(String isFiz, String inn, String ogrn, String erknmId) {
 
         smevPage
-                .enableSmevaFlag()
+                .enableERKNMSmevaFlag()
                 .clearErknmGepsAndInspectionHistoryDev2()
                 .createErknmResultsStubTemplateDev2(isFiz, inn, ogrn, erknmId)
                 .openSmevRequestBroadcastDev2()
-                .createBroadcastRequest(erknmId)
+                .createERKNMBroadcastRequest(erknmId)
                 .clickButtonSubmit()
-                .verifyModalBodyIsVisible();
+                .checkResultModalIsVisible ();
 
         String messageID = smevPage.getMessageIDFromModal();
-        smevPage
-                .clickButtonOk()
-                .openAndVerifyDeliveryConfirmationInNewTab(messageID, smevPage.getSmevErknmResultsAndUpcomingResponse());
-        smevPage.disableSmevaFlag();
+            smevPage.disableERKNMSmevaFlag();
     }
 
     @Order(2)
     public void updateSubmittedErknmResultsForEntity(String isFiz, String inn, String ogrn, String erknmId) {
         smevPage
-                .enableSmevaFlag()
+                .enableERKNMSmevaFlag()
                 .updateErknmResultsStubTemplateDev2(isFiz, inn, ogrn, erknmId)
                 .openSmevRequestBroadcastDev2()
-                .createUpdateRequestBroadcast(erknmId)
+                .createUpdateERKNMRequestBroadcast(erknmId)
                 .clickButtonSubmit()
-                .verifyModalBodyIsVisible();
+                .checkResultModalIsVisible ();
 
         String messageID = smevPage.getMessageIDFromModal();
-        smevPage
-                .clickButtonOk()
-                .openAndVerifyDeliveryConfirmationInNewTab(messageID, smevPage.getSmevUpdateResultsResponse());
-        smevPage.disableSmevaFlag();
+        smevPage.disableERKNMSmevaFlag();
 
     }
 

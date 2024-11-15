@@ -60,8 +60,18 @@ public class DataAccessObjectPostgres {
         jdbcTemplate.update(sql);
     }
 
+    public void enableERKNMSmevaFlag() {
+        String sql = "update sma_stubs set disabled = 'N' where namespace  = 'urn://ru.gov.proc.erknm.communication/6.0.2';";
+        jdbcTemplate.update(sql);
+    }
+
     public void disableERPSmevaFlag() {
         String sql = "update sma_stubs set disabled = 'Y' where namespace  = 'urn://ru.gov.proc.erp.communication/5.0.2';";
+        jdbcTemplate.update(sql);
+    }
+
+    public void disableERKNMSmevaFlag() {
+        String sql = "update sma_stubs set disabled = 'Y' where namespace  = 'urn://ru.gov.proc.erknm.communication/6.0.2';";
         jdbcTemplate.update(sql);
     }
 

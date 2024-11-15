@@ -1,6 +1,8 @@
 package ui.doknd.ul;
 
 import baseTest.BaseTestSelenide;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import pages.doknd.LoginPage;
 import org.junit.jupiter.api.*;
 
@@ -21,35 +23,33 @@ public class SubmitAdditionalDocumentsTests extends BaseTestSelenide {
         );
     }
 
-    @Test
+    @ParameterizedTest
+    @Order(2)
+    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
     @DisplayName("Проверка подачи дополнительных документов с типом подписи ПЭП")
-    public void shouldSubmitAdditionalDocumentsWithPEP() {
+    public void shouldSubmitAdditionalDocumentsWithPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processSmevComplaintWithdrawalRequestUat();
-        submitAdditionalDocumentsPage.processAdditionalDocumentsSubmission("PEP", false);
-    }
+        elasticPage.openElasticInNewTabUat()
+                .setOrderIdInQueryInput(typeSignature)
+                .clickUpdateButton()
+                .getKuberCorrelationId();
+        elasticPage.getSmevMessageIdByCorrelation();
 
-    @Test
-    @DisplayName("Проверка подачи дополнительных документов с типом подписи УКЭП")
-    public void shouldSubmitAdditionalDocumentsWithUKEP() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processSmevComplaintWithdrawalRequestUat();
-        submitAdditionalDocumentsPage.processAdditionalDocumentsSubmission("UKEP", false);
-    }
+        String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-    @Test
-    @DisplayName("Проверка подачи дополнительных документов с типом подписи УНЭП")
-    public void shouldSubmitAdditionalDocumentsWithUNEP() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processSmevComplaintWithdrawalRequestUat();
-        submitAdditionalDocumentsPage.processAdditionalDocumentsSubmission("UNEP", false);
-    }
+        smevPage.openSmevRequestBroadcastUat()
+                .clearMessageID()
+                .setMessageID(messageId)
+                .clearXmlRequest()
+                .setXmlRequest(typeSignature, "101")
+                .clickButtonSubmit()
+                .clickButtonOk();
 
-    @Test
-    @DisplayName("Проверка подачи дополнительных документов с типом подписи УКЭПГК")
-    public void shouldSubmitAdditionalDocumentsWithUKEPGK() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processSmevComplaintWithdrawalRequestUat();
-        submitAdditionalDocumentsPage.processAdditionalDocumentsSubmission("UKEPGK", false);
+        myComplaintsPage.openMyСomplaintsPage();
+        complaintProgressPage.clickAdditionalInfoButton();
+        submitAdditionalDocumentsPage.setValueSubmitDocuments();
+        repeatFilingPage
+                .handleTypeOfSignature(typeSignature)
+                .handleSendInputAttachSignatureFile(typeSignature);
     }
 }

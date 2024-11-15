@@ -1,6 +1,8 @@
 package ui.doknd.ip;
 
 import baseTest.BaseTestSelenide;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import pages.doknd.LoginPage;
 import org.junit.jupiter.api.*;
 
@@ -21,35 +23,35 @@ public class ProvideAdditionalTests extends BaseTestSelenide {
         );
     }
 
-    @Test
-    @DisplayName("Проверка направления доп. информации в ведомство с ПЭП")
-    public void shouldProvideAdditionalInfoToAgencyWithPEP() {
+    @ParameterizedTest
+    @Order(2)
+    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
+    @DisplayName("Проверка направления доп. информации в ведомство")
+    public void shouldProvideAdditionalInfoToAgencyWithPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processAdditionalInfoSmevRequest();
-        submitAdditionalDocumentsPage.processAdditionalDocumentsSubmission("PEP", true);
-    }
+        String orderId = handleFilingComplaint.getNewOrderId();
 
-    @Test
-    @DisplayName("Проверка направления доп. информации в ведомство с УКЭП")
-    public void shouldProvideAdditionalInfoToAgencyWithUKEP() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processAdditionalInfoSmevRequest();
-        submitAdditionalDocumentsPage.processAdditionalDocumentsSubmission("UKEP", true);
-    }
+        elasticPage.openElasticInNewTabUat()
+                .setOrderIdInQueryInput(orderId)
+                .clickUpdateButton()
+                .getKuberCorrelationId();
+        elasticPage.getSmevMessageIdByCorrelation();
+        String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-    @Test
-    @DisplayName("Проверка направления доп. информации в ведомство с УНЭП")
-    public void shouldProvideAdditionalInfoToAgencyWithUNEP() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processAdditionalInfoSmevRequest();
-        submitAdditionalDocumentsPage.processAdditionalDocumentsSubmission("UNEP", true);
-    }
+        smevPage.openSmevRequestBroadcastUat()
+                .clearMessageID()
+                .setMessageID(messageId)
+                .clearXmlRequest()
+                .setXmlRequest(orderId, "101")
+                .clickButtonSubmit()
+                .clickButtonOk();
 
-    @Test
-    @DisplayName("Проверка направления доп. информации в ведомство с УКЭПГК")
-    public void shouldProvideAdditionalInfoToAgencyWithUKEPGK() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processAdditionalInfoSmevRequest();
-        submitAdditionalDocumentsPage.processAdditionalDocumentsSubmission("UKEPGK", true);
+        myComplaintsPage.openMyСomplaintsPage()
+                .clickRequestAdditionalInformation();
+        complaintProgressPage.clickAdditionalDocumentsButton();
+        submitAdditionalDocumentsPage.setValueSubmitDocuments();
+        repeatFilingPage
+                .handleTypeOfSignature(typeSignature)
+                .handleSendInputAttachSignatureFile(typeSignature);
     }
 }

@@ -65,7 +65,7 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
 
     @SneakyThrows
     public void shouldSendTORAndERKNMTemplates(String accTValue) {
-        smevPage.enableSmevaFlag();
+        smevPage.enableERKNMSmevaFlag();
 
 
         List<SurveillanceItemsList> erknmInspectionsList = getErknmInspectionsSort(accTValue, 30, SORT_ORDER_DESC, "all").getList();
@@ -179,7 +179,7 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
         assertServiceName("ERKNM_RESULTS_UPDATED", "Госуслуги", accTValue);
         assertServiceName("ERKNM_UPDATED", "Госуслуги", accTValue);
 
-        smevPage.disableSmevaFlag();
+        smevPage.disableERKNMSmevaFlag();
     }
 
     public void assertTextTypeEvent(String eventType, String expectedtext, String accTValue) {

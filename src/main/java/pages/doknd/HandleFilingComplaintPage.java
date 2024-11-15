@@ -1,61 +1,53 @@
 package pages.doknd;
 
 import appconfig.AppConfig;
-import com.codeborne.pdftest.PDF;
-import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
+import lombok.Data;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.aeonbits.owner.ConfigFactory;
 
-import java.io.File;
-import java.io.IOException;
-
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Data
 public class HandleFilingComplaintPage {
-    private SelenideElement spanFileInfoPdf = $x(".//span[contains(@class, 'file-info') and text()='pdf']");
     AppConfig config = ConfigFactory.create(AppConfig.class);
 
     FillDetailsComplaintPage fillDetailsComplaintPage = new FillDetailsComplaintPage();
     SigningComplaintPage signingComplaintPage = new SigningComplaintPage();
     LoginPage loginPage = new LoginPage();
+    ComplaintProgressPage complaintProgressPage = new ComplaintProgressPage();
+    private String newOrderId;
 
     public void openAndInitialize(String URL) {
         open(URL);
         loginPage.getAccTValue();
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
     }
 
     public void sendKnmInspectionNumberLookUp() {
         fillDetailsComplaintPage.fetchKnmInspectionsSorted(loginPage.getAccTValue())
-                .lookupAndSubmitKNMInspectionNumber();
+                .searchAndSubmitKNMInspectionNumber();
     }
 
     @SneakyThrows
     public void sendWarningKnmInspectionsList() {
         fillDetailsComplaintPage.fetchWarningKnmInspections(loginPage.getAccTValue())
-                .lookupAndSubmitWarningKNMInspectionNumber();
+                .searchAndSubmitWarningKNMInspectionNumber();
     }
 
     public void sendPmInspectionNumberLookUp(String erknmId) {
         fillDetailsComplaintPage.fetchPmInspectionsSorted(loginPage.getAccTValue())
-                .lookupAndSubmitPmInspectionNumber(erknmId);
-    }
-
-    public void handleTypeOfSupervision() {
-        fillDetailsComplaintPage.scrollToSupervisionTypeDropdown()
-                .clickSupervisionTypeDropdown()
-                .clickSupervisionType();
+                .searchAndSubmitPmInspectionNumber(erknmId);
     }
 
     public void handleTypeOfViolations(boolean isSelectViolations) {
         if (isSelectViolations) {
             try {
                 fillDetailsComplaintPage.scrollAndClickViolationsDropdown()
-                        .clickFirstViolationCheckbox ();
+                        .clickFirstViolationCheckbox();
             } catch (ElementNotFound e) {
             }
         }
@@ -63,23 +55,18 @@ public class HandleFilingComplaintPage {
 
     public void handlePlaceholderDescription(boolean isSelectPlaceholderDescription) {
         if (isSelectPlaceholderDescription) {
-            fillDetailsComplaintPage.scrollAndSetApplicationDescription();
+            fillDetailsComplaintPage.scrollToCenterAndSetValueApplicationDescription();
 
         } else {
-            fillDetailsComplaintPage.scrollAndSetComplaintDescription();
+            fillDetailsComplaintPage.scrollToCenterAndSetValueComplaintDescription();
         }
     }
 
-    public void checkPdfText() throws IOException {
-        spanFileInfoPdf.shouldBe(visible);
-        File pdf = signingComplaintPage.getLinkPdfFile().download();
-        PDF pdfReader = new PDF(pdf);
-        assertTrue(pdfReader.text.contains("Беспалов"), "PDF does not contain the expected text 'Беспалов'");    }
 
     @SneakyThrows
     public void handleTypeOfSignature(String selectSignature) {
-        fillDetailsComplaintPage.scrollToElectronicSignature()
-                .scrollAndClickElectronicSignatureDropdown();
+        fillDetailsComplaintPage
+                .scrollToCenterAndClickElectronicSignatureDropdown();
 
         switch (selectSignature) {
             case "UKEP":
@@ -98,63 +85,37 @@ public class HandleFilingComplaintPage {
     public void handleSelectRadioButton(boolean isSelectRadioButton) {
         if (isSelectRadioButton) {
             fillDetailsComplaintPage
-                    .scrollAndClickPauseExecutionNo()
-                    .scrollAndClickRestoreExtensionNo();
+                    .scrollToCenterAndClickPauseExecutionNo()
+                    .scrollToCenterAndClickRestoreExtensionNo();
         }
     }
 
-   /* @SneakyThrows
-    public void handleSendInputAttachSignatureFile(String selectSignature) {
-
-        if ("UKEP".equals(selectSignature)) {
-            fillDetailsComplaintPage.clickButtonContinueFillDataPage();
-            signingComplaintPage.scrollInputAttachSignatureFile()
-                    .sendInputAttachSignatureFile()
-                    .scrollButtonSend()
-                    .clickButtonSend()
-                    .clickLinkComplaintDetails()
-                    .getOldWindow();
-        }
-        if ("UNEP".equals(selectSignature) || "UKEPGK".equals(selectSignature)) {
-            fillDetailsComplaintPage.clickButtonContinueFillDataPage();
-
-            signingComplaintPage.scrollButtonSend()
-                    .clickButtonSend()
-                    .clickLinkComplaintDetails()
-                    .getOldWindow();
-        }
-        if ("PEP".equals(selectSignature)) {
-            fillDetailsComplaintPage.clickButtonContinueFillDataPage();
-            signingComplaintPage.clickButtonSignAndSend()
-                    .clickLinkComplaintDetails()
-                    .getOldWindow();
-        }
-    }*/
 
     @SneakyThrows
     public void handleSendInputAttachSignatureFile(String selectSignature) {
-        fillDetailsComplaintPage.scrollAndClickContinueButton();
+        fillDetailsComplaintPage.scrollToCenterAndClickContinueButton();
 
         switch (selectSignature) {
             case "UKEP":
                 signingComplaintPage.scrollInputAttachSignatureFile()
-                        .attachSignatureFileAndVerify()
+                        .uploadSigFile()
+                        .verifySigFileIsAttached()
                         .scrollButtonSend()
                         .clickButtonSend()
-                        .clickLinkComplaintDetails()
-                        .getOldWindow();
-                break;
-            case "UNEP":
+                        .clickLinkComplaintDetails();
+                complaintProgressPage.fetchOrderId(); // Добавляем вызов fetchOrderId()
+                newOrderId = complaintProgressPage.getNewOrderId(); // Сохраняем orderId            case "UNEP":
             case "UKEPGK":
                 signingComplaintPage.scrollButtonSend()
                         .clickButtonSend()
-                        .clickLinkComplaintDetails()
-                        .getOldWindow();
-                break;
+                        .clickLinkComplaintDetails();
+                complaintProgressPage.fetchOrderId(); // Добавляем вызов fetchOrderId()
+                newOrderId = complaintProgressPage.getNewOrderId(); // Сохраняем orderId                break;
             case "PEP":
                 signingComplaintPage.clickButtonSignAndSend()
-                        .clickLinkComplaintDetails()
-                        .getOldWindow();
+                        .clickLinkComplaintDetails();
+                complaintProgressPage.fetchOrderId(); // Добавляем вызов fetchOrderId()
+                newOrderId = complaintProgressPage.getNewOrderId(); // Сохраняем orderId
                 break;
             default:
                 throw new IllegalArgumentException("Unknown signature type: " + selectSignature);

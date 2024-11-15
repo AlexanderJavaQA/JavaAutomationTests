@@ -26,13 +26,10 @@ public class TorTemplateTests  extends BaseTestSelenide {
                     .setXmlRequestValue(template)
                     .setSenderCode("MNSV08")
                     .clickButtonSubmit()
-                    .verifyModalBodyIsVisible();
+                    .checkResultModalIsVisible ();
 
             String messageID = smevPage.getMessageIDFromModal();
-            /*smevPage
-                    .clickButtonOk()
-                    .openNewTabTemplatesUAT(messageID);*/
-        }
+                }
     }
 
     @Test

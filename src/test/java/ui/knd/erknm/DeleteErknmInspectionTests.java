@@ -13,7 +13,7 @@ public class DeleteErknmInspectionTests extends BaseTestSelenide {
     public void shouldDeleteErknmInspection() {
         smevPage
                 .openSmevRequestBroadcastUat()
-                .createDeleteBroadcastRequest("044108610001000430444")
+                .createDeleteERKNMBroadcastRequest("044108610001000430444")
                 .clickButtonSubmit();
     }
 }

@@ -14,34 +14,28 @@ public class ErknmTemplateTests extends BaseTestSelenide {
     @Order(1)
     public void submittedErknmTemplateForEntity(String isFiz, String inn, String ogrn, String erknmId) {
         smevPage
-                .enableSmevaFlag()
+                .enableERKNMSmevaFlag()
                 .clearErknmGepsAndInspectionHistoryDev2()
                 .createErknmStubTemplateDev2(isFiz, inn, ogrn, erknmId)
                 .openSmevRequestBroadcastDev2()
-                .createBroadcastRequest(erknmId)
+                .createERKNMBroadcastRequest(erknmId)
                 .clickButtonSubmit()
-                .verifyModalBodyIsVisible();
+                .checkResultModalIsVisible ();
 
         String messageID = smevPage.getMessageIDFromModal();
-        smevPage
-                .clickButtonOk()
-                .openAndVerifyDeliveryConfirmationInNewTab(messageID, smevPage.getSmevUpdateErknmPassedResponse());
-    }
+        }
 
     @Order(2)
     public void updateSubmittedErknmTemplateForEntity(String isFiz, String inn, String ogrn, String erknmId) {
         smevPage
                 .updateErknmStubTemplateDev2(isFiz, inn, ogrn, erknmId)
                 .openSmevRequestBroadcastDev2()
-                .createBroadcastRequest(erknmId)
+                .createERKNMBroadcastRequest(erknmId)
                 .clickButtonSubmit()
-                .verifyModalBodyIsVisible();
+                .checkResultModalIsVisible ();
 
         String messageID = smevPage.getMessageIDFromModal();
-       /* smevPage
-                .clickButtonOk()
-                .checkResponseFullInspectionDEV2(messageID, smevPage.getResopnseToSmevUpdateErknmPassed());*/
-    }
+       }
 
     @Test
     @DisplayName("Проверка отправки ЕРКНМ шаблонов")

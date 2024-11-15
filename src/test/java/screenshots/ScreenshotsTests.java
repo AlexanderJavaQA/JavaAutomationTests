@@ -184,7 +184,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Нарушена процедура проведения проверки в десктопной версии")
     public void verifyCheckProcedureViolationDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatCheckProcedureViolationId1());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -193,7 +193,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Несогласие с актом проверки в десктопной версии")
     public void verifyDisagreeWithActViolationsDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithActViolationsId2());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -202,7 +202,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Нарушение процедуры назначения проверки в десктопной версии")
     public void verifyOrderOfCheckAssignmentViolationDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatOrderOfCheckAssignmentViolationId3());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -211,7 +211,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Несогласие с действиями должностного лица в десктопной версии")
     public void verifyDisagreeWithActionsOfOfficialDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithActionsOfOfficialId4());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -220,7 +220,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Несогласие с принятыми мерами в десктопной версии")
     public void verifyDisagreeWithMeasuresDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithMeasuresId5());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -229,7 +229,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Продление срока исполнения предписания в десктопной версии")
     public void verifyExtensionOfPrescriptionExecutionPeriodDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatExtensionOfPrescriptionExecutionPeriodId11());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -238,7 +238,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Несогласие с решением контрольного органа по мобилизации в десктопной версии")
     public void verifyDisagreeWithControlOrganDecisionMobilizationDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithControlOrganDecisionMobilizationId13());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -247,7 +247,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Жалоба на нарушение моратория в десктопной версии")
     public void verifyComplaintForBreachOfMoratoriumDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatComplaintForBreachOfMoratoriumId10());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -256,7 +256,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Несогласие с предписанием профпосещения в десктопной версии")
     public void verifyDisagreeWithProfvisitPrescriptionDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithProfvisitPrescriptionId14());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -265,7 +265,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Возражение на предостережение в десктопной версии")
     public void verifyObjectionCautionDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatObjectionCautionId15());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -274,7 +274,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки незаполненной страницы Несогласие с присвоением категории риска в десктопной версии")
     public void verifyDisagreeWithRiskCategoryAssignmentDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithRiskCategoryAssignmentId12());
-        fillDetailsComplaintPage.clickSavedDraftsModal();
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal();
         performLayoutCheck(doKndMainHeader, doKndSiteLogoHeader, stepsTimerow, false);
     }
 
@@ -283,7 +283,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Нарушена процедура проведения проверки в десктопной версии")
     public void verifyFilledCheckProcedureViolationDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatCheckProcedureViolationId1());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendKnmInspectionNumberLookUp();
         handleFilingComplaint.handleTypeOfViolations(true);
@@ -300,7 +300,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Несогласие с актом проверки в десктопной версии")
     public void verifyFilledDisagreeWithActViolationDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithActViolationsId2());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendKnmInspectionNumberLookUp();
         handleFilingComplaint.handleTypeOfViolations(true);
@@ -317,7 +317,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Нарушение процедуры назначения проверки в десктопной версии")
     public void verifyFilledOrderOfCheckAssignmentViolationDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatOrderOfCheckAssignmentViolationId3());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendKnmInspectionNumberLookUp();
         handleFilingComplaint.handleTypeOfViolations(true);
@@ -334,7 +334,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Несогласие с действиями должностного лица в десктопной версии")
     public void verifyFilledDisagreeWithActionsOfOfficialDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithActionsOfOfficialId4());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendKnmInspectionNumberLookUp();
         handleFilingComplaint.handleTypeOfViolations(true);
@@ -351,7 +351,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Несогласие с принятыми мерами в десктопной версии")
     public void verifyFilledDisagreeWithMeasuresDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithMeasuresId5());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendKnmInspectionNumberLookUp();
         handleFilingComplaint.handleTypeOfViolations(true);
@@ -368,7 +368,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Продление срока исполнения предписания в десктопной версии")
     public void verifyFilledExtensionOfPrescriptionExecutionPeriodDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatExtensionOfPrescriptionExecutionPeriodId11());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendKnmInspectionNumberLookUp();
         handleFilingComplaint.handleTypeOfViolations(false); // Для этого ID тип нарушений false
@@ -385,7 +385,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Несогласие с решением контрольного органа по мобилизации в десктопной версии")
     public void verifyFilledDisagreeWithControlOrganDecisionMobilizationDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithControlOrganDecisionMobilizationId13());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendKnmInspectionNumberLookUp();
         handleFilingComplaint.handleTypeOfViolations(true);
@@ -402,7 +402,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Жалоба на нарушение моратория в десктопной версии")
     public void verifyFilledComplaintForBreachOfMoratoriumDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatComplaintForBreachOfMoratoriumId10());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendKnmInspectionNumberLookUp();
         handleFilingComplaint.handleTypeOfViolations(false); // Для этого ID тип нарушений false
@@ -419,7 +419,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Несогласие с предписанием профпосещения в десктопной версии")
     public void verifyFilledDisagreeWithProfvisitPrescriptionDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatDisagreeWithProfvisitPrescriptionId14());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendPmInspectionNumberLookUp("772309577000038041701");
         handleFilingComplaint.handleTypeOfViolations(false);
@@ -436,7 +436,7 @@ public class ScreenshotsTests extends BaseScreenshotTest {
     @DisplayName("Проверка верстки заполненной страницы Возражение на предостережение в десктопной версии")
     public void verifyFilledObjectionCautionDesktop() {
         setupTest(DESKTOP_RESOLUTION, config.uatObjectionCautionId15());
-        fillDetailsComplaintPage.clickSavedDraftsModal()
+        fillDetailsComplaintPage.clickRestartInSavedDraftsModal()
                 .scrollToInformerBanner();
         handleFilingComplaint.sendWarningKnmInspectionsList();
         handleFilingComplaint.handleTypeOfViolations(false); // Для этого ID тип нарушений false

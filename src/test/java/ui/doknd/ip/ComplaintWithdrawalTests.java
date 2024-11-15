@@ -1,6 +1,8 @@
 package ui.doknd.ip;
 
 import baseTest.BaseTestSelenide;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import pages.doknd.LoginPage;
 import org.junit.jupiter.api.*;
 
@@ -22,36 +24,34 @@ public class ComplaintWithdrawalTests extends BaseTestSelenide {
         );
     }
 
-    @Test
+    @ParameterizedTest
+    @Order(2)
+    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
     @DisplayName("Процесс отзыва жалобы с использованием ПЭП")
-    public void shouldWithdrawComplaintUsingPEP() {
+    public void shouldWithdrawComplaintUsingPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processSmevComplaintWithdrawalRequestUat();
-        complaintWithdrawalPage.processComplaintWithdrawal("PEP");
-    }
+        String orderId = handleFilingComplaint.getNewOrderId();
 
-    @Test
-    @DisplayName("Процесс отзыва жалобы с использованием УКЭП")
-    public void shouldWithdrawComplaintUsingUKEP() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processSmevComplaintWithdrawalRequestUat();
-        complaintWithdrawalPage.processComplaintWithdrawal("UKEP");
-    }
+        elasticPage.openElasticInNewTabUat()
+                .setOrderIdInQueryInput(orderId)
+                .clickUpdateButton()
+                .getKuberCorrelationId();
+        String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-    @Test
-    @DisplayName("Процесс отзыва жалобы с использованием УНЭП")
-    public void shouldWithdrawComplaintUsingUNEP() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processSmevComplaintWithdrawalRequestUat();
-        complaintWithdrawalPage.processComplaintWithdrawal("UNEP");
-    }
+        smevPage.openSmevRequestBroadcastUat()
+                .clearMessageID()
+                .setMessageID(messageId)
+                .clearXmlRequest()
+                .setXmlRequest(orderId, "101")
+                .clickButtonSubmit()
+                .clickButtonOk();
 
-    @Test
-    @DisplayName("Процесс отзыва жалобы с использованием УКЭПГК")
-    public void shouldWithdrawComplaintUsingUKEPGK() {
-        handleFilingComplaint.checkProcedureViolationID_1("PEP");
-        smevRequest.processSmevComplaintWithdrawalRequestUat();
-        complaintWithdrawalPage.processComplaintWithdrawal("UKEPGK");
+        myComplaintsPage.openMyСomplaintsPage();
+        complaintProgressPage.clickWithdrawalButton();
+        complaintWithdrawalPage.setWithdrawalReason();
+        repeatFilingPage
+                .handleTypeOfSignature(typeSignature)
+                .handleSendInputAttachSignatureFile(typeSignature);
     }
 }
 

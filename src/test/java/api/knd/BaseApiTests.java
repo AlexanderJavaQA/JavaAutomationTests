@@ -3,6 +3,7 @@ package api.knd;
 import appconfig.AppConfig;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
+import org.assertj.core.api.SoftAssertions;
 import pages.doknd.LoginPage;
 import pages.doknd.SmevPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -33,6 +34,7 @@ public class BaseApiTests {
     public static String accTValueIp;
     private static boolean isSetupExecuted = false;
     protected static SmevPage smevPage = new SmevPage();
+
     protected static Stream<Arguments> userTypes() {
         return Stream.of(
                 Arguments.of("ЮЛ", accTValueUl),

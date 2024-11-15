@@ -9,7 +9,6 @@ import org.openqa.selenium.By;
 import pages.doknd.FillDetailsComplaintPage;
 import pages.doknd.HandleFilingComplaintPage;
 import pages.doknd.LoginPage;
-import pages.doknd.SmevRequestPage;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
@@ -27,7 +26,6 @@ public abstract class BaseScreenshotTest {
     private static File outputDir;
     protected LoginPage loginPage = new LoginPage();
     protected HandleFilingComplaintPage handleFilingComplaint = new HandleFilingComplaintPage();
-    protected SmevRequestPage smevRequest = new SmevRequestPage();
     protected FillDetailsComplaintPage fillDetailsComplaintPage = new FillDetailsComplaintPage();
 
     @BeforeEach

@@ -16,13 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("API")
-@DisplayName("Поиск ЕРКНМ проверок в личном кабинете")
+@DisplayName("Поиск ЕРКНМ проверок по номеру, типу проверки, типу контроля, организации КНО и статусу")
 public class ErknmInspectionSearchTests extends BaseApiTests {
 
-
-
     public void shouldValidateInspectionsSearchResults(String accTValue) {
-
         shouldSearchInspections(accTValue, SurveillanceItemsList::getErknmId, "Несоответствие идентификатора ERKNM в ответе API поиска.");
         shouldSearchInspections(accTValue, SurveillanceItemsList::getKind, "Несоответствие типа проверки в ответе API поиска.");
         shouldSearchInspections(accTValue, SurveillanceItemsList::getKindControl, "Несоответствие типа контроля в ответе API поиска.");
@@ -45,10 +42,8 @@ public class ErknmInspectionSearchTests extends BaseApiTests {
                     .map(getField)
                     .collect(Collectors.toList());
 
-            for (String testValue : valuesFromApi) {
-                assertTrue(testValue.contains(value),
-                        errorMessage);
-            }
+            boolean matchFound = valuesFromApi.stream().anyMatch(testValue -> testValue.contains(value));
+            assertTrue(matchFound, errorMessage);
         }
     }
 

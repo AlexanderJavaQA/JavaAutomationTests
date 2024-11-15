@@ -1,53 +1,86 @@
 package pages.doknd;
 
-
 import appconfig.AppConfig;
 import com.codeborne.selenide.*;
-import com.codeborne.selenide.ex.ElementNotFound;
-import com.codeborne.selenide.ex.ElementShould;
-import com.codeborne.selenide.ex.ElementShouldNot;
 import lombok.Data;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
-import springjdbc.oracle.DataAccessObjectOracle;
-import springjdbc.oracle.DatabaseConnectOracle;
 import springjdbc.postgres.DataAccessObjectPostgres;
 import springjdbc.postgres.DatabaseConnectPostgres;
-
-
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 @Data
 public class SmevPage {
 
+    // Поле ввода для идентификатора сообщения
     private SelenideElement inputMessageId = $x("//input[@id='messageID']");
+
+    // Элемент для отображения идентификатора документа
     private SelenideElement documentIdDisplay = $x("//div[17]/pre");
+
+    // Поле ввода для запроса
     private SelenideElement inputQuery = $x("//textarea[@data-test-subj='queryInput']");
+
+    //Кнопка отправки запроса
     private SelenideElement submitButtonIcon = $x("//button[@class='euiButton euiButton--success euiButton--fill euiSuperUpdateButton']//span[@class='euiButtonContent euiButton__content']//*[name()='svg']");
+
+    // Поле с текстом документа в таблице
     private SelenideElement documentTextField = $x("//td[@class='kbnDocTableCell__dataField eui-textBreakAll eui-textBreakWord']");
+
+    // Поле ввода для кода отправителя
     private SelenideElement inputSenderCode = $x("//input[@id='senderCode']");
+
+    // Текстовое поле для XML-запроса
     private SelenideElement textareaXmlRequest = $x("//textarea[@id='xmlRequest']");
+
+    // Кнопка для отправки формы
     private SelenideElement submitButton = $x("//button[@type='submit']");
+
+    // Кнопка для подтверждения (Ok)
     private SelenideElement okButton = $x("//button[normalize-space()='Ok']");
+
+    // Кнопка для добавления файла в модуле СМЭВ
     private SelenideElement smevAddFileButton = $x("//button[contains(text(),'Добавить файл')]");
+
+    // Поле ввода для Object ID в модуле СМЭВ
     private SelenideElement smevObjectIdInput = $x("//*[@id='objectId']");
+
+    // Поле ввода для File Mnemonic в модуле СМЭВ
     private SelenideElement smevFileMnemonicInput = $x("//*[@id='fileMnemonic']");
+
+    // Поле ввода для Object Type ID в модуле СМЭВ
     private SelenideElement smevObjectTypeIdInput = $x("//*[@id='objectTypeId']");
+
+    // Кнопка для добавления ссылки
     private SelenideElement addLinkButton = $x("//*[@id='addLink']");
+
+    // Элемент тела модального окна результата
     private SelenideElement resultModalBody = $x("//*[@id=\"resultModal\"]/div/div/div[2]/p");
+
+    // Сообщение о доставке в модуле СМЭВ
     private SelenideElement smevDeliveryConfirmationMessage = $x("//*[text()='Сообщение доставлено']");
+
+    // Ответ о результатах обновления от СМЭВ (Ирина Викторовна)
     private SelenideElement smevUpdateResultsResponse = $x("//*[text()='\"Ковшина Ирина Викторовна\"']");
+
+    // Ответ о прошедшем ЭРКНМ в СМЭВ (адрес Красноярск)
     private SelenideElement smevUpdateErknmPassedResponse = $x("//*[text()='\"660012, КРАЙ, КРАСНОЯРСКИЙ, ГОРОД, КРАСНОЯРСК, УЛИЦА, КАРАМЗИНА, ДОМ 8, 240000010000878\"']");
+
+    // Ответ о прошедшем ЭРКНМ в СМЭВ (описание аренды)
     private SelenideElement smevErknmPassedResponse = $x("//*[text()='\"Аренда и управление собственным или арендованным нежилым недвижимым имуществом\"']");
+
+    // Ответ о результатах и предстоящих проверках в СМЭВ
     private SelenideElement smevErknmResultsAndUpcomingResponse = $x("//*[text()='\"п. 2.2.2. п. 2.4.3. п. 2.4.11. п. 2.5.2. п. 2.5.3. п. 2.6.1.  п. 2.11.4. п. 2.11.2. п. 3.2.4. п. 3.4.8.  п. 3.4.13. СП 2.4.3648-20 &quot;Санитарно-эпидемиологические требования к организациям воспитания и обучения, отдыха и оздоровления детей и молодежи&quot;, п. 2.13. СанПиН 2.3/2.4.3590-20 &quot;Санитарно-эпидемиологические требования к организации общественного питания населения&quot;, п. 144 СанПиН 1.2.3685-21 &quot;Гигиенические нормативы и требования к обеспечению безопасности и (или) безвредности для человека факторов среды обитания&quot;, предусмотренное ч. 1 ст. 6.7. КоАП РФ (постановление от 23.11.2021 г. № 35925).\"']");
+
+    // Коллекция ссылок на идентификаторы сообщений (Message ID)
     private ElementsCollection messageIdLinks = $$x("//a[@target='_blank']");
+
+    ComplaintProgressPage complaintDetailsPage = new ComplaintProgressPage();
+    public static String orderIdAppeal;
+
     AppConfig config = ConfigFactory.create(AppConfig.class);
 
 
@@ -93,13 +126,23 @@ public class SmevPage {
         return this;
     }
 
-    public SmevPage enableSmevaFlag() {
+    public SmevPage enableERPSmevaFlag() {
         new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).enableERPSmevaFlag();
         return this;
     }
 
-    public SmevPage disableSmevaFlag() {
-        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).disableERPSmevaFlag();
+    public SmevPage enableERKNMSmevaFlag() {
+        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).enableERKNMSmevaFlag();
+        return this;
+    }
+
+    public SmevPage disableERKNMSmevaFlag() {
+        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).disableERKNMSmevaFlag();
+        return this;
+    }
+
+    public SmevPage disableERPSmevaFlag() {
+        new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat()).disableERKNMSmevaFlag();
         return this;
     }
 
@@ -134,9 +177,9 @@ public class SmevPage {
         return this;
     }
 
-    public SmevPage createBroadcastRequest(String erpIdValue) {
+    public SmevPage createERKNMBroadcastRequest(String erknmId) {
         textareaXmlRequest.setValue("<erp:Broadcast xmlns:erp=\"urn://ru.gov.proc.erp.broadcast/3.0.1\" xmlns:erp_types=\"urn://ru.gov.proc.erp.broadcast/types/3.0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn://ru.gov.proc.erp.broadcast/3.0.1 ru.gov.proc.erp.broadcast.smev.xsd\">\n" +
-                "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\"" + erpIdValue + "\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"CREATE\" guid=\"20170915-1311-0134-2344-000000383432\"/>\n" +
+                "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\"" + erknmId + "\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"CREATE\" guid=\"20170915-1311-0134-2344-000000383432\"/>\n" +
                 "</erp:Broadcast>");
         return this;
     }
@@ -148,18 +191,18 @@ public class SmevPage {
         return this;
     }
 
-    public SmevPage createUpdateRequestBroadcast(String erpIdValue) {
+    public SmevPage createUpdateERKNMRequestBroadcast(String erknmId){
         String xmlValue = "<erp:Broadcast xmlns:erp=\"urn://ru.gov.proc.erp.broadcast/3.0.1\" xmlns:erp_types=\"urn://ru.gov.proc.erp.broadcast/types/3.0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn://ru.gov.proc.erp.broadcast/3.0.1 ru.gov.proc.erp.broadcast.smev.xsd\">\n" +
-                "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\"" + erpIdValue + "\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"UPDATE\" guid=\"20170915-1311-0134-2344-000000383432\"/>\n" +
+                "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\"" + erknmId + "\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"UPDATE\" guid=\"20170915-1311-0134-2344-000000383432\"/>\n" +
                 "</erp:Broadcast>";
         textareaXmlRequest.setValue(xmlValue);
         return this;
     }
 
 
-    public SmevPage createDeleteBroadcastRequest(String erpIdValue) {
+    public SmevPage createDeleteERKNMBroadcastRequest(String erknmId) {
         textareaXmlRequest.setValue("<erp:Broadcast xmlns:erp=\"urn://ru.gov.proc.erp.broadcast/3.0.1\" xmlns:erp_types=\"urn://ru.gov.proc.erp.broadcast/types/3.0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn://ru.gov.proc.erp.broadcast/3.0.1 ru.gov.proc.erp.broadcast.smev.xsd\">\n" +
-                "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\"" + erpIdValue + "\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"DELETE\" guid=\"20170915-1311-0134-2344-000000383432\"/>\n" +
+                "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\"" + erknmId + "\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"DELETE\" guid=\"20170915-1311-0134-2344-000000383432\"/>\n" +
                 "</erp:Broadcast>");
         return this;
     }
@@ -180,7 +223,7 @@ public class SmevPage {
         return this;
     }
 
-    public SmevPage verifyModalBodyIsVisible() {
+    public SmevPage checkResultModalIsVisible() {
         resultModalBody.shouldBe(visible);
         return this;
     }
@@ -212,95 +255,13 @@ public class SmevPage {
     }
 
 
-    public void openAndVerifyDeliveryConfirmationInNewTab(String url, SelenideElement confirmationElement) {
-        if (url == null || url.trim().isEmpty()) {
-            throw new IllegalArgumentException("URL не должен быть null или пустым.");
-        }
-
-        // Открываем новое окно браузера
-        executeJavaScript("window.open('', '_blank');");
-        switchTo().window(1);
-
-        try {
-            open(url);
-            Selenide.refresh();
-
-            int maxAttempts = 10;
-            int attempt = 0;
-            long refreshIntervalMillis = 1000; // 1 секунда
-
-            while (attempt < maxAttempts) {
-                try {
-                    if (confirmationElement.shouldBe(visible, Duration.ofSeconds(1)).isDisplayed()) {
-                        return;
-                    }
-                } catch (ElementNotFound | ElementShould | ElementShouldNot e) {
-                }
-
-                attempt++;
-                sleep(refreshIntervalMillis);
-                Selenide.refresh();
-            }
-
-            throw new AssertionError("Элемент подтверждения доставки не отображается после " + maxAttempts + " попыток.");
-        } finally {
-            switchTo().window(0);
-        }
-    }
 
     public String getMessageIDFromModal() {
         String messageID = resultModalBody.getText();
         return messageID.replace("MessageID:", "").trim();
     }
 
-    public void verifyFullInspectionResponseDev2(String messageID, SelenideElement element) {
-        executeJavaScript("window.open('', '_blank');");
-        switchTo().window(1);
-        open(config.smevAdapterUrlDev2());
-        Selenide.refresh();
 
-        int index = (messageIdLinks.indexOf(messageIdLinks.find(text(messageID))) - 1);
-        String newMessageId = messageIdLinks.get(index).text();
-        open(config.smevAdapterUrlDev2() + newMessageId);
-
-
-        int i = 0;
-        while (i == 10) {
-            try {
-                assertTrue(element.
-                        shouldBe(visible, Duration.ofSeconds(1)).isDisplayed());
-                break;
-            } catch (ElementNotFound e) {
-                Selenide.refresh();
-            }
-        }
-        i++;
-    }
-
-
-    public void verifyFullInspectionResponseUat(String messageID, SelenideElement element) {
-        executeJavaScript("window.open('', '_blank');");
-        switchTo().window(1);
-        open(config.smevAdapterUrlUat());
-        Selenide.refresh();
-
-        int index = (messageIdLinks.indexOf(messageIdLinks.find(text(messageID))) - 1);
-        String newMessageId = messageIdLinks.get(index).text();
-        open(config.smevAdapterUrlUat() + newMessageId);
-
-
-        int i = 0;
-        while (i == 10) {
-            try {
-                assertTrue(element.
-                        shouldBe(visible, Duration.ofSeconds(1)).isDisplayed());
-                break;
-            } catch (ElementNotFound e) {
-                Selenide.refresh();
-            }
-        }
-        i++;
-    }
 
     public SmevPage clickButtonOk() {
         okButton.shouldBe(enabled).click();
@@ -322,7 +283,7 @@ public class SmevPage {
     }
 
     public SmevPage setMessageID(String messageID) {
-        this.inputMessageId.setValue(messageID);
+        this.inputMessageId.setValue(messageID).shouldHave(text(messageID));
         return this;
     }
 
@@ -331,11 +292,11 @@ public class SmevPage {
         return this;
     }
 
-    public SmevPage setXmlRequest(String OrderIDadd, String statusCode) {
+    public SmevPage setXmlRequest(String OrderId, String statusCode) {
         textareaXmlRequest.setValue("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<tns:doKndResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:tns=\"http://epgu.gosuslugi.ru/do_knd/1.0.0\">\n" +
                 "<tns:doAppealResponse>\n" +
-                "<tns:orderId>" + OrderIDadd + "</tns:orderId>\n" +
+                "<tns:orderId>" + OrderId + "</tns:orderId>\n" +
                 "<tns:statusData>\n" +
                 "<tns:statusCode>\n" +
                 "<tns:techCode>" + statusCode + "</tns:techCode>\n" +
@@ -350,45 +311,4 @@ public class SmevPage {
     }
 
 
-    public SmevPage switchOldWindow(String oldWindow) {
-        switchTo().window(oldWindow);
-        return this;
-    }
-
-    public SmevPage checkAttributeSrc() {
-        ElementsCollection status = $$x("//div[@class='col-3 col-md-6 mb-40 col-lg-9']//img[@class='image']");
-        for (WebElement i : status) {
-            i.getAttribute("src");
-            assertEquals("https://static-uat.egovdev.ru/knd-st/assets/svg/progress/done.svg",
-                    i.getAttribute("src"));
-        }
-        return this;
-    }
-
-    public SmevPage openSmevResponseToPguUat() {
-        switchTo().newWindow(WindowType.TAB);
-        open(config.smevAdapterResponseToPguUrlUat());
-        return this;
-    }
-
-    public SmevPage openSmevResponseToPguDev2() {
-        switchTo().newWindow(WindowType.TAB);
-        open(config.smevAdapterResponseToPguUrlDev2());
-        return this;
-    }
-
-    public LoginPage checkOrderStatusHistory(String orderId) {
-        String ArrayStatusHistory = String.valueOf(new DataAccessObjectOracle(DatabaseConnectOracle.oracleDatabaseUat()).getOrderStatusHistory(orderId));
-        assertEquals("[3, 7, 1, 21, 17, 0]",
-                ArrayStatusHistory);
-
-        return new LoginPage();
-    }
-
-    public LoginPage checkOrderStatusHistoryGosKey(String orderId) {
-        String ArrayStatusHistory = String.valueOf(new DataAccessObjectOracle(DatabaseConnectOracle.oracleDatabaseUat()).getOrderStatusHistory(orderId));
-        assertEquals("[3, 7, 1, 21, 122, 120, 17, 0]",
-                ArrayStatusHistory);
-        return new LoginPage();
-    }
 }

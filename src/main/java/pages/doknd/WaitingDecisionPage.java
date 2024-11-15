@@ -7,11 +7,12 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class WaitingDecisionPage{
 
+    // Ссылка для перехода на страницу деталей жалобы
     private SelenideElement linkComplaintDetails = $x("//a[contains(text(),'на странице деталей')]");
 
-    public ComplaintDetailsPage clickLinkComplaintDetails() {
+    public ComplaintProgressPage clickLinkComplaintDetails() {
         linkComplaintDetails.shouldBe(enabled).click();
-        return new ComplaintDetailsPage();
+        return new ComplaintProgressPage();
     }
 
 
