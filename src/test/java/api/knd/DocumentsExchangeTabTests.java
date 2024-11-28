@@ -4,7 +4,7 @@ import api.DocumentExchangeTabService;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
-import apimodels.erknm.InspectionDocsTemplatesPojo;
+import apimodels.erknm.InspectionDocsTemplates;
 import apimodels.erknm.Item;
 import apimodels.erknm.Message;
 import apimodels.erknm.SurveillanceItemsList;
@@ -46,7 +46,7 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
     );
 
 
-    public void shouldOpenDocumentExchangeTab(String accTValue) {
+    public void checkOpenDocumentExchangeTab(String accTValue) {
         List<SurveillanceItemsList> erknmInspectionsList = getErknmInspectionsSort(accTValue, 30, SORT_ORDER_DESC, "all").getList();
         List<String> erknmIdList = erknmInspectionsList.stream()
                 .map(SurveillanceItemsList::getErknmId)
@@ -64,7 +64,7 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
 
 
     @SneakyThrows
-    public void shouldSendTORAndERKNMTemplates(String accTValue) {
+    public void checkSendTORAndERKNMTemplates(String accTValue) {
         smevPage.enableERKNMSmevaFlag();
 
 
@@ -75,7 +75,7 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
 
         for (String erknmId : erknmIdList) {
             try {
-                InspectionDocsTemplatesPojo responsePojo = getInspectionDocsTemplates(accTValue, erknmId);
+                InspectionDocsTemplates responsePojo = getInspectionDocsTemplates(accTValue, erknmId);
                 if (responsePojo.items == null || responsePojo.items.isEmpty()) {
                     erknmIdisEmpty = erknmId;
                     System.out.println(erknmIdisEmpty);
@@ -98,13 +98,13 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
         TorTemplateTests sendTORTemplates = new TorTemplateTests();
         sendTORTemplates.sendTORTemplates(erknmIdisEmpty, "2079552524");
 
-        InspectionDocsTemplatesPojo responseApiDocs = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
+        InspectionDocsTemplates responseApiDocs = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
 
         int iterations = 0;
         boolean isEqual = false;
 
         while (iterations < 10 && !isEqual) {
-            InspectionDocsTemplatesPojo responseApiDocsIsEquals = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
+            InspectionDocsTemplates responseApiDocsIsEquals = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
 
             Thread.sleep(2000); // Подождать 2 секунды
             List<String> typeEvent = responseApiDocsIsEquals.items.stream()
@@ -156,34 +156,34 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
         assertTextTypeEvent("ERKNM_RESULTS_UPDATED", "<div class=\"mail-body-content mini-bottom\"><div class=\"lg-h-title-16-big md-h-title-16-big sm-h-title-16 text-plain\"><div>Здравствуйте</div><div class=\"all-offset-top-8 mt-8\">Изменилась информация о&nbsp;вынесенном решении по&nbsp;результатам контрольного (надзорного) мероприятия для&nbsp;вашей организации</div><div class=\"all-offset-top-24 mt-24\" style=\"background-color: #EDF2FE; padding: 8px 20px 20px 20px; border-radius: 8px;\"><div class=\"all-offset-top-12 mt-12\"><b>Проверяемое лицо:</b> Бесплаов Ф.А.</div><div class=\"all-offset-top-12 mt-12\"><b>ОГРН:</b> 1020200715281</div><div class=\"all-offset-top-12 mt-12\"><b>Номер мероприятия:</b> " + erknmIdisEmpty + "</div></div><div class=\"all-offset-top-24 mt-24\">По&nbsp;кому принято решение:</div><ul class='list-dashed all-offset-top-12 mt-12'><li>Бесплаов Ф.А.</li></ul><div class=\"all-offset-top-24 mt-24\">Привлечённые к&nbsp;ответственности:</div><ul class='list-dashed all-offset-top-12 mt-12'><li></li></ul><div class=\"all-offset-top-24 mt-24\">Подробности можно посмотреть <a href=\"https://lk.gosuslugi.ru/org-profile/knd\" target=\"_blank\" style=\"text-decoration:none;\">в&nbsp;разделе «Контроль и&nbsp;надзор»</a></div><div class=\"all-offset-top-24 mt-24\"><a href=\"https://lk.gosuslugi.ru/org-profile/knd/inspect/" + erknmIdisEmpty + "\" class=\"button-base button-blue\" target=\"_blank\">Перейти&nbsp;в&nbsp;раздел</a></div></div></div>\n", accTValue);
 
 
-        assertInnerTitle("KND_INSPECTION", "Подпишите документы в рамках контрольного (надзорного) мероприятия", accTValue);
-        assertInnerTitle("GIS_TOR_KND_VKS", "Назначен профилактический визит", accTValue);
-        assertInnerTitle("KND_ADM_CASE", "Уведомление по административному делопроизводству", accTValue);
-        assertInnerTitle("ERKNM_PASSED", "Объявлено предостережение для вашей организации", accTValue);
-        assertInnerTitle("KND_DOCUMENTS", "Предоставьте документы в рамках контрольного (надзорного) мероприятия", accTValue);
-        assertInnerTitle("KNO_MOTIV_REQUEST", "Предоставьте документы в рамках контрольного (надзорного) мероприятия", accTValue);
-        assertInnerTitle("ERKNM_UPCOMING", "Для вашей организации назначена проверка", accTValue);
-        assertInnerTitle("ERKNM_RESULTS", "Принято решение по результатам проверки", accTValue);
-        assertInnerTitle("ERKNM_RESULTS_UPDATED", "Изменено решение по результатам проверки", accTValue);
-        assertInnerTitle("ERKNM_UPDATED", "Изменения в предостережении для вашей организации", accTValue);
+        checkInnerTitle("KND_INSPECTION", "Подпишите документы в рамках контрольного (надзорного) мероприятия", accTValue);
+        checkInnerTitle("GIS_TOR_KND_VKS", "Назначен профилактический визит", accTValue);
+        checkInnerTitle("KND_ADM_CASE", "Уведомление по административному делопроизводству", accTValue);
+        checkInnerTitle("ERKNM_PASSED", "Объявлено предостережение для вашей организации", accTValue);
+        checkInnerTitle("KND_DOCUMENTS", "Предоставьте документы в рамках контрольного (надзорного) мероприятия", accTValue);
+        checkInnerTitle("KNO_MOTIV_REQUEST", "Предоставьте документы в рамках контрольного (надзорного) мероприятия", accTValue);
+        checkInnerTitle("ERKNM_UPCOMING", "Для вашей организации назначена проверка", accTValue);
+        checkInnerTitle("ERKNM_RESULTS", "Принято решение по результатам проверки", accTValue);
+        checkInnerTitle("ERKNM_RESULTS_UPDATED", "Изменено решение по результатам проверки", accTValue);
+        checkInnerTitle("ERKNM_UPDATED", "Изменения в предостережении для вашей организации", accTValue);
 
 
-        assertServiceName("KND_INSPECTION", "ФГИС ЕРКНМ", accTValue);
-        assertServiceName("GIS_TOR_KND_VKS", "Госуслуги", accTValue);
-        assertServiceName("KND_ADM_CASE", "Госуслуги", accTValue);
-        assertServiceName("ERKNM_PASSED", "Госуслуги", accTValue);
-        assertServiceName("KND_DOCUMENTS", "ФГИС ЕРКНМ", accTValue);
-        assertServiceName("KNO_MOTIV_REQUEST", "ФГИС ЕРКНМ", accTValue);
-        assertServiceName("ERKNM_UPCOMING", "Госуслуги", accTValue);
-        assertServiceName("ERKNM_RESULTS", "Госуслуги", accTValue);
-        assertServiceName("ERKNM_RESULTS_UPDATED", "Госуслуги", accTValue);
-        assertServiceName("ERKNM_UPDATED", "Госуслуги", accTValue);
+        checkServiceName("KND_INSPECTION", "ФГИС ЕРКНМ", accTValue);
+        checkServiceName("GIS_TOR_KND_VKS", "Госуслуги", accTValue);
+        checkServiceName("KND_ADM_CASE", "Госуслуги", accTValue);
+        checkServiceName("ERKNM_PASSED", "Госуслуги", accTValue);
+        checkServiceName("KND_DOCUMENTS", "ФГИС ЕРКНМ", accTValue);
+        checkServiceName("KNO_MOTIV_REQUEST", "ФГИС ЕРКНМ", accTValue);
+        checkServiceName("ERKNM_UPCOMING", "Госуслуги", accTValue);
+        checkServiceName("ERKNM_RESULTS", "Госуслуги", accTValue);
+        checkServiceName("ERKNM_RESULTS_UPDATED", "Госуслуги", accTValue);
+        checkServiceName("ERKNM_UPDATED", "Госуслуги", accTValue);
 
         smevPage.disableERKNMSmevaFlag();
     }
 
     public void assertTextTypeEvent(String eventType, String expectedtext, String accTValue) {
-        InspectionDocsTemplatesPojo responseApiDocs = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
+        InspectionDocsTemplates responseApiDocs = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
         String actualEventText = responseApiDocs.items.stream()
                 .filter(x -> x.getTypeEvent().equals(eventType))
                 .flatMap(item -> item.messages.stream())
@@ -193,14 +193,14 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
         assertThat(actualEventText).isEqualToIgnoringWhitespace(expectedtext);
     }
 
-    public void assertInnerTitle(String typeEvent, String innerTitle, String accTValue) {
-        InspectionDocsTemplatesPojo responseApiDocs = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
+    public void checkInnerTitle(String typeEvent, String innerTitle, String accTValue) {
+        InspectionDocsTemplates responseApiDocs = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
         assertTrue(responseApiDocs.items.stream().filter(x -> x.getTypeEvent().equals(typeEvent))
                 .allMatch(x -> x.getInnerTitle().equals(innerTitle)), "Error in innerTitle");
     }
 
-    public void assertServiceName(String typeEvent, String innerTitle, String accTValue) {
-        InspectionDocsTemplatesPojo responseApiDocs = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
+    public void checkServiceName(String typeEvent, String innerTitle, String accTValue) {
+        InspectionDocsTemplates responseApiDocs = getInspectionDocsTemplates(accTValue, erknmIdisEmpty);
         assertTrue(responseApiDocs.items.stream().filter(x -> x.getTypeEvent().equals(typeEvent))
                 .allMatch(x -> x.getServiceName().equals(innerTitle)), "Error in ServiceName");
     }
@@ -210,8 +210,8 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
     @Order(1)
     @Disabled("Нужно доработать логику")
     @DisplayName("Отправка шаблонов TOR и ERKNM для вкладки обмена документами для ЮЛ")
-    public void shouldSendTORAndERKNMTemplatesForUL() {
-        shouldSendTORAndERKNMTemplates(accTValueUl);
+    public void checkSendTORAndERKNMTemplatesUL() {
+        checkSendTORAndERKNMTemplates(accTValueUl);
     }
 
     @SneakyThrows
@@ -219,8 +219,8 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
     @Order(2)
     @Disabled("Нужно доработать логику")
     @DisplayName("Отправка шаблонов TOR и ERKNM для вкладки обмена документами для ФЛ")
-    public void shouldSendTORAndERKNMTemplatesForFL() {
-        shouldSendTORAndERKNMTemplates(accTValueFl);
+    public void checkSendTORAndERKNMTemplatesFL() {
+        checkSendTORAndERKNMTemplates(accTValueFl);
     }
 
     @SneakyThrows
@@ -228,29 +228,29 @@ public class DocumentsExchangeTabTests extends BaseApiTests {
     @Order(3)
     @Disabled("Нужно доработать логику")
     @DisplayName("Отправка шаблонов TOR и ERKNM для вкладки обмена документами для ИП")
-    public void shouldSendTORAndERKNMTemplatesForIP() {
-        shouldSendTORAndERKNMTemplates(accTValueIp);
+    public void checkSendTORAndERKNMTemplatesIP() {
+        checkSendTORAndERKNMTemplates(accTValueIp);
     }
 
     @SneakyThrows
     @Test
     @DisplayName("Открытие всех вкладок обмена документами для ЮЛ")
-    public void shouldOpenDocumentExchangeTabForUL() {
-        shouldOpenDocumentExchangeTab(accTValueUl);
+    public void checkOpenDocumentExchangeTabUL() {
+        checkOpenDocumentExchangeTab(accTValueUl);
     }
 
     @SneakyThrows
     @Test
     @DisplayName("Открытие всех вкладок обмена документами для ФЛ")
-    public void shouldOpenDocumentExchangeTabForFL() {
-        shouldOpenDocumentExchangeTab(accTValueFl);
+    public void checkOpenDocumentExchangeTabFL() {
+        checkOpenDocumentExchangeTab(accTValueFl);
     }
 
     @SneakyThrows
     @Test
     @DisplayName("Открытие всех вкладок обмена документами для ИП")
-    public void shouldOpenDocumentExchangeTabForIP() {
-        shouldOpenDocumentExchangeTab(accTValueIp);
+    public void checkOpenDocumentExchangeTabIP() {
+        checkOpenDocumentExchangeTab(accTValueIp);
     }
 
 }

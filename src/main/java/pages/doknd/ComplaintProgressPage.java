@@ -5,11 +5,11 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.Data;
 import lombok.Getter;
 
+import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 @Data
-@Getter
 public class ComplaintProgressPage {
 
     // Заголовок ордера заявления на странице
@@ -37,7 +37,7 @@ public class ComplaintProgressPage {
     }
 
     public SubmitAdditionalPage clickAdditionalDocumentsButton() {
-        submitAdditionalDocumentsButtons.get(1).shouldBe(visible).click();
+        submitAdditionalDocumentsButtons.get(1).shouldBe(enabled).click();
         return new SubmitAdditionalPage();
     }
 

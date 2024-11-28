@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class BusinessActivityListPojo {
+public class BusinessActivityList {
 
 	@JsonProperty("total")
 	private int total;
@@ -25,19 +25,4 @@ public class BusinessActivityListPojo {
 	@JsonProperty("items")
 	private List<ItemsItem> items;
 
-	public int getTotal(){
-		return total;
-	}
-
-	public int getPageNumber(){
-		return pageNumber;
-	}
-
-	public int getPageSize(){
-		return pageSize;
-	}
-
-	public List<ItemsItem> getItems(){
-		return items;
-	}
 }

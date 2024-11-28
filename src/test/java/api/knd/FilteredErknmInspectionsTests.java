@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("Проверка фильтрации ЕРКНМ карточек")
 public class FilteredErknmInspectionsTests extends BaseApiTests {
 
-    public void verifyFilteredErknmInspections(String accountTypeValue) {
+    public void checkFilteredErknmInspections(String accountTypeValue) {
 
         // Получение списка статусов
         List<StatusList> statusList = FilteredErknmInspectionsService.getFilteredErknmInspections(accountTypeValue).getStatusList();
@@ -103,20 +103,20 @@ public class FilteredErknmInspectionsTests extends BaseApiTests {
 
     @Test
     @DisplayName("Должен фильтровать ЕРКНМ карточки для юридических лиц")
-    public void shouldFilterErknmInspectionsForUL() {
-        verifyFilteredErknmInspections(accTValueUl);
+    public void checkFilterErknmInspectionsUL() {
+        checkFilteredErknmInspections(accTValueUl);
     }
 
     @Test
     @DisplayName("Должен фильтровать ЕРКНМ карточки для физических лиц ")
-    public void shouldFilterErknmInspectionsForFL() {
-        verifyFilteredErknmInspections(accTValueFl);
+    public void checkFilterErknmInspectionsFL() {
+        checkFilteredErknmInspections(accTValueFl);
     }
 
     @Test
     @DisplayName("Должен фильтровать ЕРКНМ карточки для индивидуальных предпринимателей")
-    public void shouldFilterErknmInspectionsForIP() {
-        verifyFilteredErknmInspections(accTValueIp);
+    public void checkFilterErknmInspectionsIP() {
+        checkFilteredErknmInspections(accTValueIp);
     }
 
 

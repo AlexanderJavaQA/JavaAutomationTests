@@ -71,6 +71,4 @@ public class SigningComplaintPage {
         sendButton.shouldBe(visible).click();
         return new WaitingDecisionPage();
     }
-
-
 }

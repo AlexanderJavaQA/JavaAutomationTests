@@ -14,6 +14,6 @@ public class SurveillanceObject {
     private String objectType;
     private String objectKind;
     private String objectSubKind;
-    private String riskCategory; // Добавьте это поле
+    private String riskCategory;
 
 }

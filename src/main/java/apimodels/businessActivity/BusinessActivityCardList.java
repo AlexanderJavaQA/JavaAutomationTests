@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class BusinessActivityCardListPojo {
+public class BusinessActivityCardList {
 
 	@JsonProperty("regionCode")
 	private String regionCode;
@@ -30,27 +30,4 @@ public class BusinessActivityCardListPojo {
 	@JsonProperty("fiasCodes")
 	private FiasCodes fiasCodes;
 
-	public String getRegionCode(){
-		return regionCode;
-	}
-
-	public String getAddress(){
-		return address;
-	}
-
-	public String getName(){
-		return name;
-	}
-
-	public String getId(){
-		return id;
-	}
-
-	public String getRegionTitle(){
-		return regionTitle;
-	}
-
-	public FiasCodes getFiasCodes(){
-		return fiasCodes;
-	}
 }

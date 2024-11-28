@@ -1,6 +1,6 @@
 package api;
 
-import apimodels.businessActivity.BusinessNotificationsItemsPojo;
+import apimodels.businessActivity.BusinessNotificationsItems;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 
 public class BusinessNotificationsService {
 
-    public static List<BusinessNotificationsItemsPojo> getObjectsOfBusinessNotifications(String accTValue, String id) {
+    public static List<BusinessNotificationsItems> getObjectsOfBusinessNotifications(String accTValue, String id) {
 
         installSpec (requestSpec(), responseSpecOK());
 
@@ -18,6 +18,6 @@ public class BusinessNotificationsService {
                 .when()
                 .get("/api/knd/v1/orgactivity/objects/" + id + "/grouped-notifications/activity")
                 .then()
-                .extract().as(BusinessNotificationsItemsPojo[].class));
+                .extract().as(BusinessNotificationsItems[].class));
     }
 }

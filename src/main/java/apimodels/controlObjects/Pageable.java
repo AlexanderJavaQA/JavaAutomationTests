@@ -30,27 +30,5 @@ public class Pageable{
 	@JsonProperty("sort")
 	private Sort sort;
 
-	public boolean isPaged(){
-		return paged;
-	}
 
-	public int getPageNumber(){
-		return pageNumber;
-	}
-
-	public int getOffset(){
-		return offset;
-	}
-
-	public int getPageSize(){
-		return pageSize;
-	}
-
-	public boolean isUnpaged(){
-		return unpaged;
-	}
-
-	public Sort getSort(){
-		return sort;
-	}
 }

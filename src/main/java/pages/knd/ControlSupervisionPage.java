@@ -9,7 +9,6 @@ import pages.doknd.FillDetailsComplaintPage;
 
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static api.TypesOfContolService.getTypesOfContolList;
 import static com.codeborne.selenide.Condition.enabled;
@@ -23,32 +22,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ControlSupervisionPage {
 
     // Кнопка перехода в раздел "Контрольные и профилактические мероприятия"
-    private final SelenideElement goToSectionButtonControlAndPrevention = $x("//a[@href='/org-profile/knd/inspect']");
+    private  SelenideElement goToSectionButtonControlAndPrevention = $x("//a[@href='/org-profile/knd/inspect']");
     // Кнопка перехода в раздел "Объекты контроля"
-    private final SelenideElement goToSectionButtonControlObjects = $x("//a[@href='/org-profile/knd/control-objects']");
+    private  SelenideElement goToSectionButtonControlObjects = $x("//a[@href='/org-profile/knd/control-objects']");
     // Кнопка перехода в раздел "Уведомления по объектам предпринимательской деятельности"
-    private final SelenideElement goToSectionButtonBusinessNotifications = $x("//a[@href='/org-profile/knd/orgactivity']");
+    private  SelenideElement goToSectionButtonBusinessNotifications = $x("//a[@href='/org-profile/knd/orgactivity']");
     // Ссылка "Перейти в реестр" в блоке "Обязательные требования"
-    private final SelenideElement goToRegistryLink = $x("//a[contains(text(),'Перейти в реестр')]");
+    private  SelenideElement goToRegistryLink = $x("//a[contains(text(),'Перейти в реестр')]");
 
     // Ссылка "Подать возражение" в блоке "Возражение на предостережение"
-    private final SelenideElement submitObjectionLink = $x("//a[contains(text(),'Подать возражение')]");
+    private  SelenideElement submitObjectionLink = $x("//a[contains(text(),'Подать возражение')]");
 
     // Ссылка "Отправить" в блоке "Отправьте уведомление о начале предпринимательской деятельности"
-    private final SelenideElement sendNotificationLink = $x("//a[contains(text(),'Отправить')]");
+    private  SelenideElement sendNotificationLink = $x("//a[contains(text(),'Отправить')]");
     // Ссылка "Подать жалобу" в блоке "Досудебное обжалование"
-    private final SelenideElement submitComplaintLink = $x("//a[contains(text(),'Подать жалобу')]");
+    private  SelenideElement submitComplaintLink = $x("//a[contains(text(),'Подать жалобу')]");
 
     // Ссылка "Подать заявку" в блоке "Запись на профвизит"
-    private final SelenideElement submitApplicationForVisitLink = $x("//lk-banner[2]//lk-screen-pad[1]//div[3]//a[1]");
+    private  SelenideElement submitApplicationForVisitLink = $x("//lk-banner[2]//lk-screen-pad[1]//div[3]//a[1]");
 
     // Ссылка "Подать заявку" в блоке "Консультация инспектора"
-    private final SelenideElement submitApplicationForConsultationLink = $x("//lk-banner[3]//lk-screen-pad[1]//div[3]//a[1]");
+    private  SelenideElement submitApplicationForConsultationLink = $x("//lk-banner[3]//lk-screen-pad[1]//div[3]//a[1]");
     // Кнопка "Скачать приложение" в блоке с мобильным баннером
-    private final SelenideElement downloadAppButton = $x("//lk-mobile-banner[@class='desktop-banner']//span[contains(text(),'Скачать приложение')]");
+    private  SelenideElement downloadAppButton = $x("//lk-mobile-banner[@class='desktop-banner']//span[contains(text(),'Скачать приложение')]");
 
     // Коллекция ссылок на доступные виды контроля на странице
-    private final ElementsCollection controlTypeLinks = $$x("//div[contains(@class, 'pt-horizontal')]//li//a");
+    private  ElementsCollection controlTypeLinks = $$x("//div[contains(@class, 'pt-horizontal')]//li//a");
 
     FillDetailsComplaintPage fillDetailsComplaintPage = new FillDetailsComplaintPage();
     static ControlSupervisionPage controlSupervisionPage = new ControlSupervisionPage();
@@ -60,7 +59,7 @@ public class ControlSupervisionPage {
     AppConfig config = create(AppConfig.class);
 
     public ControlSupervisionPage openControlSupervisionPage() {
-        open(config.pguOrgProfileKndUrlUat());
+        open(config.orgProfilePage());
         return this;
     }
 

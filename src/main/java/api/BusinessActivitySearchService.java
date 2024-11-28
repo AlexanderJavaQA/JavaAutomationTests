@@ -1,13 +1,13 @@
 package api;
 
-import apimodels.businessActivity.BusinessActivityListPojo;
+import apimodels.businessActivity.BusinessActivityList;
 
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
 
 public class BusinessActivitySearchService {
 
-    public static BusinessActivityListPojo getObjectsOfBusinessActivitySearch(String accTValue, String name) {
+    public static BusinessActivityList getObjectsOfBusinessActivitySearch(String accTValue, String name) {
 
         installSpec (requestSpec(), responseSpecOK());
 
@@ -19,6 +19,6 @@ public class BusinessActivitySearchService {
                 .when()
                 .get("/api/knd/v1/orgactivity/objects")
                 .then()
-                .extract().as(BusinessActivityListPojo.class);
+                .extract().as(BusinessActivityList.class);
     }
 }

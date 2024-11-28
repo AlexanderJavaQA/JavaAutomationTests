@@ -8,20 +8,20 @@ import static api.ChatInitiatorsService.getChatInitiators;
 public class ChatInitiatorsTests extends BaseApiTests{
 
     @Test
-    @DisplayName("Проверка запроса уникальных ФИО инициаторов чатов обращений в контрольный (надзорный) орган для ЮЛ")
-    public void shouldRequestUniqueChatInitiatorsForUL() {
+    @DisplayName("Проверка запроса уникальных ФИО инициаторов чатов для Юридических Лиц")
+    public void checkUniqueChatInitiatorsUL() {
         getChatInitiators(accTValueUl, "12040055125066009877");
     }
 
     @Test
-    @DisplayName("Проверка запроса уникальных ФИО инициаторов чатов обращений в контрольный (надзорный) орган для ФЛ")
-    public void shouldRequestUniqueChatInitiatorsForFL() {
+    @DisplayName("Проверка запроса уникальных ФИО инициаторов чатов для Физических Лиц")
+    public void checkUniqueChatInitiatorsFL() {
         getChatInitiators(accTValueFl, "12040055125066009877");
     }
 
     @Test
-    @DisplayName("Проверка запроса уникальных ФИО инициаторов чатов обращений в контрольный (надзорный) орган для ИП")
-    public void shouldRequestUniqueChatInitiatorsForIP() {
+    @DisplayName("Проверка запроса уникальных ФИО инициаторов чатов для Индивидуальных Предпринимателей")
+    public void checkUniqueChatInitiatorsIP() {
         getChatInitiators(accTValueIp, "12040055125066009877");
     }
 

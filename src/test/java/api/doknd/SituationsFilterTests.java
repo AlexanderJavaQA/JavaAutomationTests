@@ -12,39 +12,40 @@ public class SituationsFilterTests extends BaseApiTests {
 
     @Test
     @DisplayName("Фильтрация по жизненной ситуации на странице Мои жалобы для Юридических Лиц")
-    public void shouldFilterSituationsAppealForUL() {
+    public void checkFilterSituationsAppealUL() {
         getSituationsFilter(accTValueUl, TYPE_APPEAL);
     }
 
     @Test
     @DisplayName("Фильтрация по жизненной ситуации на странице Мои черновики для Юридических Лиц")
-    public void shouldFilterSituationsDraftForUL() {
+    public void checkFilterSituationsDraftUL() {
         getSituationsFilter(accTValueUl, TYPE_DRAFT);
     }
 
     @Test
     @DisplayName("Фильтрация по жизненной ситуации на странице Мои жалобы для Физических Лиц")
-    public void shouldFilterSituationsAppealForFL() {
+    public void checkFilterSituationsAppealFL() {
         getSituationsFilter(accTValueFl, TYPE_APPEAL);
     }
 
     @Test
     @DisplayName("Фильтрация по жизненной ситуации на странице Мои черновики для Физических Лиц")
-    public void shouldFilterSituationsDraftForFL() {
+    public void checkFilterSituationsDraftFL() {
         getSituationsFilter(accTValueFl, TYPE_DRAFT);
     }
 
     @Test
     @DisplayName("Фильтрация по жизненной ситуации на странице Мои жалобы для Индивидуальных Предпринимателей")
-    public void shouldFilterSituationsAppealForIP() {
+    public void checkFilterSituationsAppealIP() {
         getSituationsFilter(accTValueIp, TYPE_APPEAL);
     }
 
     @Test
     @DisplayName("Фильтрация по жизненной ситуации на странице Мои черновики для Индивидуальных Предпринимателей")
-    public void shouldFilterSituationsDraftForIP() {
+    public void checkFilterSituationsDraftIP() {
         getSituationsFilter(accTValueIp, TYPE_DRAFT);
     }
+
 }
 
 

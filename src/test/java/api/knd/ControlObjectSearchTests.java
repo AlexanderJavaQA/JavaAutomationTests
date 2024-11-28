@@ -29,19 +29,19 @@ public class ControlObjectSearchTests extends BaseApiTests {
 
     @Test
     @DisplayName("Проверка поиска объектов контроля для ЮЛ")
-    public void shouldSearchControlObjectsForUL() {
+    public void checkSearchControlObjectsUL() {
         searchControlObjects(accTValueUl);
     }
 
     @Test
     @DisplayName("Проверка поиска объектов контроля для ФЛ")
-    public void shouldSearchControlObjectsForFL() {
+    public void checkSearchControlObjectsFL() {
         searchControlObjects(accTValueFl);
     }
 
     @Test
     @DisplayName("Проверка поиска объектов контроля для ИП")
-    public void shouldSearchControlObjectsForIP() {
+    public void checkSearchControlObjectsIP() {
         searchControlObjects(accTValueIp);
     }
 }

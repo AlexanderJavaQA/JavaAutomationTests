@@ -21,15 +21,4 @@ public class Sort{
 	@JsonProperty("empty")
 	private boolean empty;
 
-	public boolean isUnsorted(){
-		return unsorted;
-	}
-
-	public boolean isSorted(){
-		return sorted;
-	}
-
-	public boolean isEmpty(){
-		return empty;
-	}
 }

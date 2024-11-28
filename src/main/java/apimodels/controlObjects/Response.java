@@ -46,47 +46,4 @@ public class Response{
 	@JsonProperty("empty")
 	private boolean empty;
 
-	public int getNumber(){
-		return number;
-	}
-
-	public boolean isLast(){
-		return last;
-	}
-
-	public int getSize(){
-		return size;
-	}
-
-	public int getNumberOfElements(){
-		return numberOfElements;
-	}
-
-	public int getTotalPages(){
-		return totalPages;
-	}
-
-	public Pageable getPageable(){
-		return pageable;
-	}
-
-	public Sort getSort(){
-		return sort;
-	}
-
-	public boolean isFirst(){
-		return first;
-	}
-
-	public List<ContentItem> getContent(){
-		return content;
-	}
-
-	public int getTotalElements(){
-		return totalElements;
-	}
-
-	public boolean isEmpty(){
-		return empty;
-	}
 }

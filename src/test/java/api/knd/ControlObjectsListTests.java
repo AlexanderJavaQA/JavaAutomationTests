@@ -12,19 +12,19 @@ public class ControlObjectsListTests extends BaseApiTests {
 
     @Test
     @DisplayName("Проверка получения объектов контроля для ЮЛ")
-    public void shouldRetrieveControlObjectsForUL() {
+    public void checkRetrieveControlObjectsUL() {
         getAllControlObjects(accTValueUl);
     }
 
     @Test
     @DisplayName("Проверка получения объектов контроля для ФЛ")
-    public void shouldRetrieveControlObjectsForFL() {
+    public void checkRetrieveControlObjectsFL() {
         getAllControlObjects(accTValueFl);
     }
 
     @Test
     @DisplayName("Проверка получения объектов контроля для ИП")
-    public void shouldRetrieveControlObjectsForIP() {
+    public void checkRetrieveControlObjectsIP() {
         getAllControlObjects(accTValueIp);
     }
 

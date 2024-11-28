@@ -1,6 +1,6 @@
 package api;
 
-import apimodels.erknm.PMInspectionDetailsCardPojo;
+import apimodels.erknm.PMInspectionDetailsCard;
 
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
@@ -9,7 +9,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class PMDetailsCardService {
 
-    public static PMInspectionDetailsCardPojo getPMInspectionDetailsCard(String accTValue, String erknmId, String jsonSchema ) {
+    public static PMInspectionDetailsCard getPMInspectionDetailsCard(String accTValue, String erknmId, String jsonSchema ) {
 
         installSpec (requestSpec(), responseSpecOK());
 
@@ -20,7 +20,7 @@ public class PMDetailsCardService {
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath(""+jsonSchema+""))
-                .extract().response().as(PMInspectionDetailsCardPojo.class);
+                .extract().response().as(PMInspectionDetailsCard.class);
 
     }
 }

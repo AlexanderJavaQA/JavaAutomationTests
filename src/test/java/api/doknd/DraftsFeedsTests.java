@@ -24,20 +24,21 @@ public class DraftsFeedsTests extends BaseApiTests {
 
 
     @Test
-    @DisplayName("Проверка отображения списка черновиков Ленты уведомлений для Юридических Лиц")
-    public void shouldDisplayDraftsListForUL() {
+    @DisplayName("Проверка отображения списка черновиков для Юридических Лиц")
+    public void checkDisplayDraftsUL() {
         getFeedsService(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка отображения списка черновиков Ленты уведомлений для Физических Лиц")
-    public void shouldDisplayDraftsListForFL() {
+    @DisplayName("Проверка отображения списка черновиков для Физических Лиц")
+    public void checkDisplayDraftsFL() {
         getFeedsService(accTValueFl);
     }
 
     @Test
-    @DisplayName("Проверка отображения списка черновиков Ленты уведомлений для Индивидуальных Предпринимателей")
-    public void shouldDisplayDraftsListForIP() {
+    @DisplayName("Проверка отображения списка черновиков для Индивидуальных Предпринимателей")
+    public void checkDisplayDraftsIP() {
         getFeedsService(accTValueIp);
     }
+
 }

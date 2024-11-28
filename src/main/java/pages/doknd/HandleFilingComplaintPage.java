@@ -103,23 +103,22 @@ public class HandleFilingComplaintPage {
                         .scrollButtonSend()
                         .clickButtonSend()
                         .clickLinkComplaintDetails();
-                complaintProgressPage.fetchOrderId(); // Добавляем вызов fetchOrderId()
-                newOrderId = complaintProgressPage.getNewOrderId(); // Сохраняем orderId            case "UNEP":
+                break;
+            case "UNEP":
             case "UKEPGK":
                 signingComplaintPage.scrollButtonSend()
                         .clickButtonSend()
                         .clickLinkComplaintDetails();
-                complaintProgressPage.fetchOrderId(); // Добавляем вызов fetchOrderId()
-                newOrderId = complaintProgressPage.getNewOrderId(); // Сохраняем orderId                break;
+                            break;
             case "PEP":
                 signingComplaintPage.clickButtonSignAndSend()
                         .clickLinkComplaintDetails();
-                complaintProgressPage.fetchOrderId(); // Добавляем вызов fetchOrderId()
-                newOrderId = complaintProgressPage.getNewOrderId(); // Сохраняем orderId
+
                 break;
             default:
                 throw new IllegalArgumentException("Unknown signature type: " + selectSignature);
         }
+        newOrderId = complaintProgressPage.fetchOrderId();
     }
 
 

@@ -29,21 +29,22 @@ public class ControlObjectCardTests extends BaseApiTests {
     }
 
     @Test
-    @DisplayName("Проверка открытия каждой карточки объектов контроля для ЮЛ")
-    public void shouldVerifyControlObjectCardsForUL() {
+    @DisplayName("Проверка открытия карточек объектов контроля для Юридических Лиц")
+    public void checkControlObjectCardsUL() {
         verifyControlObjectCards(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка открытия каждой карточки объектов контроля для ФЛ")
-    public void shouldVerifyControlObjectCardsForFL() {
+    @DisplayName("Проверка открытия карточек объектов контроля для Физических Лиц")
+    public void checkControlObjectCardsFL() {
         verifyControlObjectCards(accTValueFl);
     }
 
     @Test
-    @DisplayName("Проверка открытия каждой карточки объектов контроля для ИП")
-    public void shouldVerifyControlObjectCardsForIP() {
+    @DisplayName("Проверка открытия карточек объектов контроля для Индивидуальных Предпринимателей")
+    public void checkControlObjectCardsIP() {
         verifyControlObjectCards(accTValueIp);
     }
+
 
 }

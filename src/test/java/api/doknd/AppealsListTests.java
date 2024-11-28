@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Проверка отображения и сортировки списка жалоб")
 public class AppealsListTests extends BaseApiTests {
 
-    public void shouldSearchAppeals(String accTValue, Function<ItemsItem, String> getField, String errorMessage) {
+    public void checkAppealsSearch(String accTValue, Function<ItemsItem, String> getField, String errorMessage) {
         List<ItemsItem> appealLists = getAppealsList(accTValue, SORT_ORDER_DESC).getItems();
 
         List<String> values = appealLists.stream()
@@ -39,20 +39,15 @@ public class AppealsListTests extends BaseApiTests {
                     .collect(Collectors.toList());
 
             for (String testValue : valuesFromApi) {
-                assertTrue(testValue.contains(value),
-                        errorMessage);
+                assertTrue(testValue.contains(value), errorMessage);
             }
         }
     }
 
     /**
-     * Метод verifyAppealsSearchByCheckNumber проверяет, что поиск жалоб по номеру проверки работает корректно для заданного значения `accTValue`.
-     * Для каждой жалобы из списка выполняется API-запрос поиска по номеру проверки, и проверяется, что
-     * в результатах поиска содержится искомый номер проверки (через проверку `contains`).
-     *
-     * @param accTValue тип учетной записи (например, Юридическое Лицо, Индивидуальный Предприниматель, Физическое Лицо)
+     * Проверяет корректность поиска жалоб по номеру проверки для заданного значения `accTValue`.
      */
-    public void verifyAppealsSearchByCheckNumber(String accTValue) {
+    public void checkSearchByCheckNumber(String accTValue) {
         List<ItemsItem> appealLists = getAppealsList(accTValue, SORT_ORDER_DESC).getItems();
         List<String> checkNumbers = appealLists.stream()
                 .filter(x -> x.getData() != null && x.getData().getCheckNumber() != null)
@@ -68,13 +63,13 @@ public class AppealsListTests extends BaseApiTests {
                     "Проверяем, что в результатах поиска API присутствует номер проверки, который содержит искомое значение checkNumber");
         }
 
-        shouldSearchAppeals(accTValue, ItemsItem::getExtId, "error");
+        checkAppealsSearch(accTValue, ItemsItem::getExtId, "error");
     }
 
-    public void verifyAppealsSearchByControlNamee(String accTValue) {
+    public void checkSearchByControlName(String accTValue) {
         List<ItemsItem> appealLists = getAppealsList(accTValue, SORT_ORDER_DESC).getItems();
         List<String> controlNames = appealLists.stream()
-                .filter(x -> x.getData() != null && x.getData().getControlName() != null) // Фильтруем элементы, у которых checkNumber не равен null
+                .filter(x -> x.getData() != null && x.getData().getControlName() != null)
                 .map(x -> x.getData().getControlName()).collect(Collectors.toList());
 
         for (String controlName : controlNames) {
@@ -87,10 +82,10 @@ public class AppealsListTests extends BaseApiTests {
         }
     }
 
-    public void verifyAppealsSearchByKnoName(String accTValue) {
+    public void checkSearchByKnoName(String accTValue) {
         List<ItemsItem> appealLists = getAppealsList(accTValue, SORT_ORDER_DESC).getItems();
         List<String> knoNames = appealLists.stream()
-                .filter(x -> x.getData() != null && x.getData().getKnoName() != null) // Фильтруем элементы, у которых checkNumber не равен null
+                .filter(x -> x.getData() != null && x.getData().getKnoName() != null)
                 .map(x -> x.getData().getKnoName()).collect(Collectors.toList());
 
         for (String knoName : knoNames) {
@@ -103,7 +98,7 @@ public class AppealsListTests extends BaseApiTests {
         }
     }
 
-    public void verifyStatusCodeNotZeroForDescendingOrderAppeals(String accTValue) {
+    public void checkStatusCodeNotZeroForDescOrder(String accTValue) {
         List<ItemsItem> appealLists = getAppealsList(accTValue, SORT_ORDER_DESC).getItems();
         List<String> extIds = appealLists.stream()
                 .map(ItemsItem::getExtId)
@@ -119,49 +114,48 @@ public class AppealsListTests extends BaseApiTests {
     }
 
     @Test
-    @DisplayName("Проверка, что statusCode не равен нулю в разделе Мои жалобы для Юридического лица")
-    public void shouqwldVerifyApplsListIsSortedInAscendingOrderUL() {
-        verifyStatusCodeNotZeroForDescendingOrderAppeals(accTValueUl);
+    @DisplayName("Проверка, что statusCode не равен нулю для Юридического лица")
+    public void checkStatusCodeNotZeroUL() {
+        checkStatusCodeNotZeroForDescOrder(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка, что statusCode не равен нулю в разделе Мои жалобы для Индивидульного предпиринимателя")
-    public void shouqwldVerifyApplsListIsSortedInAscendingOrderIP() {
-        verifyStatusCodeNotZeroForDescendingOrderAppeals(accTValueIp);
+    @DisplayName("Проверка, что statusCode не равен нулю для Индивидуального предпринимателя")
+    public void checkStatusCodeNotZeroIP() {
+        checkStatusCodeNotZeroForDescOrder(accTValueIp);
     }
 
     @Test
-    @DisplayName("Проверка, что statusCode не равен нулю в разделе Мои жалобы для Физического лица")
-    public void shouqwldVerifyApplsListIsSortedInAscendingOrderFL() {
-        verifyStatusCodeNotZeroForDescendingOrderAppeals(accTValueFl);
+    @DisplayName("Проверка, что statusCode не равен нулю для Физического лица")
+    public void checkStatusCodeNotZeroFL() {
+        checkStatusCodeNotZeroForDescOrder(accTValueFl);
     }
 
     @Test
-    @DisplayName("Проверка поиска жалоб по номеру проверки, КНО и ВК для Юридических Лиц по возрастанию")
-    public void verifyAppealsSortedAscUL() {
-        verifyAppealsSearchByCheckNumber(accTValueUl);
-        verifyAppealsSearchByKnoName(accTValueUl);
-        verifyAppealsSearchByControlNamee(accTValueUl);
+    @DisplayName("Проверка поиска жалоб по номеру проверки, КНО и ВК для Юридических Лиц")
+    public void checkAppealsSearchUL() {
+        checkSearchByCheckNumber(accTValueUl);
+        checkSearchByKnoName(accTValueUl);
+        checkSearchByControlName(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка поиска жалоб по номеру проверки, КНО и ВК для Индивидуальных Предпринимателей по возрастанию")
-    public void verifyAppealsSortedAscIP() {
-        verifyAppealsSearchByCheckNumber(accTValueIp);
-        verifyAppealsSearchByKnoName(accTValueIp);
-        verifyAppealsSearchByControlNamee(accTValueIp);
+    @DisplayName("Проверка поиска жалоб по номеру проверки, КНО и ВК для Индивидуальных Предпринимателей")
+    public void checkAppealsSearchIP() {
+        checkSearchByCheckNumber(accTValueIp);
+        checkSearchByKnoName(accTValueIp);
+        checkSearchByControlName(accTValueIp);
     }
 
     @Test
-    @DisplayName("Проверка поиска жалоб по номеру проверки, КНО и ВК для Физических Лиц по возрастанию")
-    public void verifyAppealsSortedAscFL() {
-        verifyAppealsSearchByCheckNumber(accTValueFl);
-        verifyAppealsSearchByKnoName(accTValueFl);
-        verifyAppealsSearchByControlNamee(accTValueFl);
+    @DisplayName("Проверка поиска жалоб по номеру проверки, КНО и ВК для Физических Лиц")
+    public void checkAppealsSearchFL() {
+        checkSearchByCheckNumber(accTValueFl);
+        checkSearchByKnoName(accTValueFl);
+        checkSearchByControlName(accTValueFl);
     }
 
-
-    public void shouldVerifyAppealsListIsSortedInDescendingOrder(String accTValue) {
+    public void checkAppealsListSortedDesc(String accTValue) {
         List<ItemsItem> appealLists = getAppealsList(accTValue, SORT_ORDER_DESC).getItems();
         List<String> dates = appealLists.stream()
                 .map(ItemsItem::getDate)
@@ -173,7 +167,7 @@ public class AppealsListTests extends BaseApiTests {
         assertTrue(dates.equals(sortedDates));
     }
 
-    public void shouldVerifyAppealsListIsSortedInAscendingOrder(String accTValue) {
+    public void checkAppealsListSortedAsc(String accTValue) {
         List<ItemsItem> appealLists = getAppealsList(accTValue, SORT_ORDER_ASC).getItems();
         List<String> dates = appealLists.stream()
                 .map(ItemsItem::getDate)
@@ -186,56 +180,57 @@ public class AppealsListTests extends BaseApiTests {
     }
 
     @Test
-    @DisplayName("Проверка сортировки списка жалоб для Юридических Лиц по возрастанию")
-    public void shouldVerifyAppealsListIsSortedInAscendingOrderUL() {
-        shouldVerifyAppealsListIsSortedInAscendingOrder(accTValueUl);
+    @DisplayName("Проверка сортировки списка жалоб по возрастанию для Юридических Лиц")
+    public void checkAppealsListSortedAscUL() {
+        checkAppealsListSortedAsc(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка сортировки списка жалоб для Индивидуальных Предпринимателей по возрастанию")
-    public void shouldVerifyAppealsListIsSortedInAscendingOrderIP() {
-        shouldVerifyAppealsListIsSortedInAscendingOrder(accTValueIp);
+    @DisplayName("Проверка сортировки списка жалоб по возрастанию для Индивидуальных Предпринимателей")
+    public void checkAppealsListSortedAscIP() {
+        checkAppealsListSortedAsc(accTValueIp);
     }
 
     @Test
-    @DisplayName("Проверка сортировки списка жалоб для Физических Лиц по возрастанию")
-    public void shouldVerifyAppealsListIsSortedInAscendingOrderFL() {
-        shouldVerifyAppealsListIsSortedInAscendingOrder(accTValueFl);
+    @DisplayName("Проверка сортировки списка жалоб по возрастанию для Физических Лиц")
+    public void checkAppealsListSortedAscFL() {
+        checkAppealsListSortedAsc(accTValueFl);
     }
 
     @Test
-    @DisplayName("Проверка сортировки списка жалоб для Юридических Лиц по убыванию")
-    public void shouldVerifyAppealsListIsSortedInDescendingOrderUL() {
-        shouldVerifyAppealsListIsSortedInDescendingOrder(accTValueUl);
+    @DisplayName("Проверка сортировки списка жалоб по убыванию для Юридических Лиц")
+    public void checkAppealsListSortedDescUL() {
+        checkAppealsListSortedDesc(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка сортировки списка жалоб для Индивидуальных Предпринимателей по убыванию")
-    public void shouldVerifyAppealsListIsSortedInDescendingOrderIP() {
-        shouldVerifyAppealsListIsSortedInDescendingOrder(accTValueIp);
+    @DisplayName("Проверка сортировки списка жалоб по убыванию для Индивидуальных Предпринимателей")
+    public void checkAppealsListSortedDescIP() {
+        checkAppealsListSortedDesc(accTValueIp);
     }
 
     @Test
-    @DisplayName("Проверка сортировки списка жалоб для Физических Лиц по убыванию")
-    public void shouldVerifyAppealsListIsSortedInDescendingOrderFL() {
-        shouldVerifyAppealsListIsSortedInDescendingOrder(accTValueFl);
+    @DisplayName("Проверка сортировки списка жалоб по убыванию для Физических Лиц")
+    public void checkAppealsListSortedDescFL() {
+        checkAppealsListSortedDesc(accTValueFl);
     }
 
     @Test
     @DisplayName("Проверка отображения списка жалоб для Юридических Лиц")
-    public void shouldDisplayAppealsListForUL() {
+    public void checkDisplayAppealsListUL() {
         getAppealsList(accTValueUl, SORT_ORDER_DESC);
     }
 
     @Test
     @DisplayName("Проверка отображения списка жалоб для Физических Лиц")
-    public void shouldDisplayAppealsListForFL() {
+    public void checkDisplayAppealsListFL() {
         getAppealsList(accTValueFl, SORT_ORDER_DESC);
     }
 
     @Test
     @DisplayName("Проверка отображения списка жалоб для Индивидуальных Предпринимателей")
-    public void shouldDisplayAppealsListForIP() {
+    public void checkDisplayAppealsListIP() {
         getAppealsList(accTValueIp, SORT_ORDER_DESC);
     }
+
 }

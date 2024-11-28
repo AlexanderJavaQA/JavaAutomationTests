@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class InspectionDocsTemplatesPojo {
+public class InspectionDocsTemplates {
 
 
     public List<Item> items;

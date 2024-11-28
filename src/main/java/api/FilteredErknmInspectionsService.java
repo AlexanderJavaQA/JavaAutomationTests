@@ -1,6 +1,6 @@
 package api;
 
-import apimodels.erknm.ErknmFiltersPojo;
+import apimodels.erknm.ErknmFilters;
 
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
@@ -9,7 +9,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class FilteredErknmInspectionsService {
 
-    public static ErknmFiltersPojo getFilteredErknmInspections(String accTValue) {
+    public static ErknmFilters getFilteredErknmInspections(String accTValue) {
 
         installSpec (requestSpec(), responseSpecOK());
 
@@ -19,7 +19,7 @@ public class FilteredErknmInspectionsService {
                 .get("/api/knd/v2/inspection/erknm/filters")
                 .then()
                 .body(matchesJsonSchemaInClasspath("jsonschema/erknm_filters_schema.json"))
-                .extract().response().as(ErknmFiltersPojo.class);
+                .extract().response().as(ErknmFilters.class);
     }
 }
 

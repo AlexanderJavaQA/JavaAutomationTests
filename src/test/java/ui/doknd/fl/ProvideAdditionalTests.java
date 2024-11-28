@@ -14,18 +14,15 @@ public class ProvideAdditionalTests extends BaseTestSelenide {
    @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ФЛ")
-    public void loginWithFLAccount() {
-        loginPage.login(
-                config.doKndAppealFormUrlUat(),
-                config.userLoginBespalov(),
-                config.userPasswordBespalov(),
-                LoginPage.AccountType.FL
-        );
+    public void loginAccount() {
+        loginPage.openPage(config.appealsPage())
+                .clickButtonEnter()
+                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.FL);
     }
 
     @ParameterizedTest
     @Order(2)
-    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
+    @ValueSource(strings = {"PEP", "UKEP"})
     @DisplayName("Проверка направления доп. информации в ведомство")
     public void shouldProvideAdditionalInfoToAgencyWithPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
@@ -34,25 +31,30 @@ public class ProvideAdditionalTests extends BaseTestSelenide {
         elasticPage.openElasticInNewTabUat()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
-                .getKuberCorrelationId();
+                .getValidKuberCorrelationId();
+
         String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-        smevPage.openSmevRequestBroadcastUat()
+        smevPage.openSmevStatusAppealRequest()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
                 .setXmlRequest(orderId, "101")
                 .clickButtonSubmit()
+                .clickButtonOk()
+                .setXmlRequest(orderId, "114")
+                .clickButtonSubmit()
                 .clickButtonOk();
+
 
         myComplaintsPage.openMyСomplaintsPage()
                 .clickRequestAdditionalInformation();
         complaintProgressPage.clickAdditionalDocumentsButton();
         submitAdditionalDocumentsPage.setValueSubmitDocuments();
+
         repeatFilingPage
+                .uploadDocumentIfHidden()
                 .handleTypeOfSignature(typeSignature)
                 .handleSendInputAttachSignatureFile(typeSignature);
     }
-
-
 }

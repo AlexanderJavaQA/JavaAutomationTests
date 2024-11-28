@@ -1,6 +1,7 @@
 package pages.doknd;
 
 import appconfig.AppConfig;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import lombok.Data;
@@ -9,10 +10,11 @@ import org.openqa.selenium.WindowType;
 import springjdbc.postgres.DataAccessObjectPostgres;
 import springjdbc.postgres.DatabaseConnectPostgres;
 
+import java.util.Optional;
+
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 import static org.aeonbits.owner.ConfigFactory.create;
 
 @Data
@@ -25,11 +27,11 @@ public class ElasticPage {
     private SelenideElement updateButton = $x("//button[@class='euiButton euiButton--success euiButton--fill euiSuperUpdateButton']//span[@class='euiButtonContent euiButton__content']//*[name()='svg']");
 
     // Ячейка, отображающая найденный Correlation ID на дашборде Elastic
-    private SelenideElement correlationIdCell = $x("//td[@class='kbnDocTableCell__dataField eui-textBreakAll eui-textBreakWord']");
+    private ElementsCollection correlationIdCells = $$x("//td[@class='kbnDocTableCell__dataField eui-textBreakAll eui-textBreakWord']");
 
     AppConfig config = create(AppConfig.class);
 
-    private String newCorrelationId;
+    private String сorrelationId;
     private String newSmevMessageId;
 
     public ElasticPage setOrderIdInQueryInput(String orderId) {
@@ -42,9 +44,20 @@ public class ElasticPage {
         return this;
     }
 
-    public String getKuberCorrelationId() {
-        System.out.println("Correlation ID: " + (newCorrelationId = correlationIdCell.shouldBe(visible).text()));
-        return newCorrelationId;
+    public String getValidKuberCorrelationId() {
+        correlationIdCells.get(0).shouldBe(visible);
+        сorrelationId = correlationIdCells.stream()
+                .map(cell -> cell.shouldBe(visible).text())
+                .peek(cell -> {
+                    if ("-".equals(cell)) {
+                        System.out.println("Found invalid Correlation ID: " + cell);
+                    }
+                })
+                .filter(correlationId -> correlationId != null && !correlationId.equals("-")) // Фильтруем валидные значения
+                .findFirst() // Находим первое подходящее значение
+                .orElseThrow(() -> new IllegalStateException("Valid Correlation ID not found!")); // Если ничего не найдено, выбрасываем исключение
+
+        return сorrelationId;
     }
 
     public void switchToNewTab() {
@@ -54,23 +67,16 @@ public class ElasticPage {
 
     public ElasticPage openElasticInNewTabUat() {
         switchToNewTab();
-        open(config.kuberDiscoverUrlUat());
-        return this;
-    }
-
-    public ElasticPage openElasticInNewTabDev2() {
-        switchToNewTab();
-        open(config.kuberDiscoverUrlDev2());
+        open(config.kibanaDiscoverPage());
         return this;
     }
 
     public String getSmevMessageIdByCorrelation() {
         newSmevMessageId = String.valueOf(
                 new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat())
-                        .findMessageIdsByCorrelation(newCorrelationId).get(0));
+                        .findMessageIdsByCorrelation(сorrelationId).get(0));
 
         System.out.println("SMEV Message ID: " + newSmevMessageId);
         return newSmevMessageId;
     }
-
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Data
 @Builder
-public class PMInspectionDetailsCardPojo {
+public class PMInspectionDetailsCard {
 
     public String statusName;
     public String erknmId;

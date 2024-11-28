@@ -11,14 +11,15 @@ import static api.BusinessActivityListService.getObjectsOfBusinessActivityList;
 public class ObjectsOfBusinessActivityListTests extends BaseApiTests{
 
     @Test
-    @DisplayName("Проверка получения объектов предпринимательской деятельности для ЮЛ")
-    public void ObjectsOfBusinessActivityListTestUL() {
+    @DisplayName("Проверка получения объектов предпринимательской деятельности для Юридических Лиц")
+    public void checkBusinessActivityObjectsUL() {
         getObjectsOfBusinessActivityList(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка получения объектов предпринимательской деятельности для ИП")
-    public void ObjectsOfBusinessActivityListTestIP() {
+    @DisplayName("Проверка получения объектов предпринимательской деятельности для Индивидуальных Предпринимателей")
+    public void checkBusinessActivityObjectsIP() {
         getObjectsOfBusinessActivityList(accTValueIp);
     }
+
 }

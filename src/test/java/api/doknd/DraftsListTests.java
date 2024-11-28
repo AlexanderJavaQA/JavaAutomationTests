@@ -20,9 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DraftsListTests extends BaseApiTests {
 
 
-
-
-    public void shouldVerifyDraftsListIsSortedInDescendingOrder(String accTValue) {
+    public void checkDraftsSortedDesc(String accTValue) {
         List<ItemsItem> dateLists = getDraftsList(accTValue, SORT_ORDER_DESC).getItems();
         List<String> dates = dateLists.stream()
                 .map(ItemsItem::getDate)
@@ -34,7 +32,7 @@ public class DraftsListTests extends BaseApiTests {
         assertTrue(dates.equals(sortedDates));
     }
 
-    public void shouldVerifyDraftsListIsSortedInAscendingOrder(String accTValue) {
+    public void checkDraftsSortedAsc(String accTValue) {
         List<ItemsItem> dateLists = getDraftsList(accTValue, SORT_ORDER_ASC).getItems();
         List<String> dates = dateLists.stream()
                 .map(ItemsItem::getDate)
@@ -46,8 +44,7 @@ public class DraftsListTests extends BaseApiTests {
         assertTrue(dates.equals(sortedDates));
     }
 
-
-    public void verifyStatusCodeEqualsZeroForAscendingOrderDrafts(String accTValue) {
+    public void checkStatusCodeZeroForDrafts(String accTValue) {
         List<ItemsItem> dateLists = getDraftsList(accTValue, SORT_ORDER_ASC).getItems();
         List<String> extIds = dateLists.stream()
                 .map(ItemsItem::getExtId)
@@ -62,75 +59,75 @@ public class DraftsListTests extends BaseApiTests {
     }
 
     @Test
-    @DisplayName("Проверка, что statusCode равен нулю в разделе Мои черновики для Юридического лица")
-    public void shouqwldVerifyApplsListIsSortedInAscendingOrderUL() {
-        verifyStatusCodeEqualsZeroForAscendingOrderDrafts(accTValueUl);
+    @DisplayName("Проверка, что statusCode равен нулю для Юридического лица")
+    public void checkStatusCodeZeroUL() {
+        checkStatusCodeZeroForDrafts(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка, что statusCode равен нулю в разделе Мои черновики для Индивидульного предпиринимателя")
-    public void shouqwldVerifyApplsListIsSortedInAscendingOrderIP() {
-        verifyStatusCodeEqualsZeroForAscendingOrderDrafts(accTValueIp);
+    @DisplayName("Проверка, что statusCode равен нулю для Индивидуального предпринимателя")
+    public void checkStatusCodeZeroIP() {
+        checkStatusCodeZeroForDrafts(accTValueIp);
     }
 
     @Test
-    @DisplayName("Проверка, что statusCode равен нулю в разделе Мои черновики для Физического лица")
-    public void shouqwldVerifyApplsListIsSortedInAscendingOrderFL() {
-        verifyStatusCodeEqualsZeroForAscendingOrderDrafts(accTValueFl);
-    }
-
-
-    @Test
-    @DisplayName("Проверка сортировки черновиков для Юридических Лиц по возрастанию")
-    public void shouldVerifyDraftsSortedAscUL() {
-        shouldVerifyDraftsListIsSortedInAscendingOrder(accTValueUl);
+    @DisplayName("Проверка, что statusCode равен нулю для Физического лица")
+    public void checkStatusCodeZeroFL() {
+        checkStatusCodeZeroForDrafts(accTValueFl);
     }
 
     @Test
-    @DisplayName("Проверка сортировки черновиков для Индивидуальных Предпринимателей по возрастанию")
-    public void shouldVerifyDraftsSortedAscIP() {
-        shouldVerifyDraftsListIsSortedInAscendingOrder(accTValueIp);
+    @DisplayName("Проверка сортировки черновиков по возрастанию для Юридических Лиц")
+    public void checkDraftsSortedAscUL() {
+        checkDraftsSortedAsc(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка сортировки черновиков для Физических Лиц по возрастанию")
-    public void shouldVerifyDraftsSortedAscFL() {
-        shouldVerifyDraftsListIsSortedInAscendingOrder(accTValueFl);
+    @DisplayName("Проверка сортировки черновиков по возрастанию для Индивидуальных Предпринимателей")
+    public void checkDraftsSortedAscIP() {
+        checkDraftsSortedAsc(accTValueIp);
     }
 
     @Test
-    @DisplayName("Проверка сортировки черновиков для Юридических Лиц по убыванию")
-    public void shouldVerifyDraftsSortedDescUL() {
-        shouldVerifyDraftsListIsSortedInDescendingOrder(accTValueUl);
+    @DisplayName("Проверка сортировки черновиков по возрастанию для Физических Лиц")
+    public void checkDraftsSortedAscFL() {
+        checkDraftsSortedAsc(accTValueFl);
     }
 
     @Test
-    @DisplayName("Проверка сортировки черновиков для Индивидуальных Предпринимателей по убыванию")
-    public void shouldVerifyDraftsSortedDescIP() {
-        shouldVerifyDraftsListIsSortedInDescendingOrder(accTValueIp);
+    @DisplayName("Проверка сортировки черновиков по убыванию для Юридических Лиц")
+    public void checkDraftsSortedDescUL() {
+        checkDraftsSortedDesc(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка сортировки черновиков для Физических Лиц по убыванию")
-    public void shouldVerifyDraftsSortedDescFL() {
-        shouldVerifyDraftsListIsSortedInDescendingOrder(accTValueFl);
+    @DisplayName("Проверка сортировки черновиков по убыванию для Индивидуальных Предпринимателей")
+    public void checkDraftsSortedDescIP() {
+        checkDraftsSortedDesc(accTValueIp);
+    }
+
+    @Test
+    @DisplayName("Проверка сортировки черновиков по убыванию для Физических Лиц")
+    public void checkDraftsSortedDescFL() {
+        checkDraftsSortedDesc(accTValueFl);
     }
 
     @Test
     @DisplayName("Проверка отображения списка черновиков для Юридических Лиц")
-    public void shouldDisplayDraftsListForUL() {
+    public void checkDisplayDraftsUL() {
         getDraftsList(accTValueUl, SORT_ORDER_DESC);
     }
 
     @Test
     @DisplayName("Проверка отображения списка черновиков для Физических Лиц")
-    public void shouldDisplayDraftsListForFL() {
+    public void checkDisplayDraftsFL() {
         getDraftsList(accTValueFl, SORT_ORDER_DESC);
     }
 
     @Test
-    @DisplayName("Проверка отображения списка черновиков  для Индивидуальных Предпринимателей")
-    public void shouldDisplayDraftsListForIP() {
+    @DisplayName("Проверка отображения списка черновиков для Индивидуальных Предпринимателей")
+    public void checkDisplayDraftsIP() {
         getDraftsList(accTValueIp, SORT_ORDER_DESC);
     }
+
 }

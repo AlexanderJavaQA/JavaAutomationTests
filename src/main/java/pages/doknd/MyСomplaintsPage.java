@@ -22,7 +22,7 @@ public class MyСomplaintsPage {
     private AppConfig config = ConfigFactory.create(AppConfig.class);
 
     public MyСomplaintsPage openMyСomplaintsPage() {
-        open(config.kndAppealsAllUrlUat());
+        open(config.myAppealsPage());
         return this;
     }
 

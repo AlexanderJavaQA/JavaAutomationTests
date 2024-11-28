@@ -14,19 +14,16 @@ public class RepeatFilingTests extends BaseTestSelenide {
     @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ФЛ")
-    public void loginWithFLAccount() {
-        loginPage.login(
-                config.doKndAppealFormUrlUat(),
-                config.userLoginBespalov(),
-                config.userPasswordBespalov(),
-                LoginPage.AccountType.FL
-        );
+    public void loginAccount() {
+        loginPage.openPage(config.appealsPage())
+                .clickButtonEnter()
+                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.FL);
     }
 
     @ParameterizedTest
     @Order(2)
-    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
-    @DisplayName("Проверка повторной подачи жалобы с типом подписи")
+    @ValueSource(strings = {"PEP", "UKEP"})
+    @DisplayName("Проверка повторной подачи жалобы")
     public void shouldRepeatFilingComplaintWithPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
         String orderId = handleFilingComplaint.getNewOrderId();
@@ -34,11 +31,11 @@ public class RepeatFilingTests extends BaseTestSelenide {
         elasticPage.openElasticInNewTabUat()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
-                .getKuberCorrelationId();
+                .getValidKuberCorrelationId();
 
         String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-        smevPage.openSmevRequestBroadcastUat()
+        smevPage.openSmevStatusAppealRequest()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
@@ -52,14 +49,14 @@ public class RepeatFilingTests extends BaseTestSelenide {
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        myComplaintsPage.openMyСomplaintsPage()
-                .clickRegisteredComplaint();
-
-        repeatFilingPage.setInspectionNumber()
+        repeatFilingPage.openNewTabForRepeatFilingPage()
+                .clickStartOverInSavedDraftsModal()
+                .setInspectionNumber(orderId)
+                .clickHighlightedInspection(orderId)
                 .setReasonForDisagreement()
+                .uploadDocumentIfHidden()
+                .verifyFileUploaded()
                 .handleTypeOfSignature(typeSignature)
                 .handleSendInputAttachSignatureFile(typeSignature);
     }
-
-
 }

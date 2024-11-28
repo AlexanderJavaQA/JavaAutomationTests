@@ -12,19 +12,19 @@ import static api.KNMDetailsCardService.getKNMInspectionDetailsCard;
 public class KNMInspectionDetailsCardTests extends BaseApiTests {
     @Test
     @DisplayName("Проверка детальной карточки КНМ для ЮЛ")
-    public void shouldVerifyKNMInspectionDetailsCardForUL() {
+    public void checkVerifyKNMInspectionDetailsCardUL() {
         getKNMInspectionDetailsCard(accTValueUl, "02210861000100043073500", "jsonschema/knm_inspection_schema_ul.json");
     }
 
     @Test
     @DisplayName("Проверка детальной карточки КНМ для ИП")
-    public void shouldVerifyKNMInspectionDetailsCardForIP() {
+    public void checkVerifyKNMInspectionDetailsCardIP() {
         getKNMInspectionDetailsCard(accTValueIp, "0221086100010004307350", "jsonschema/knm_inspection_schema_ip.json");
     }
 
     @Test
     @DisplayName("Проверка детальной карточки КНМ для ФЛ")
-    public void shouldVerifyKNMInspectionDetailsCardForFL() {
+    public void checkVerifyKNMInspectionDetailsCardFL() {
         getKNMInspectionDetailsCard(accTValueFl, "0221086100010004307352", "jsonschema/knm_inspection_schema_fl.json");
     }
 

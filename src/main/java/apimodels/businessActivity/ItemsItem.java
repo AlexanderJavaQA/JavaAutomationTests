@@ -21,15 +21,5 @@ public class ItemsItem{
 	@JsonProperty("id")
 	private String id;
 
-	public String getAddress(){
-		return address;
-	}
 
-	public String getName(){
-		return name;
-	}
-
-	public String getId(){
-		return id;
-	}
 }

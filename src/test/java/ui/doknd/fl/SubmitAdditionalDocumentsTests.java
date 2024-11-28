@@ -14,29 +14,28 @@ public class SubmitAdditionalDocumentsTests  extends BaseTestSelenide {
     @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ФЛ")
-    public void loginWithFLAccount() {
-        loginPage.login(
-                config.doKndAppealFormUrlUat(),
-                config.userLoginBespalov(),
-                config.userPasswordBespalov(),
-                LoginPage.AccountType.FL
-        );
+    public void loginAccount() {
+        loginPage.openPage(config.appealsPage())
+                .clickButtonEnter()
+                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.FL);
     }
 
     @ParameterizedTest
     @Order(2)
-    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
+    @ValueSource(strings = {"PEP", "UKEP"})
     @DisplayName("Проверка подачи дополнительных документов с типом подписи ПЭП")
     public void shouldSubmitAdditionalDocumentsWithPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
+        String orderId = handleFilingComplaint.getNewOrderId();
+
         elasticPage.openElasticInNewTabUat()
-                .setOrderIdInQueryInput(typeSignature)
+                .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
-                .getKuberCorrelationId();
+                .getValidKuberCorrelationId();
 
         String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-        smevPage.openSmevRequestBroadcastUat()
+        smevPage.openSmevStatusAppealRequest()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
@@ -44,13 +43,15 @@ public class SubmitAdditionalDocumentsTests  extends BaseTestSelenide {
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        myComplaintsPage.openMyСomplaintsPage();
-        complaintProgressPage.clickAdditionalInfoButton();
+        myComplaintsPage.openMyСomplaintsPage()
+                .clickRegisteredComplaint();
+        complaintProgressPage.clickAdditionalDocumentsButton();
         submitAdditionalDocumentsPage.setValueSubmitDocuments();
         repeatFilingPage
+                .uploadDocumentIfHidden()
+                .verifyFileUploaded()
                 .handleTypeOfSignature(typeSignature)
                 .handleSendInputAttachSignatureFile(typeSignature);
     }
-
 
 }

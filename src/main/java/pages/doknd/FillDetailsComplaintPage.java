@@ -69,6 +69,17 @@ public class FillDetailsComplaintPage {
     // Опция для выбора усиленной неквалифицированной электронной подписи (УНЭП)
     private SelenideElement signatureUNEP = $x("//span[contains(text(),'Усиленная неквалифицированная электронная подпись ')]");
 
+    // XPath для пунктов выпадающего списка причины обжалования Объектов контроля
+    // Опция: "Не согласен с присвоенной категорией риска или классом опасности"
+    private SelenideElement disagreementOption = $x("//div[@role='option' and @itemid='0']//span[text()='Не согласен с присвоенной категорией риска или классом опасности']");
+
+    // Опция: "Неверные сведения об объекте контроля"
+    private SelenideElement incorrectInfoOption = $x("//div[@role='option' and @itemid='1']//span[text()='Неверные сведения об объекте контроля']");
+
+    // Опция: "Иное"
+    private SelenideElement otherOption = $x("//div[@role='option' and @itemid='2']//span[text()='Иное']");
+
+
     // Радиокнопка "Нет" для паузы исполнения
     private SelenideElement radioPauseExecutionNo = $x("//label[@for='app-radio-2']//div[@class='radio-button']");
 
@@ -280,12 +291,31 @@ public class FillDetailsComplaintPage {
         return this;
     }
 
+    public FillDetailsComplaintPage clickDisagreementOption() {
+        disagreementOption.shouldBe(visible, enabled).click();
+        return this;
+    }
+
+    public FillDetailsComplaintPage clickIncorrectInfoOption() {
+        incorrectInfoOption.shouldBe(visible, enabled).click();
+        return this;
+    }
+
+    public FillDetailsComplaintPage clickOtherOption() {
+        otherOption.shouldBe(visible, enabled).click();
+        return this;
+    }
+
+
     public FillDetailsComplaintPage handleRiskCategoriesDetails(String selectSignature) {
         scrollToInformerBanner();
         clickControlTypeDropdown();
         clickControlType(1);
         clickControlObjectDropdown();
         clickControlObject(0);
+        scrollToCenterAndClick(dropdownDisagreementReasonRiskCategory);
+        clickDisagreementOption();
+        scrollToCenterAndSetValue(textareaChangeControlObjectReasons);
         handleSignatureRiskCategories(selectSignature);
         continueAndSubmit(selectSignature);
 
@@ -302,35 +332,30 @@ public class FillDetailsComplaintPage {
     }
 
     public void handleSignatureRiskCategories(String selectSignature) {
-        scrollToCenterAndClick(dropdownSelectSupervisionType)
-                .scrollToCenterAndClick(textIncorrectControlObjectInfo)
-                .scrollToCenterAndSetValue(textareaChangeControlObjectReasons);
 
         switch (selectSignature) {
             case "UKEP":
-                scrollToCenterAndClick(dropdownElectronicSignatureType)
-                        .clickSignatureUKEP();
+                dropdownElectronicSignatureType.click();
+                        clickSignatureUKEP();
                 break;
 
             case "UKEPGK":
-                scrollToCenterAndClick(dropdownElectronicSignatureType)
-                        .clickSignatureUKEPGK();
+                dropdownElectronicSignatureType.click();
+                clickSignatureUKEPGK();
                 break;
 
             case "UNEP":
-                scrollToCenterAndClick(dropdownElectronicSignatureType)
-                        .clickSignatureUNEP();
+                dropdownElectronicSignatureType.click();
+                clickSignatureUNEP();
                 break;
-
-            default:
-                throw new IllegalArgumentException("Unknown signature type: " + selectSignature);
         }
     }
 
     private void continueAndSubmit(String selectSignature) {
+        buttonContinueForm.click();
         switch (selectSignature) {
             case "UKEP":
-                scrollToCenterAndClick(buttonContinueForm);
+
                 signingComplaintPage.scrollInputAttachSignatureFile()
                         .uploadSigFile()
                         .verifySigFileIsAttached()
@@ -343,7 +368,6 @@ public class FillDetailsComplaintPage {
 
             case "UNEP":
             case "UKEPGK":
-                scrollToCenterAndClick(buttonContinueForm);
 
                 signingComplaintPage
                         .scrollButtonSend()
@@ -353,7 +377,6 @@ public class FillDetailsComplaintPage {
                 break;
 
             case "PEP":
-                scrollToCenterAndClick(buttonContinueForm);
 
                 signingComplaintPage
                         .clickButtonSignAndSend()
@@ -361,8 +384,6 @@ public class FillDetailsComplaintPage {
                 complaintProgressPage.fetchOrderId();
                 break;
 
-            default:
-                throw new IllegalArgumentException("Unknown signature type: " + selectSignature);
         }
 
     }

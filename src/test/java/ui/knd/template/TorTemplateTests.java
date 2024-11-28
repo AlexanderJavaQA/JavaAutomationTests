@@ -27,8 +27,6 @@ public class TorTemplateTests  extends BaseTestSelenide {
                     .setSenderCode("MNSV08")
                     .clickButtonSubmit()
                     .checkResultModalIsVisible ();
-
-            String messageID = smevPage.getMessageIDFromModal();
                 }
     }
 

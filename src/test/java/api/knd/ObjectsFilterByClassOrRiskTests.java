@@ -61,19 +61,19 @@ public class ObjectsFilterByClassOrRiskTests extends BaseApiTests {
 
     @Test
     @DisplayName("Проверка фильтрации объектов контроля по категории риска или классу опасности для ЮЛ")
-    public void shouldFilterTypesOfControlForUL() {
+    public void checkFilterTypesOfControlUL() {
         shouldFilterTypesOfControl(accTValueUl);
     }
 
     @Test
     @DisplayName("Проверка фильтрации объектов контроля по категории риска или классу опасности для ФЛ")
-    public void shouldFilterTypesOfControlForFL() {
+    public void checkFilterTypesOfControlFL() {
         shouldFilterTypesOfControl(accTValueFl);
     }
 
     @Test
     @DisplayName("Проверка фильтрации объектов контроля по категории риска или классу опасности для ИП")
-    public void shouldFilterTypesOfControlForIP() {
+    public void checkFilterTypesOfControlIP() {
         shouldFilterTypesOfControl(accTValueIp);
     }
 

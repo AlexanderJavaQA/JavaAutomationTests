@@ -1,7 +1,5 @@
 package api;
 
-import apimodels.controlObjects.TypesOfContolPojo;
-import apimodels.erknm.ControlTypesResponse;
 import apimodels.erknm.ControlTypesResponseItem;
 import io.restassured.common.mapper.TypeRef;
 
@@ -9,7 +7,6 @@ import java.util.List;
 
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class TypesOfContolService {

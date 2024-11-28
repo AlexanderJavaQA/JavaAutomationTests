@@ -13,16 +13,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Проверка подачи жалобы для ИП")
 public class ComplaintFilingTests extends BaseTestSelenide {
+
     @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ИП")
-    public void loginWithIPAccount() {
-        loginPage.login(
-                config.doKndAppealFormUrlUat(),
-                config.userLoginBespalov(),
-                config.userPasswordBespalov(),
-                LoginPage.AccountType.IP
-        );
+    public void loginAccount() {
+        loginPage.openPage(config.appealsPage())
+                .clickButtonEnter()
+                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.IP);
     }
 
     @ParameterizedTest
@@ -93,7 +91,7 @@ public class ComplaintFilingTests extends BaseTestSelenide {
     @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
     @DisplayName("Проверка подачи жалобы на несогласие с предписанием по профвизиту ID_14")
     public void shouldSubmitComplaintForDisagreementPrescriptionID_14(String typeSignature) {
-        handleFilingComplaint.disagreeWithProfVisitPrescriptionID_14(typeSignature, "7723095770000380417012");
+        handleFilingComplaint.disagreeWithProfVisitPrescriptionID_14(typeSignature, "772309577000038041701");
     }
 
     @ParameterizedTest

@@ -16,7 +16,7 @@ import static api.ErknmInspectionSearchService.getErknmInspectionSearch;
 import static api.SearchForAppealService.getSearchForAppeal;
 
 @Tag("SmokeAPI")
-@DisplayName("Поиск ЕРКНМ проверок для досудебного оббжалования")
+@DisplayName("Поиск ЕРКНМ проверок для досудебного обжалования")
 public class SearchForAppealTests extends BaseApiTests {
     public static final String SORT_ORDER_DESC = "desc";
     public static final String SORT_ORDER_ASC = "asc";
@@ -31,7 +31,7 @@ public class SearchForAppealTests extends BaseApiTests {
             11,
             13);
 
-    public void searchKNMInspectionsForAppeals(String accTValue) {
+    public void checkKNMInspections(String accTValue) {
         List<SurveillanceItemsList> erknmInspectionsList = ErknmInspectionsListService.getErknmInspectionsList(accTValue, 50, SORT_ORDER_DESC, "KNM", "").getList();
         List<String> erknmIdList = erknmInspectionsList.stream()
                 .map(SurveillanceItemsList::getErknmId)
@@ -44,52 +44,51 @@ public class SearchForAppealTests extends BaseApiTests {
         }
     }
 
-    public void searchPMInspectionsForAppeals(String accTValue) {
+    public void checkPMInspections(String accTValue) {
         List<SurveillanceItemsList> erknmInspectionsList = ErknmInspectionSortService.getErknmInspectionsSort(accTValue, 50, SORT_ORDER_DESC, "PM").getList();
         List<String> pmIdList = erknmInspectionsList.stream()
                 .map(SurveillanceItemsList::getErknmId)
                 .collect(Collectors.toList());
 
-            for (String erknmId : pmIdList) {
-                getSearchForAppeal(accTValue, erknmId, "14");
-            }
-    }
-
-
-    @Test
-    @DisplayName("Поиск КНМ проверок для разных ЖС для ЮЛ")
-    public void shouldSearchKNMForUL() {
-        searchKNMInspectionsForAppeals(accTValueUl);
+        for (String erknmId : pmIdList) {
+            getSearchForAppeal(accTValue, erknmId, "14");
+        }
     }
 
     @Test
-    @DisplayName("Поиск КНМ проверок для разных ЖС для ФЛ")
-    public void shouldSearchKNMForFL() {
-        searchKNMInspectionsForAppeals(accTValueFl);
+    @DisplayName("Поиск КНМ проверок для Юридических Лиц")
+    public void checkKNMInspectionsUL() {
+        checkKNMInspections(accTValueUl);
     }
 
     @Test
-    @DisplayName("Поиск КНМ проверок для разных ЖС для индивидуальных предпринимателей")
-    public void shouldSearchKNMForIP() {
-        searchKNMInspectionsForAppeals(accTValueIp);
+    @DisplayName("Поиск КНМ проверок для Физических Лиц")
+    public void checkKNMInspectionsFL() {
+        checkKNMInspections(accTValueFl);
     }
 
     @Test
-    @DisplayName("Поиск профмероприятий для ЮЛ")
-    public void shouldSearchPMForUL() {
-        searchPMInspectionsForAppeals(accTValueUl);
+    @DisplayName("Поиск КНМ проверок для Индивидуальных Предпринимателей")
+    public void checkKNMInspectionsIP() {
+        checkKNMInspections(accTValueIp);
     }
 
     @Test
-    @DisplayName("Поиск профмероприятий для ФЛ")
-    public void shouldSearchPMForFL() {
-        searchPMInspectionsForAppeals(accTValueFl);
+    @DisplayName("Поиск профмероприятий для Юридических Лиц")
+    public void checkPMInspectionsUL() {
+        checkPMInspections(accTValueUl);
     }
 
     @Test
-    @DisplayName("Поиск профмероприятий для ИП")
-    public void shouldSearchPMForIP() {
-        searchPMInspectionsForAppeals(accTValueIp);
+    @DisplayName("Поиск профмероприятий для Физических Лиц")
+    public void checkPMInspectionsFL() {
+        checkPMInspections(accTValueFl);
+    }
+
+    @Test
+    @DisplayName("Поиск профмероприятий для Индивидуальных Предпринимателей")
+    public void checkPMInspectionsIP() {
+        checkPMInspections(accTValueIp);
     }
 
 }

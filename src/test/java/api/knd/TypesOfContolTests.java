@@ -1,19 +1,14 @@
 package api.knd;
 
-import apimodels.erknm.ControlTypesResponse;
 import apimodels.erknm.ControlTypesResponseItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import apimodels.controlObjects.TypesOfContolPojo;
 import springjdbc.postgres.DataAccessObjectPostgres;
 import springjdbc.postgres.DatabaseConnectPostgres;
 import springjdbc.postgres.models.Title;
-import springjdbc.postgres.models.TitleSlug;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,19 +48,19 @@ public class TypesOfContolTests extends BaseApiTests {
 
     @Test
     @DisplayName("Проверка типов контроля для ЮЛ")
-    public void shouldVerifyTypesOfControlForUL() {
+    public void checkVerifyTypesOfControlUL() {
         extractAndCompareTitles(accTValueUl);
     }
 
     @Test
     @DisplayName("Проверка типов контроля для ФЛ")
-    public void shouldVerifyTypesOfControlForFL() {
+    public void checkVerifyTypesOfControlFL() {
         extractAndCompareTitles(accTValueFl);
     }
 
     @Test
     @DisplayName("Проверка типов контроля для ИП")
-    public void shouldVerifyTypesOfControlForIP() {
+    public void checkVerifyTypesOfControlIP() {
         extractAndCompareTitles(accTValueIp);
     }
 }

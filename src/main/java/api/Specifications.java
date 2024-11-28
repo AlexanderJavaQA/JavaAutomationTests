@@ -28,7 +28,7 @@ public class Specifications {
         AppConfig config = create(AppConfig.class);
 
         return new RequestSpecBuilder()
-                .setBaseUri(config.doKndApiBaseUrlUat())
+                .setBaseUri(config.apiBaseUrl())
                 .setContentType(JSON)
                 .build();
     }

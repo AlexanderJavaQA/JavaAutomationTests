@@ -28,35 +28,4 @@ public class ContentItem{
 	@JsonProperty("knoBranchTitle")
 	private String knoBranchTitle;
 
-	public String getKnoId(){
-		return knoId;
-	}
-
-	public String getSupervisionId(){
-		return supervisionId;
-	}
-
-	public String getInspectionId(){
-		return inspectionId;
-	}
-
-	public String getSupervisionTitle(){
-		return supervisionTitle;
-	}
-
-	public String getKnoTitle(){
-		return knoTitle;
-	}
-
-	public String getRegionTitle(){
-		return regionTitle;
-	}
-
-	public String getKnoBranchId(){
-		return knoBranchId;
-	}
-
-	public String getKnoBranchTitle(){
-		return knoBranchTitle;
-	}
 }

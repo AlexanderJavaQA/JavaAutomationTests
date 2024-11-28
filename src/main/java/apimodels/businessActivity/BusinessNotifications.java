@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class BusinessNotificationsPojo {
+public class BusinessNotifications {
 
 	@JsonProperty("ObjectsOfBusinessNotificationsPojo")
-	private List<BusinessNotificationsItemsPojo> objectsOfBusinessNotificationsPojo;
+	private List<BusinessNotificationsItems> objectsOfBusinessNotificationsPojo;
 
 }

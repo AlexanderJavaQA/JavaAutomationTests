@@ -12,13 +12,13 @@ public class ErpInspectionsListResponseDataTests extends BaseApiTests {
 
     @Test
     @DisplayName("Проверка списка ЕРП карточек для ЮЛ")
-    public void shouldValidateErpInspectionsListForUL() {
+    public void checkValidateErpInspectionsListUL() {
         getErpInspectionsListResponseData(accTValueUl);
     }
 
     @Test
     @DisplayName("Проверка списка ЕРП карточек для ИП")
-    public void shouldValidateErpInspectionsListForIP() {
+    public void checkValidateErpInspectionsListIP() {
         getErpInspectionsListResponseData(accTValueIp);
     }
 }

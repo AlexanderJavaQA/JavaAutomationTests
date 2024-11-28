@@ -1,7 +1,6 @@
 package api;
 
 import apimodels.appeals.Items;
-import apimodels.businessActivity.BusinessActivityCardListPojo;
 
 import java.util.HashMap;
 import java.util.Map;

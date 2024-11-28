@@ -13,24 +13,26 @@ import static api.BusinessActivitySearchService.getObjectsOfBusinessActivitySear
 @DisplayName("Проверка поиска каждой карточки объектов предпринимательской деятельности по названию")
 public class ObjectsOfBusinessActivitySearchTests extends BaseApiTests{
 
-    public void ObjectsOfBusinessActivitySearchTest(String accTValue) {
+    public void checkBusinessActivitySearch(String accTValue) {
         List<ItemsItem> objectsOfBusinessIdList = getObjectsOfBusinessActivityList(accTValue).getItems();
-        List<String> namesBusinessActivity = objectsOfBusinessIdList.stream().map(ItemsItem::getName).collect(Collectors.toList());
+        List<String> namesBusinessActivity = objectsOfBusinessIdList.stream()
+                .map(ItemsItem::getName)
+                .collect(Collectors.toList());
         for (String name : namesBusinessActivity) {
             getObjectsOfBusinessActivitySearch(accTValue, name);
         }
     }
 
     @Test
-    @DisplayName("Проверка поиска каждой карточки объектов предпринимательской деятельности по названию для ЮЛ")
-    public void ObjectsOfBusinessActivitySearchForUL() {
-        ObjectsOfBusinessActivitySearchTest(accTValueUl);
+    @DisplayName("Проверка поиска объектов предпринимательской деятельности по названию для Юридических Лиц")
+    public void checkBusinessActivitySearchUL() {
+        checkBusinessActivitySearch(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка поиска каждой карточки объектов предпринимательской деятельности по названию для ИП")
-    public void ObjectsOfBusinessActivitySearchForIP() {
-        ObjectsOfBusinessActivitySearchTest(accTValueIp);
+    @DisplayName("Проверка поиска объектов предпринимательской деятельности по названию для Индивидуальных Предпринимателей")
+    public void checkBusinessActivitySearchIP() {
+        checkBusinessActivitySearch(accTValueIp);
     }
 
 }

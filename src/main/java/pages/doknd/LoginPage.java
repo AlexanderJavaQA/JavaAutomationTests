@@ -18,8 +18,9 @@ public class LoginPage {
     private SelenideElement wideButton = $x("//button[@class='plain-button plain-button_wide']");
     private SelenideElement buttonInOut = $x("//a[@class='button-in-out']");
     private SelenideElement bespalovIPAuth = $x("//h4[contains(text(),'ИП')]");
-    private SelenideElement bespalovFLAuth = $x("//h4[contains(text(),'Беспалов  Ф.А.')]");
+    private SelenideElement bespalovFLAuth = $x("//h4[contains(text(),'Беспалов')]");
     private SelenideElement bespalovULAuth = $x("//*[text()='ООО Ромашка']");
+    private SelenideElement buttonEnter = $x("//span[contains(text(),'Войти')]");
     private SelenideElement emelianovIPAuth = $x("//*[text()='ИП Емельянов А. А.']");
     private SelenideElement emelianovFLAuth = $x("//*[text()='Емельянов А. А.']");
 
@@ -31,17 +32,22 @@ public class LoginPage {
         FL
     }
 
-    public void openLoginPage(String url) {
+    public LoginPage openPage(String url) {
         open(url);
+        return this;
     }
 
-    public void enterCredentials(String login, String password) {
+    public LoginPage clickButtonEnter() {
+        buttonEnter.shouldBe(enabled).click();
+        return this;
+    }
+
+    public LoginPage authenticateWithAccountType (String login, String password, AccountType accountType) {
         loginField.setValue(login);
         passwordField.setValue(password);
-    }
-
-    public void clickLoginButton() {
         wideButton.click();
+        selectAccount(accountType);
+        return this;
     }
 
     public void selectAccount(AccountType accountType) {
@@ -60,17 +66,13 @@ public class LoginPage {
         }
     }
 
-    public void login(String url, String login, String password, AccountType accountType) {
-        openLoginPage(url);
-        enterCredentials(login, password);
-        clickLoginButton();
-        selectAccount(accountType);
-    }
+
 
 
     public void loginToKndPortal(String URL, String login, String password, SelenideElement element) {
         WebDriverManager.chromedriver().setup();
         open(URL);
+        clickButtonEnter();
         loginField.setValue(login);
         passwordField.setValue(password);
         wideButton.click();

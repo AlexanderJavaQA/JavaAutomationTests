@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static api.ErknmInspectionSortService.getErknmInspectionsSort;
-import static api.ErknmInspectionsListService.getErknmInspectionsList;
 import static api.knd.ErknmInspectionsListTests.SORT_ORDER_DESC;
 import static api.ErknmInspectionsStatusesService.getErknmInspectionsStatuses;
 
@@ -31,23 +30,23 @@ public class ErknmInspectionsStatusesTests extends BaseApiTests {
             "Есть возражение");
 
 
-    private void shouldValidateErknmInspectionStatuses(String accountType) {
+    private void checkValidateErknmInspectionStatuses(String accountType) {
         SoftAssertions softAssertions = new SoftAssertions();
 
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Ожидает проведения", "5");
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Ожидает проведения", "5");
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Ожидает завершения", "6");
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Завершено", "7");
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Не может быть проведено", "8");
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Решение обжаловано", "21");
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Отказ в проведении", "22");
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Предостережение объявлено", "23");
-        shouldCheckErknmInspectionStatus(softAssertions, accountType, "Есть возражение", "24");
+        checkErknmInspectionStatus(softAssertions, accountType, "Ожидает проведения", "5");
+        checkErknmInspectionStatus(softAssertions, accountType, "Ожидает проведения", "5");
+        checkErknmInspectionStatus(softAssertions, accountType, "Ожидает завершения", "6");
+        checkErknmInspectionStatus(softAssertions, accountType, "Завершено", "7");
+        checkErknmInspectionStatus(softAssertions, accountType, "Не может быть проведено", "8");
+        checkErknmInspectionStatus(softAssertions, accountType, "Решение обжаловано", "21");
+        checkErknmInspectionStatus(softAssertions, accountType, "Отказ в проведении", "22");
+        checkErknmInspectionStatus(softAssertions, accountType, "Предостережение объявлено", "23");
+        checkErknmInspectionStatus(softAssertions, accountType, "Есть возражение", "24");
 
         softAssertions.assertAll();
     }
 
-    private void shouldCheckErknmInspectionStatus(SoftAssertions softAssertions, String accountType, String statusName, String statusId) {
+    private void checkErknmInspectionStatus(SoftAssertions softAssertions, String accountType, String statusName, String statusId) {
         List<SurveillanceItemsList> allInspectionList = getErknmInspectionsSort(accountType, 30, SORT_ORDER_DESC, "all").getList();
 
         List<String> matchedInspectionStatuses = allInspectionList.stream()
@@ -75,21 +74,21 @@ public class ErknmInspectionsStatusesTests extends BaseApiTests {
     @SneakyThrows
     @Test
     @DisplayName("Проверка фильтрации по статусу ЕРКНМ проверок для UL")
-    public void shouldValidateErknmInspectionStatusesForUL() {
-        shouldValidateErknmInspectionStatuses(accTValueUl);
+    public void checkValidateErknmInspectionStatusesUL() {
+        checkValidateErknmInspectionStatuses(accTValueUl);
     }
 
     @SneakyThrows
     @Test
     @DisplayName("Проверка фильтрации по статусу ЕРКНМ проверок для FL")
-    public void shouldValidateErknmInspectionStatusesForFL() {
-        shouldValidateErknmInspectionStatuses(accTValueFl);
+    public void checkValidateErknmInspectionStatusesFL() {
+        checkValidateErknmInspectionStatuses(accTValueFl);
     }
 
     @SneakyThrows
     @Test
     @DisplayName("Проверка фильтрации по статусу ЕРКНМ проверок для IP")
-    public void shouldValidateErknmInspectionStatusesForIP() {
-        shouldValidateErknmInspectionStatuses(accTValueIp);
+    public void checkValidateErknmInspectionStatusesIP() {
+        checkValidateErknmInspectionStatuses(accTValueIp);
     }
 }

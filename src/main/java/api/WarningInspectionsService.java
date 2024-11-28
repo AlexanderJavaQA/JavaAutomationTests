@@ -1,6 +1,6 @@
 package api;
 
-import apimodels.erknm.ErknmInspectionsListPojo;
+import apimodels.erknm.ErknmInspectionsList;
 
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
@@ -8,7 +8,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class WarningInspectionsService {
 
-    public static ErknmInspectionsListPojo getWarningInspectionsService(String accTValue, Integer countSize, String sortParameter, String statusId ) {
+    public static ErknmInspectionsList getWarningInspectionsService(String accTValue, Integer countSize, String sortParameter, String statusId ) {
 
         installSpec (requestSpec(), responseSpecOK());
 
@@ -23,6 +23,6 @@ public class WarningInspectionsService {
                 .get("/api/knd/v2/inspection/erknm/")
                 .then()
                 .body(matchesJsonSchemaInClasspath("jsonschema/erknm_inspection_list_schema.json"))
-                .extract().response().as(ErknmInspectionsListPojo.class);
+                .extract().response().as(ErknmInspectionsList.class);
     }
 }

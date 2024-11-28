@@ -5,110 +5,59 @@ import org.aeonbits.owner.Config;
 @Config.Sources("classpath:project.properties")
 public interface AppConfig extends Config {
 
-        @Key("request_to_smev_tor_templates_dev2")
-        String requestToSmevTorTemplatesDev2();
+        @Key("smev_tor_request")
+        String smevTorRequest();
 
-        @Key("request_to_smev_tor_templates_uat")
-        String requestToSmevTorTemplatesUat();
+        @Key("smev_status_appeal_request")
+        String smevStatusAppealRequest();
 
-        @Key("request_to_smev_tor_templates_dev")
-        String requestToSmevTorTemplatesDev();
+        @Key("smev_broadcast_request")
+        String smevBroadcastRequest();
 
-        @Key("smev_request_broadcast_uat")
-        String smevRequestBroadcastUat();
+        @Key("smev_broadcast_request_dev2")
+        String smevBroadcastRequestDev2();
 
-        @Key("smev_request_broadcast_dev2")
-        String smevRequestBroadcastDev2();
+        @Key("appeals_page")
+        String appealsPage();
 
-        @Key("do_knd_base_url_uat")
-        String doKndBaseUrlUat();
+        @Key("esia_auth")
+        String esiaAuth();
 
-        @Key("do_knd_api_base_url_uat")
-        String doKndApiBaseUrlUat();
+        @Key("api_base_url")
+        String apiBaseUrl();
 
-        @Key("do_knd_api_base_url_dev2")
-        String doKndApiBaseUrlDev2();
-
-        @Key("do_knd_base_url_dev")
-        String doKndBaseUrlDev();
-
-        @Key("do_knd_base_url_dev2")
-        String doKndBaseUrlDev2();
-
-        // Appeal Form URLs
-        @Key("do_knd_appeal_form_url_uat")
-        String doKndAppealFormUrlUat();
-
-        @Key("do_knd_appeal_form_url_dev2")
-        String doKndAppealFormUrlDev2();
 
         // Repeated Appeal Form URL
-        @Key("knd_repeated_appeal_form_url_uat")
-        String doKndRepeatedAppealFormUrlUat();
+        @Key("repeated_appeal_page")
+        String repeatedAppealPage();
 
         // Profile URLs
-        @Key("pgu_org_profile_knd_url_uat")
-        String pguOrgProfileKndUrlUat();
+        @Key("org_profile_page")
+        String orgProfilePage();
 
-        @Key("pgu_org_profile_knd_url_dev2")
-        String pguOrgProfileKndUrlDev2();
+        @Key("inspection_page")
+        String inspectionPage();
 
-        @Key("pgu_org_profile_inspect_url_uat")
-        String pguOrgProfileInspectUrlUat();
+        @Key("control_activities")
+        String controlActivitiesPage();
 
-        @Key("pgu_inspect_url_uat")
-        String pguInspectUrlUat();
 
-        @Key("pgu_information_checks_url_uat")
-        String pguInformationChecksUrlUat();
-
-        @Key("pgu_checks_form_url_uat")
-        String pguChecksFormUrlUat();
 
         // Control Objects and Activities
-        @Key("pgu_control_objects_url_uat")
-        String pguControlObjectsUrlUat();
+        @Key("control_objects_page")
+        String controlObjectsPage();
 
-        @Key("pgu_org_activity_url_uat")
-        String pguOrgActivityUrlUat();
-
-        // SMEV URLs
-        @Key("smev_adapter_url_uat")
-        String smevAdapterUrlUat();
-
-        @Key("smev_adapter_url_dev2")
-        String smevAdapterUrlDev2();
-
-        @Key("smev_adapter_response_to_pgu_url_uat")
-        String smevAdapterResponseToPguUrlUat();
-
-        @Key("smev_adapter_response_to_pgu_url_dev2")
-        String smevAdapterResponseToPguUrlDev2();
-
-        // TOR Templates SMEV URLs
-        @Key("tor_templates_smev_url_uat")
-        String torTemplatesSmevUrlUat();
-
-        @Key("tor_templates_smev_url_dev2")
-        String torTemplatesSmevUrlDev2();
+        @Key("business_activity_page")
+        String businessActivityPage();
 
         // Kuber Discover URLs
-        @Key("kuber_discover_url_uat")
-        String kuberDiscoverUrlUat();
-
-        @Key("kuber_discover_url_dev2")
-        String kuberDiscoverUrlDev2();
+        @Key("kibana_discover_page")
+        String kibanaDiscoverPage();
 
         // Appeals All URLs
-        @Key("knd_appeals_all_url_uat")
-        String kndAppealsAllUrlUat();
+        @Key("my_appeals_page")
+        String myAppealsPage();
 
-        @Key("knd_appeals_all_url_dev2")
-        String kndAppealsAllUrlDev2();
-
-        // Second Appeal URL
-        @Key("knd_second_appeal_url_uat")
-        String kndSecondAppealUrlUat();
 
         // User Credentials
         @Key("user_login_bespalov")

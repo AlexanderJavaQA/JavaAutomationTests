@@ -1,17 +1,12 @@
 package api.knd;
 
 import api.ErknmInspectionSortService;
-import api.ErknmInspectionsListService;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import apimodels.erknm.SurveillanceItemsList;
 
-import java.awt.*;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -128,7 +123,7 @@ public class ErknmInspectionsListTests extends BaseApiTests {
     }
 
 
-    public void verifyErknmInspectionListSorting(String accTValueType) {
+    public void checkErknmInspectionListSorting(String accTValueType) {
 
         List<SurveillanceItemsList> erknmInspectionsList = ErknmInspectionSortService.getErknmInspectionsSort(accTValueType, 10, SORT_ORDER_DESC, "all").getList();
         total = ErknmInspectionSortService.getErknmInspectionsSort(accTValueType, 10, SORT_ORDER_DESC, "all").getTotal();
@@ -175,95 +170,90 @@ public class ErknmInspectionsListTests extends BaseApiTests {
     }
 
 
-
-
-       @Disabled("Нужно дорабоать - падает API")
-       @SneakyThrows
-        @Test
-        @DisplayName("Проверка сортировки списка ЕРКНМ для ЮЛ")
-        public void assertErknmInspectionListSortingForCorporateTest() {
-            verifyErknmInspectionListSorting(accTValueUl);
-        }
-
-        @SneakyThrows
-        @Disabled("Нужно дорабоать - падает API")
-        @Test
-        @DisplayName("Проверка сортировки списка ЕРКНМ для ФЛ")
-        public void assertErknmInspectionListSortingForPersonalTest() {
-            verifyErknmInspectionListSorting(accTValueFl);
-        }
-
-        @SneakyThrows
-        @Disabled("Нужно дорабоать - падает API")
-        @Test
-        @DisplayName("Проверка сортировки списка ЕРКНМ для ИП")
-        public void assertErknmInspectionListSortingForIndividualTest() {
-            verifyErknmInspectionListSorting(accTValueIp);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("Открытие всех детальных карточек проверок КНМ для ЮЛ")
-        public void assertOpenKNMInspectionDetailsCardForCorporateTest() {
-            checkOpenKNMInspectionDetailsCard(accTValueUl);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("Открытие всех детальных карточек проверок КНМ для ФЛ")
-        public void assertOpenKNMInspectionDetailsCardForPersonTest() {
-            checkOpenKNMInspectionDetailsCard(accTValueFl);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("Открытие всех детальных карточек проверок КНМ для ИП")
-        public void assertOpenKNMInspectionDetailsCardForIndividualTest() {
-            checkOpenKNMInspectionDetailsCard(accTValueIp);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("Открытие всех детальных карточек проверок ПМ для ЮЛ")
-        public void assertOpenPMInspectionDetailsCardForCorporateTest() {
-            checkOpenPMInspectionDetailsCard(accTValueUl);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("ООткрытие всех детальных карточек проверок ПМ для ФЛ")
-        public void assertOpenPMInspectionDetailsCardForPersonTest() {
-            checkOpenPMInspectionDetailsCard(accTValueFl);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("Открытие всех детальных карточек проверок ПМ для ИП")
-        public void assertOpenPMInspectionDetailsCardForIndividualTest() {
-            checkOpenPMInspectionDetailsCard(accTValueIp);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("Проверка типа, названия и вида данных списка ЕРКНМ для ЮЛ")
-        public void assertTypeNameAndKindErknmInspectionsListResponseDataForCorporateTest() {
-            checkTypeNameAndKindErknmInspections(accTValueUl);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("Проверка типа, названия и вида данных списка ЕРКНМ для ФЛ")
-        public void assertTypeNameAndKindErknmInspectionsListResponseDataForPersonTest() {
-            checkTypeNameAndKindErknmInspections(accTValueFl);
-        }
-
-        @SneakyThrows
-        @Test
-        @DisplayName("Проверка типа, названия и вида данных списка ЕРКНМ для ИП")
-        public void assertTypeNameAndKindErknmInspectionsListResponseDataForIndividualTest() {
-            checkTypeNameAndKindErknmInspections(accTValueIp);
-        }
+    @SneakyThrows
+    @Test
+    @DisplayName("Проверка сортировки списка ЕРКНМ для ЮЛ")
+    public void checkErknmInspectionListSortingUL() {
+        checkErknmInspectionListSorting(accTValueUl);
     }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Проверка сортировки списка ЕРКНМ для ФЛ")
+    public void checkErknmInspectionListSortingFL() {
+        checkErknmInspectionListSorting(accTValueFl);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Проверка сортировки списка ЕРКНМ для ИП")
+    public void checkErknmInspectionListSortingIP() {
+        checkErknmInspectionListSorting(accTValueIp);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Открытие всех детальных карточек проверок КНМ для ЮЛ")
+    public void checkOpenAllKNMInspectionDetailsCardUL() {
+        checkOpenKNMInspectionDetailsCard(accTValueUl);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Открытие всех детальных карточек проверок КНМ для ФЛ")
+    public void checkOpenAllKNMInspectionDetailsCardFL() {
+        checkOpenKNMInspectionDetailsCard(accTValueFl);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Открытие всех детальных карточек проверок КНМ для ИП")
+    public void checkOpenAllKNMInspectionDetailsCardIP() {
+        checkOpenKNMInspectionDetailsCard(accTValueIp);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Открытие всех детальных карточек проверок ПМ для ЮЛ")
+    public void checkOpenPMInspectionUL() {
+        checkOpenPMInspectionDetailsCard(accTValueUl);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("ООткрытие всех детальных карточек проверок ПМ для ФЛ")
+    public void checkOpenPMInspectionFL() {
+        checkOpenPMInspectionDetailsCard(accTValueFl);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Открытие всех детальных карточек проверок ПМ для ИП")
+    public void checkOpenPMInspectionIP() {
+        checkOpenPMInspectionDetailsCard(accTValueIp);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Проверка типа, названия и вида данных списка ЕРКНМ для ЮЛ")
+    public void checkTypeNameAndKindUL() {
+        checkTypeNameAndKindErknmInspections(accTValueUl);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Проверка типа, названия и вида данных списка ЕРКНМ для ФЛ")
+    public void checkTypeNameAndKindFL() {
+        checkTypeNameAndKindErknmInspections(accTValueFl);
+    }
+
+    @SneakyThrows
+    @Test
+    @DisplayName("Проверка типа, названия и вида данных списка ЕРКНМ для ИП")
+    public void checkTypeNameAndKindIP() {
+        checkTypeNameAndKindErknmInspections(accTValueIp);
+    }
+}
 
 
 

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 
 import com.codeborne.selenide.*;
 import pages.doknd.*;
+import pages.knd.ControlActivitiesPage;
 import pages.knd.ControlSupervisionPage;
 
 public abstract class BaseTestSelenide {
@@ -23,6 +24,8 @@ public abstract class BaseTestSelenide {
     protected  MyСomplaintsPage myComplaintsPage = new MyСomplaintsPage();
     protected  ComplaintProgressPage complaintProgressPage = new ComplaintProgressPage();
     protected  ElasticPage elasticPage = new ElasticPage();
+    protected ControlActivitiesPage controlActivitiesPage = new ControlActivitiesPage();
+    protected SigningComplaintPage signingComplaintPage = new SigningComplaintPage();
     protected AppConfig config = ConfigFactory.create(AppConfig.class);
 
     @BeforeAll

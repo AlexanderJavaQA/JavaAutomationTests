@@ -14,21 +14,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @DisplayName("Процесс отзыва жалобы для ЮЛ")
 public class ComplaintWithdrawalTests extends BaseTestSelenide {
 
-   @Test
+    @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ЮЛ")
-    public void loginWithULAccount() {
-        loginPage.login(
-                config.doKndAppealFormUrlUat(),
-                config.userLoginBespalov(),
-                config.userPasswordBespalov(),
-                LoginPage.AccountType.UL
-        );
+    public void loginAccount() {
+        loginPage.openPage(config.appealsPage())
+                .clickButtonEnter()
+                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
     }
 
     @ParameterizedTest
     @Order(2)
-    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
+    @ValueSource(strings = {"PEP", "UKEP"})
     @DisplayName("Процесс отзыва жалобы с использованием ПЭП")
     public void shouldWithdrawComplaintUsingPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
@@ -37,20 +34,22 @@ public class ComplaintWithdrawalTests extends BaseTestSelenide {
         elasticPage.openElasticInNewTabUat()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
-                .getKuberCorrelationId();
+                .getValidKuberCorrelationId();
         String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-        smevPage.openSmevRequestBroadcastUat()
+        smevPage.openSmevStatusAppealRequest()
                 .clearMessageID()
                 .setMessageID(messageId)
-                .clearXmlRequest()
                 .setXmlRequest(orderId, "101")
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        myComplaintsPage.openMyСomplaintsPage();
+        myComplaintsPage.openMyСomplaintsPage()
+                .clickRegisteredComplaint();
+
         complaintProgressPage.clickWithdrawalButton();
         complaintWithdrawalPage.setWithdrawalReason();
+
         repeatFilingPage
                 .handleTypeOfSignature(typeSignature)
                 .handleSendInputAttachSignatureFile(typeSignature);

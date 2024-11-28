@@ -1,4 +1,4 @@
-package apimodels.erknm;
+package apimodels.controlObjects;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class ErknmInspectionsListPojo {
+public class ControlObjects {
 
-    private Integer total;
-    private List<SurveillanceItemsList> list;
+    private int pageNumber;
+    private int pageSize;
+    private int total;
+    private List<ControlObject> items;
 
 }

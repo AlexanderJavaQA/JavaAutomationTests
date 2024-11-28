@@ -15,21 +15,21 @@ public class ControlObjectsWithFiltersTests extends BaseApiTests{
     @ParameterizedTest
     @ValueSource(ints = { 0, 10, 100})
     @DisplayName("Проверка фильтрации объектов контроля для ЮЛ")
-    public void shouldFilterControlObjectsForUL(int pageNumber) {
+    public void checkFilterControlObjectsUL(int pageNumber) {
         getControlObjectsWithFilters(accTValueUl, pageNumber);
     }
 
     @ParameterizedTest
     @ValueSource(ints = { 0, 10, 100})
     @DisplayName("Проверка фильтрации объектов контроля для ФЛ")
-    public void shouldFilterControlObjectsForFL(int pageNumber) {
+    public void checkFilterControlObjectsFL(int pageNumber) {
         getControlObjectsWithFilters(accTValueFl, pageNumber);
     }
 
     @ParameterizedTest
     @ValueSource(ints = { 0, 10, 100})
     @DisplayName("Проверка фильтрации объектов контроля для ИП")
-    public void shouldFilterControlObjectsForIP(int pageNumber) {
+    public void checkFilterControlObjectsIP(int pageNumber) {
         getControlObjectsWithFilters(accTValueIp, pageNumber);
     }
 

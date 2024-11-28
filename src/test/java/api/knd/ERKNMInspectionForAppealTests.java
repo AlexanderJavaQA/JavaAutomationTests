@@ -10,22 +10,23 @@ import static api.ERKNMInspectionForAppealService.getERKNMInspectionForAppeal;
 public class ERKNMInspectionForAppealTests extends BaseApiTests {
 
     @Test
-    @DisplayName("Получение ЕРКНМ проверок доступных к обжалованию для ЮЛ")
-    public void shouldRetrieveERKNMInspectionForAppealUL() {
+    @DisplayName("Получение ЕРКНМ проверок для обжалования для Юридических Лиц")
+    public void checkERKNMForAppealUL() {
         getERKNMInspectionForAppeal(accTValueUl);
     }
 
     @Test
-    @DisplayName("Получение ЕРКНМ проверок доступных к обжалованию для ФЛ")
-    public void shouldRetrieveERKNMInspectionForAppealFL() {
+    @DisplayName("Получение ЕРКНМ проверок для обжалования для Физических Лиц")
+    public void checkERKNMForAppealFL() {
         getERKNMInspectionForAppeal(accTValueFl);
     }
 
     @Test
-    @DisplayName("Получение ЕРКНМ проверок доступных к обжалованию для ИП")
-    public void shouldRetrieveERKNMInspectionForAppealIP() {
+    @DisplayName("Получение ЕРКНМ проверок для обжалования для Индивидуальных Предпринимателей")
+    public void checkERKNMForAppealIP() {
         getERKNMInspectionForAppeal(accTValueIp);
     }
+
 
 }
 

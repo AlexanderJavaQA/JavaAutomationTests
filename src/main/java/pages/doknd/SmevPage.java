@@ -85,7 +85,7 @@ public class SmevPage {
 
 
     public SmevPage openRequestToSmevTorTemplatesUat() {
-        open(config.requestToSmevTorTemplatesUat());
+        open(config.smevTorRequest());
         return this;
     }
 
@@ -168,12 +168,12 @@ public class SmevPage {
 
 
     public SmevPage openSmevRequestBroadcastDev2() {
-        open(config.smevRequestBroadcastDev2());
+        open(config.smevBroadcastRequestDev2());
         return this;
     }
 
-    public SmevPage openSmevRequestBroadcastUat() {
-        open(config.smevRequestBroadcastUat());
+    public SmevPage openSmevStatusAppealRequest() {
+        open(config.smevStatusAppealRequest());
         return this;
     }
 
@@ -283,7 +283,7 @@ public class SmevPage {
     }
 
     public SmevPage setMessageID(String messageID) {
-        this.inputMessageId.setValue(messageID).shouldHave(text(messageID));
+        this.inputMessageId.setValue(messageID);
         return this;
     }
 

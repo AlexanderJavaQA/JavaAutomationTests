@@ -61,19 +61,4 @@ public class ControlObjectsAllResponse {
 	@JsonProperty("items")
 	private List<ItemsItem> items;
 
-	public int getTotal(){
-		return total;
-	}
-
-	public int getPageNumber(){
-		return pageNumber;
-	}
-
-	public int getPageSize(){
-		return pageSize;
-	}
-
-	public List<ItemsItem> getItems(){
-		return items;
-	}
 }

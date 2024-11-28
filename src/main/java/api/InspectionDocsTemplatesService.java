@@ -1,6 +1,6 @@
 package api;
 
-import apimodels.erknm.InspectionDocsTemplatesPojo;
+import apimodels.erknm.InspectionDocsTemplates;
 
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
@@ -9,7 +9,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class InspectionDocsTemplatesService {
 
-    public static InspectionDocsTemplatesPojo getInspectionDocsTemplates(String accTValue, String erknmId) {
+    public static InspectionDocsTemplates getInspectionDocsTemplates(String accTValue, String erknmId) {
 
         installSpec (requestSpec(), responseSpecOK());
 
@@ -19,5 +19,5 @@ public class InspectionDocsTemplatesService {
                 .get("/api/knd/v2/inspection/erknm/"+erknmId+"/docs")
                 .then()
                 .body(matchesJsonSchemaInClasspath("jsonschema/inspection_docs_templates.json"))
-                .extract().response().as(InspectionDocsTemplatesPojo.class);
+                .extract().response().as(InspectionDocsTemplates.class);
     }}

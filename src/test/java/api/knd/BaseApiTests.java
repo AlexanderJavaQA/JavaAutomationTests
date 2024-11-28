@@ -34,6 +34,7 @@ public class BaseApiTests {
     public static String accTValueIp;
     private static boolean isSetupExecuted = false;
     protected static SmevPage smevPage = new SmevPage();
+    LoginPage loginPage = new LoginPage();
 
     protected static Stream<Arguments> userTypes() {
         return Stream.of(
@@ -62,7 +63,7 @@ public class BaseApiTests {
     public static String getAccTValue(SelenideElement element) {
         AppConfig config = ConfigFactory.create(AppConfig.class);
         Configuration.headless = false;
-        String accTValue = new LoginPage().getCookieNamed(config.doKndAppealFormUrlUat(), config.userLoginBespalov(), config.userPasswordBespalov(), element);
+        String accTValue = new LoginPage().getCookieNamed(config.appealsPage(), config.userLoginBespalov(), config.userPasswordBespalov(), element);
         clearBrowserCache();
         clearBrowserCookies();
         closeWindow();

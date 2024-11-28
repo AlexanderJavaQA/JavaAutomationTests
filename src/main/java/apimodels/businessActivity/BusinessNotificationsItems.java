@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class BusinessNotificationsItemsPojo {
+public class BusinessNotificationsItems {
 
 	@JsonProperty("activityId")
 	private String activityId;
@@ -22,15 +22,4 @@ public class BusinessNotificationsItemsPojo {
 	@JsonProperty("notifications")
 	private List<NotificationsItem> notifications;
 
-	public String getActivityId(){
-		return activityId;
-	}
-
-	public String getActivityTitle(){
-		return activityTitle;
-	}
-
-	public List<NotificationsItem> getNotifications(){
-		return notifications;
-	}
 }

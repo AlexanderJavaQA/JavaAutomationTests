@@ -33,23 +33,4 @@ public class NoticeAgent{
 	@JsonProperty("comment")
 	private String comment;
 
-	public String getFirstName(){
-		return firstName;
-	}
-
-	public String getLastName(){
-		return lastName;
-	}
-
-	public String getPhone(){
-		return phone;
-	}
-
-	public String getMiddleName(){
-		return middleName;
-	}
-
-	public String getEmail(){
-		return email;
-	}
 }

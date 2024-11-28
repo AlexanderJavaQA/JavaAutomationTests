@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class KNMInspectionDetailsCardPojo {
+public class KNMInspectionDetailsCard {
 
     public String statusName;
     public String erknmId;

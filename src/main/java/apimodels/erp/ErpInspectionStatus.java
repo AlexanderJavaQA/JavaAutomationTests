@@ -1,20 +1,17 @@
-package apimodels.erknm;
+package apimodels.erp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class ErknmFiltersPojo {
-
-    private List<StatusList> statusList;
-    private List<KindList> kindList;
-
+public class ErpInspectionStatus {
+    private String statusCode;
+    private String statusName;
+    private Integer count;
 
 }

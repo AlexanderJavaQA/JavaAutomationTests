@@ -49,6 +49,9 @@ public class RepeatFilingPage {
     // Блок для отображения прикрепленных к заявлению документов
     private SelenideElement attachedDocuments = $x("//*[contains(text(), 'Прикрепленные документы')]");
 
+    // Элемент, отображающий загруженные документы, содержащие текст "Тестовые данные.pdf"
+    private SelenideElement uploadedDocument = $x("//*[contains(text(), 'Тестовые данные.pdf')]");
+
     // Заголовок с номером заявления
     private SelenideElement orderID = $x("//h3[contains(text(),'Заявление №')]");
 
@@ -57,7 +60,6 @@ public class RepeatFilingPage {
     File file = new File(("C:\\Users\\aleksandr.kurbanov\\Desktop\\Тестовые данные.pdf"));
 
     AppConfig config = ConfigFactory.create(AppConfig.class);
-    MyСomplaintsPage myСomplaintsPage = new MyСomplaintsPage();
     FillDetailsComplaintPage fillDetailsComplaintPage = new FillDetailsComplaintPage();
 
 
@@ -68,7 +70,7 @@ public class RepeatFilingPage {
 
     public RepeatFilingPage openNewTabForRepeatFilingPage() {
         switchTo().newWindow(WindowType.TAB);
-        open(config.doKndRepeatedAppealFormUrlUat());
+        open(config.repeatedAppealPage());
         return this;
     }
 
@@ -114,8 +116,8 @@ public class RepeatFilingPage {
         return this;
     }
 
-    public RepeatFilingPage checkFileNameIsDisplayed () {
-        textFileName.shouldHave(text("Тестовые данные.pdf"));
+    public RepeatFilingPage verifyFileUploaded() {
+        uploadedDocument.shouldBe(visible);
         return this;
     }
 
@@ -166,7 +168,9 @@ public class RepeatFilingPage {
                 clickDropdownTypeOfElectronicSignature()
                         .clickSignatureUNEP();
                 break;
+
         }
+        scrollIntoViewAndClick(buttonContinue);
         return this;
     }
 
@@ -206,14 +210,21 @@ public class RepeatFilingPage {
         return this;
     }
 
-    public RepeatFilingPage extractOrderIdForRepeatFiling () {
+    public RepeatFilingPage extractOrderIdForRepeatFiling() {
         String orderId = orderID.text();
         newOrderId = orderId.substring(12);
         return this;
     }
 
-    public RepeatFilingPage setInspectionNumber() {
-        fieldReasonDisagreement.shouldBe(visible).setValue(newOrderId);
+    public RepeatFilingPage setInspectionNumber(String orderId) {
+        fieldReasonDisagreement.shouldBe(visible).setValue(orderId);
+        return this;
+    }
+
+    public RepeatFilingPage clickHighlightedInspection(String orderId) {
+        $x("//span[@class='highlighted' and text()='" + orderId + "']")
+                .shouldBe(visible, Duration.ofSeconds(5))
+                .click();
         return this;
     }
 
@@ -221,7 +232,5 @@ public class RepeatFilingPage {
         getHighlightedSpanElement(newOrderId).shouldBe(visible, Duration.ofSeconds(5)).click();
         return this;
     }
-
-
 }
 

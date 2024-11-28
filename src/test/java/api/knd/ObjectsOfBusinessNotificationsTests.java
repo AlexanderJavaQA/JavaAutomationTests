@@ -15,24 +15,26 @@ import static api.BusinessNotificationsService.getObjectsOfBusinessNotifications
 @DisplayName("Проверка открытия каждой карточки уведомлений объектов предпринимательской деятельности")
 public class ObjectsOfBusinessNotificationsTests extends BaseApiTests {
 
-    public void ObjectsOfBusinessNotificationsTest(String accTValue) {
-        List<ItemsItem> objectsOfBusinessIdList = getObjectsOfBusinessActivityList(accTValue).getItems();
-        List<String> objectsOfBusinessId = objectsOfBusinessIdList.stream().map(ItemsItem::getId).collect(Collectors.toList());
-        for (String objectId : objectsOfBusinessId) {
+    public void checkBusinessNotifications(String accTValue) {
+        List<ItemsItem> businessItems = getObjectsOfBusinessActivityList(accTValue).getItems();
+        List<String> businessIds = businessItems.stream()
+                .map(ItemsItem::getId)
+                .collect(Collectors.toList());
+        for (String objectId : businessIds) {
             getObjectsOfBusinessNotifications(accTValue, objectId);
-
         }
     }
 
     @Test
-    @DisplayName("Проверка открытия уведомлений каждой карточки объектов предпринимательской деятельности для ЮЛ")
-    public void ObjectsOfBusinessNotificationsForUL() {
-        ObjectsOfBusinessNotificationsTest(accTValueUl);
+    @DisplayName("Проверка открытия уведомлений для объектов предпринимательской деятельности ЮЛ")
+    public void checkBusinessNotificationsUL() {
+        checkBusinessNotifications(accTValueUl);
     }
 
     @Test
-    @DisplayName("Проверка открытия уведомлений каждой карточки объектов предпринимательской деятельности для ИП")
-    public void ObjectsOfBusinessNotificationsForIP() {
-        ObjectsOfBusinessNotificationsTest(accTValueIp);
+    @DisplayName("Проверка открытия уведомлений для объектов предпринимательской деятельности ИП")
+    public void checkBusinessNotificationsIP() {
+        checkBusinessNotifications(accTValueIp);
     }
+
 }

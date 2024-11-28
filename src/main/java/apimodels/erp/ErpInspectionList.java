@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class ErpInspectionListPojo {
+public class ErpInspectionList {
 
     public String erpid;
     public String typeCode;

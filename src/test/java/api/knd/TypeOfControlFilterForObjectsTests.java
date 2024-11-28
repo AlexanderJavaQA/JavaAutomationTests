@@ -35,19 +35,19 @@ public class TypeOfControlFilterForObjectsTests extends BaseApiTests {
 
     @Test
     @DisplayName("Проверка фильтрации объектов контроля по виду контроля для ЮЛ")
-    public void shouldFilterControlObjectsByTypeForUL() {
+    public void checkFilterControlObjectsByTypeUL() {
         getAllTypeOfControlForObjects(accTValueUl);
     }
 
     @Test
     @DisplayName("Проверка фильтрации объектов контроля по виду контроля для ФЛ")
-    public void shouldFilterControlObjectsByTypeForFL() {
+    public void checkFilterControlObjectsByTypeFL() {
         getAllTypeOfControlForObjects(accTValueFl);
     }
 
     @Test
     @DisplayName("Проверка фильтрации объектов контроля по виду контроля для ИП")
-    public void shouldFilterControlObjectsByTypeForIP() {
+    public void checkFilterControlObjectsByTypeIP() {
         getAllTypeOfControlForObjects(accTValueIp);
     }
 }

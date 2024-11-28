@@ -13,13 +13,9 @@ public class ControlSupervisionTests extends BaseTestSelenide {
     @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ЮЛ")
-    public void loginWithULAccount() {
-        loginPage.login(
-                config.pguOrgProfileKndUrlUat(),
-                config.userLoginBespalov(),
-                config.userPasswordBespalov(),
-                LoginPage.AccountType.UL
-        );
+    public void loginWithFLAccount() {
+        loginPage.openPage(config.orgProfilePage())
+                 .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
     }
 
     @Test
@@ -30,7 +26,6 @@ public class ControlSupervisionTests extends BaseTestSelenide {
                 .waitForAndClickGoToSectionControlAndPrevention()
                 .verifyCurrentUrl("https://pgu-uat-betalk.test.gosuslugi.ru/org-profile/knd/inspect");
     }
-
 
     @Test
     @Order(3)

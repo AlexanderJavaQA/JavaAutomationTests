@@ -12,7 +12,7 @@ public class DeleteErknmInspectionTests extends BaseTestSelenide {
     @Disabled("Нету необходимости в тесте")
     public void shouldDeleteErknmInspection() {
         smevPage
-                .openSmevRequestBroadcastUat()
+                .openSmevStatusAppealRequest()
                 .createDeleteERKNMBroadcastRequest("044108610001000430444")
                 .clickButtonSubmit();
     }

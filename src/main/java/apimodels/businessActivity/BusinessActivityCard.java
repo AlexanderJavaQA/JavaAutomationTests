@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BusinessActivityCardPojo{
+public class BusinessActivityCard {
 
 	@JsonProperty("regionCode")
 	private String regionCode;

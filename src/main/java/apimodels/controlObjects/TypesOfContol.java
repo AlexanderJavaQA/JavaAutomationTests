@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class TypesOfContolPojo {
+public class TypesOfContol {
 
     public String title;
     public String slug;

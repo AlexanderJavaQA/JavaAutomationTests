@@ -21,15 +21,4 @@ public class ContentItem{
 	@JsonProperty("title")
 	private String title;
 
-	public String getCode(){
-		return code;
-	}
-
-	public String getId(){
-		return id;
-	}
-
-	public String getTitle(){
-		return title;
-	}
 }

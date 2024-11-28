@@ -12,7 +12,8 @@ import static api.BusinessActivityListService.getObjectsOfBusinessActivityList;
 @Tag("SmokeAPITest")
 @DisplayName("Проверка открытия каждой карточки объектов предпринимательской деятельности")
 public class ObjectsOfBusinessActivityCardTests extends BaseApiTests {
-    public void shouldOpenAllBusinessActivityCards(String accTValue) {
+
+    public void checkOpenAllBusinessActivityCards(String accTValue) {
         List<apimodels.businessActivity.ItemsItem> objectsOfBusinessIdList = getObjectsOfBusinessActivityList(accTValue).getItems();
         List<String> objectsOfBusinessId = objectsOfBusinessIdList.stream()
                 .map(ItemsItem::getId)
@@ -28,13 +29,13 @@ public class ObjectsOfBusinessActivityCardTests extends BaseApiTests {
 
     @Test
     @DisplayName("Проверка открытия каждой карточки объектов предпринимательской деятельности для ЮЛ")
-    public void shouldOpenAllBusinessActivityCardsForUL() {
-        shouldOpenAllBusinessActivityCards(accTValueUl);
+    public void checkOpenAllBusinessActivityCardsUL() {
+        checkOpenAllBusinessActivityCards(accTValueUl);
     }
 
     @Test
     @DisplayName("Проверка открытия каждой карточки объектов предпринимательской деятельности для ИП")
-    public void shouldOpenAllBusinessActivityCardsForIP() {
-        shouldOpenAllBusinessActivityCards(accTValueIp);
+    public void checkOpenAllBusinessActivityCardsIP() {
+        checkOpenAllBusinessActivityCards(accTValueIp);
     }
 }

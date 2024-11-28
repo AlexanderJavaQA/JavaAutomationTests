@@ -1,6 +1,8 @@
 package ui.doknd.ip;
 
 import baseTest.BaseTestSelenide;
+import listener.RetryListener;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.doknd.LoginPage;
@@ -8,19 +10,17 @@ import org.junit.jupiter.api.*;
 
 @Tag("additionalActions")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(RetryListener.class)
 @DisplayName("Проверка подачи дополнительных документов для ИП")
 public class SubmitAdditionalDocumentsTests extends BaseTestSelenide {
 
     @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ИП")
-    public void loginWithIPAccount() {
-        loginPage.login(
-                config.doKndAppealFormUrlUat(),
-                config.userLoginBespalov(),
-                config.userPasswordBespalov(),
-                LoginPage.AccountType.IP
-        );
+    public void loginAccount() {
+        loginPage.openPage(config.appealsPage())
+                .clickButtonEnter()
+                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.IP);
     }
 
     @ParameterizedTest
@@ -29,14 +29,16 @@ public class SubmitAdditionalDocumentsTests extends BaseTestSelenide {
     @DisplayName("Проверка подачи дополнительных документов с типом подписи ПЭП")
     public void shouldSubmitAdditionalDocumentsWithPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
+        String orderId = handleFilingComplaint.getNewOrderId();
+
         elasticPage.openElasticInNewTabUat()
-                .setOrderIdInQueryInput(typeSignature)
+                .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
-                .getKuberCorrelationId();
+                .getValidKuberCorrelationId();
 
         String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-        smevPage.openSmevRequestBroadcastUat()
+        smevPage.openSmevStatusAppealRequest()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
@@ -44,10 +46,13 @@ public class SubmitAdditionalDocumentsTests extends BaseTestSelenide {
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        myComplaintsPage.openMyСomplaintsPage();
-        complaintProgressPage.clickAdditionalInfoButton();
+        myComplaintsPage.openMyСomplaintsPage()
+                .clickRegisteredComplaint();
+        complaintProgressPage.clickAdditionalDocumentsButton();
         submitAdditionalDocumentsPage.setValueSubmitDocuments();
         repeatFilingPage
+                .uploadDocumentIfHidden()
+                .verifyFileUploaded()
                 .handleTypeOfSignature(typeSignature)
                 .handleSendInputAttachSignatureFile(typeSignature);
     }

@@ -1,6 +1,6 @@
 package api;
 
-import apimodels.erknm.ErknmInspectionsListPojo;
+import apimodels.erknm.ErknmInspectionsList;
 
 import static api.Specifications.*;
 import static io.restassured.RestAssured.given;
@@ -8,7 +8,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class ErknmInspectionSearchService {
 
-    public static ErknmInspectionsListPojo getErknmInspectionSearch(String accTValue, Integer pageSize, String sortParameter, String kindType, String query) {
+    public static ErknmInspectionsList getErknmInspectionSearch(String accTValue, Integer pageSize, String sortParameter, String kindType, String query) {
 
         installSpec (requestSpec(), responseSpecOK());
 
@@ -24,6 +24,6 @@ public class ErknmInspectionSearchService {
                 .get("/api/knd/v2/inspection/erknm/")
                 .then()
                 .body(matchesJsonSchemaInClasspath("jsonschema/erknm_inspection_list_schema.json"))
-                .extract().response().as(ErknmInspectionsListPojo.class);
+                .extract().response().as(ErknmInspectionsList.class);
     }
 }
