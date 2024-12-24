@@ -11,9 +11,7 @@ import static org.aeonbits.owner.ConfigFactory.*;
 
 
 public class Specifications {
-    public static final String SORT_ORDER_DATE_ASC = "date_asc";
     public static final String SORT_ORDER_ASC = "asc";
-    public static final String SORT_ORDER_DESC = "desc";
     public static final String TYPE_APPEAL = "appeal";
     public static final String TYPE_DRAFT = "draft";
     public static final int DEFAULT_PAGE_NUMBER = 1;
@@ -28,7 +26,7 @@ public class Specifications {
         AppConfig config = create(AppConfig.class);
 
         return new RequestSpecBuilder()
-                .setBaseUri(config.apiBaseUrl())
+                .setBaseUri(config.apiBaseUrlDev2())
                 .setContentType(JSON)
                 .build();
     }

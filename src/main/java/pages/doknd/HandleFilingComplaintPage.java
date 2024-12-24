@@ -160,46 +160,46 @@ public class HandleFilingComplaintPage {
     }
 
     public void checkProcedureViolationID_1(String typeSignature) {
-        handleFilingComplaint(config.uatCheckProcedureViolationId1(), typeSignature, true, false, true);
+        handleFilingComplaint(config.dev2CheckProcedureViolationId1(), typeSignature, true, false, true);
     }
 
     public void disagreeWithActViolationsID_2(String typeSignature) {
-        handleFilingComplaint(config.uatDisagreeWithActViolationsId2(), typeSignature, true, false, true);
+        handleFilingComplaint(config.dev2DisagreeWithActViolationsId2(), typeSignature, true, false, true);
     }
 
     public void orderOfCheckAssignmentViolationID_3(String typeSignature) {
-        handleFilingComplaint(config.uatOrderOfCheckAssignmentViolationId3(), typeSignature, true, false, true);
+        handleFilingComplaint(config.dev2OrderOfCheckAssignmentViolationId3(), typeSignature, true, false, true);
     }
 
     public void disagreeWithActionsOfOfficialID_4(String typeSignature) {
-        handleFilingComplaint(config.uatDisagreeWithActionsOfOfficialId4(), typeSignature, true, false, true);
+        handleFilingComplaint(config.dev2DisagreeWithActionsOfOfficialId4(), typeSignature, true, false, true);
     }
 
     public void disagreeWithMeasuresID_5(String typeSignature) {
-        handleFilingComplaint(config.uatDisagreeWithMeasuresId5(), typeSignature, true, false, true);
+        handleFilingComplaint(config.dev2DisagreeWithMeasuresId5(), typeSignature, true, false, true);
     }
 
     public void complaintForBreachOfMoratoriumID_10(String typeSignature) {
-        handleFilingComplaint(config.uatComplaintForBreachOfMoratoriumId10(), typeSignature, false, true, false);
+        handleFilingComplaint(config.dev2ComplaintForBreachOfMoratoriumId10(), typeSignature, false, true, false);
     }
 
     public void extensionOfPrescriptionExecutionPeriodID_11(String typeSignature) {
-        handleFilingComplaint(config.uatExtensionOfPrescriptionExecutionPeriodId11(), typeSignature, false, true, false);
+        handleFilingComplaint(config.dev2ExtensionOfPrescriptionExecutionPeriodId11(), typeSignature, false, true, false);
     }
 
     public void disagreeWithRiskCategoryAssignmentID_12(String typeSignature) {
-        handleRiskCategories(config.uatDisagreeWithRiskCategoryAssignmentId12(), typeSignature);
+        handleRiskCategories(config.dev2DisagreeWithRiskCategoryAssignmentId12(), typeSignature);
     }
 
     public void disagreeWithControlOrganDecisionMobilizationID_13(String typeSignature) {
-        handleFilingComplaint(config.uatDisagreeWithControlOrganDecisionMobilizationId13(), typeSignature, false, true, true);
+        handleFilingComplaint(config.dev2DisagreeWithControlOrganDecisionMobilizationId13(), typeSignature, false, true, true);
     }
 
     public void disagreeObjectionCautionTestID_15(String typeSignature) {
-        handleWarningFilingComplaint(config.uatObjectionCautionId15(), typeSignature, false, true, false);
+        handleWarningFilingComplaint(config.dev2ObjectionCautionId15(), typeSignature, false, true, false);
     }
 
     public void disagreeWithProfVisitPrescriptionID_14(String typeSignature, String erknmId) {
-        handleFilingComplaintPmInspections(config.uatDisagreeWithProfvisitPrescriptionId14(), erknmId, typeSignature, true, true, true);
+        handleFilingComplaintPmInspections(config.dev2DisagreeWithProfvisitPrescriptionId14(), erknmId, typeSignature, true, true, true);
     }
 }

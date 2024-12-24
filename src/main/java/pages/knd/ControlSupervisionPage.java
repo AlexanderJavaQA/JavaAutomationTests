@@ -3,15 +3,19 @@ package pages.knd;
 import apimodels.erknm.ControlTypesResponseItem;
 import appconfig.AppConfig;
 import com.codeborne.selenide.*;
+import com.codeborne.selenide.ex.ElementNotFound;
 import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import pages.doknd.FillDetailsComplaintPage;
+import pages.doknd.RepeatFilingPage;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.function.Consumer;
 
 import static api.TypesOfContolService.getTypesOfContolList;
 import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.url;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
@@ -22,32 +26,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ControlSupervisionPage {
 
     // Кнопка перехода в раздел "Контрольные и профилактические мероприятия"
-    private  SelenideElement goToSectionButtonControlAndPrevention = $x("//a[@href='/org-profile/knd/inspect']");
+    private SelenideElement goToSectionButtonControlAndPrevention = $x("//a[@href='/org-profile/knd/inspect']");
     // Кнопка перехода в раздел "Объекты контроля"
-    private  SelenideElement goToSectionButtonControlObjects = $x("//a[@href='/org-profile/knd/control-objects']");
+    private SelenideElement goToSectionButtonControlObjects = $x("//a[@href='/org-profile/knd/control-objects']");
     // Кнопка перехода в раздел "Уведомления по объектам предпринимательской деятельности"
-    private  SelenideElement goToSectionButtonBusinessNotifications = $x("//a[@href='/org-profile/knd/orgactivity']");
+    private SelenideElement goToSectionButtonBusinessNotifications = $x("//a[@href='/org-profile/knd/orgactivity']");
     // Ссылка "Перейти в реестр" в блоке "Обязательные требования"
-    private  SelenideElement goToRegistryLink = $x("//a[contains(text(),'Перейти в реестр')]");
+    private SelenideElement goToRegistryLink = $x("//a[contains(text(),'Перейти в реестр')]");
 
     // Ссылка "Подать возражение" в блоке "Возражение на предостережение"
-    private  SelenideElement submitObjectionLink = $x("//a[contains(text(),'Подать возражение')]");
+    private SelenideElement submitObjectionLink = $x("//a[contains(text(),'Подать возражение')]");
+    //Кнопка Показать все Виды контроля
+    private SelenideElement showAllControlsLink = $x("//div[contains(text(),'Показать все')]");
+    //Кнопка Скрыть все Виды контроля
+    private SelenideElement hideAllControlsLink = $x("//div[contains(text(),'Скрыть')]");
 
     // Ссылка "Отправить" в блоке "Отправьте уведомление о начале предпринимательской деятельности"
-    private  SelenideElement sendNotificationLink = $x("//a[contains(text(),'Отправить')]");
+    private SelenideElement sendNotificationLink = $x("//a[contains(text(),'Отправить')]");
     // Ссылка "Подать жалобу" в блоке "Досудебное обжалование"
-    private  SelenideElement submitComplaintLink = $x("//a[contains(text(),'Подать жалобу')]");
+    private SelenideElement submitComplaintLink = $x("//a[contains(text(),'Подать жалобу')]");
 
     // Ссылка "Подать заявку" в блоке "Запись на профвизит"
-    private  SelenideElement submitApplicationForVisitLink = $x("//lk-banner[2]//lk-screen-pad[1]//div[3]//a[1]");
+    private SelenideElement submitApplicationForVisitLink = $x("//lk-banner[2]//lk-screen-pad[1]//div[3]//a[1]");
 
     // Ссылка "Подать заявку" в блоке "Консультация инспектора"
-    private  SelenideElement submitApplicationForConsultationLink = $x("//lk-banner[3]//lk-screen-pad[1]//div[3]//a[1]");
+    private SelenideElement submitApplicationForConsultationLink = $x("//lk-banner[3]//lk-screen-pad[1]//div[3]//a[1]");
     // Кнопка "Скачать приложение" в блоке с мобильным баннером
-    private  SelenideElement downloadAppButton = $x("//lk-mobile-banner[@class='desktop-banner']//span[contains(text(),'Скачать приложение')]");
+    private SelenideElement downloadAppButton = $x("//lk-mobile-banner[@class='desktop-banner']//span[contains(text(),'Скачать приложение')]");
 
     // Коллекция ссылок на доступные виды контроля на странице
-    private  ElementsCollection controlTypeLinks = $$x("//div[contains(@class, 'pt-horizontal')]//li//a");
+    private ElementsCollection controlTypeLinks = $$x("//div[contains(@class, 'pt-horizontal')]//li//a");
 
     FillDetailsComplaintPage fillDetailsComplaintPage = new FillDetailsComplaintPage();
     static ControlSupervisionPage controlSupervisionPage = new ControlSupervisionPage();
@@ -55,7 +63,7 @@ public class ControlSupervisionPage {
     private String controlTypeTitle;
     private String accTValue;
     private String supervisionId;
-    private List<ControlTypesResponseItem>  typesOfControl;
+    private List<ControlTypesResponseItem> typesOfControl;
     AppConfig config = create(AppConfig.class);
 
     public ControlSupervisionPage openControlSupervisionPage() {
@@ -92,16 +100,6 @@ public class ControlSupervisionPage {
     }
 
 
-    public ControlSupervisionPage уцу(String accTValue) {
-        for (SelenideElement controlTypeLink : controlTypeLinks) {
-            controlTypeLink.shouldBe(enabled).click();
-          //  webdriver().shouldHave(url.);
-
-        }
-
-
-        return this;
-    }
 
     public ControlSupervisionPage waitForAndClickGoToSectionControlAndPrevention() {
         scrollAndClick(goToSectionButtonControlAndPrevention);
@@ -120,6 +118,26 @@ public class ControlSupervisionPage {
 
     public ControlSupervisionPage clickAndWaitForRegistryLink() {
         scrollAndClick(goToRegistryLink);
+        return this;
+    }
+
+    public ControlSupervisionPage isVisiblesAllControlsLink() {
+        try {
+            showAllControlsLink.shouldBe(visible, Duration.ofSeconds(3));
+        } catch (ElementNotFound e) {
+            throw new AssertionError("Элемент не видим: Ошибка: " + e.getMessage());
+        }
+        return this;
+    }
+
+    public ControlSupervisionPage clickShowAllControlsLink() {
+        while (showAllControlsLink.isDisplayed()) {
+            try {
+                scrollAndClick(showAllControlsLink);
+            } catch (ElementNotFound e) {
+                hideAllControlsLink.shouldBe(visible);
+            }
+        }
         return this;
     }
 

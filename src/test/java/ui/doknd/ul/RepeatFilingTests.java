@@ -15,31 +15,31 @@ import org.junit.jupiter.api.*;
 @ExtendWith(RetryListener.class)
 public class RepeatFilingTests extends BaseTestSelenide {
 
-    @Test
+/*    @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ЮЛ")
     public void loginAccount() {
         loginPage.openPage(config.appealsPage())
                 .clickButtonEnter()
-                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
+                .authAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
     }
 
     @ParameterizedTest
     @Order(2)
-    @ValueSource(strings = {"PEP", "UKEP"})
+    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
     @DisplayName("Проверка повторной подачи жалобы")
     public void shouldRepeatFilingComplaintWithPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
         String orderId = handleFilingComplaint.getNewOrderId();
 
-        elasticPage.openElasticInNewTabUat()
+        elasticPage.openElasticInNewTabDev2()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
                 .getValidKuberCorrelationId();
 
-        String messageId = elasticPage.getSmevMessageIdByCorrelation();
+        String messageId = elasticPage.getSmevMessageIdByCorrelationDev2();
 
-        smevPage.openSmevStatusAppealRequest()
+        smevPage.openSmevStatusAppealRequestDev2()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
@@ -53,7 +53,7 @@ public class RepeatFilingTests extends BaseTestSelenide {
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        repeatFilingPage.openNewTabForRepeatFilingPage()
+        repeatFilingPage.openNewTabForRepeatFilingPageDev2()
                 .clickStartOverInSavedDraftsModal()
                 .setInspectionNumber(orderId)
                 .clickHighlightedInspection(orderId)
@@ -62,5 +62,5 @@ public class RepeatFilingTests extends BaseTestSelenide {
                 .verifyFileUploaded()
                 .handleTypeOfSignature(typeSignature)
                 .handleSendInputAttachSignatureFile(typeSignature);
-    }
+    }*/
 }

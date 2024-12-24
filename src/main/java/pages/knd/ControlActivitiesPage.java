@@ -3,11 +3,17 @@ package pages.knd;
 import appconfig.AppConfig;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
+import lombok.SneakyThrows;
 
-import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Condition.visible;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static org.aeonbits.owner.ConfigFactory.create;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ControlActivitiesPage {
 
@@ -31,15 +37,17 @@ public class ControlActivitiesPage {
     private SelenideElement sortDescendingDateOption = $x("//span[@class='dropdown-item-text ng-star-inserted' and contains(text(), 'По убыванию даты')]");
     //Элемент отображающий текст после выбора сортировки по возрастанию
     private SelenideElement selectedSortingOption = $x("//div[@class='dropdown-value ng-star-inserted']//span[@class='selected-value-text ng-star-inserted' and contains(text(), 'По возрастанию даты')]");
-
     // Кнопка для открытия панели фильтрации
     private SelenideElement filterToggleButton = $x("//button[@class='inline-button ng-star-inserted']");
     // Выпадающий список для выбора характера/вида мероприятия
     private SelenideElement eventTypeDropdown = $x("//lib-dropdown[@class='ng-pristine ng-valid ng-touched']//a[@class='dropdown-arrow ng-star-inserted']");
-
-
     // Коллекция всех карточек на странице
     private ElementsCollection cards = $$x("//div[contains(@class, 'substrate-card')]");
+    // Элемент с текстом "Проверок не найдено"
+    SelenideElement noChecksFound = $x("//*[text()='Проверок не найдено']");
+
+    // Элемент с текстом "Попробуйте изменить параметры поиска"
+    SelenideElement changeSearchParams = $x("//*[text()='Попробуйте изменить параметры поиска']");
 
     // Заголовки карточек (например: "Федеральный государственный пожарный надзор")
     private ElementsCollection headers = $$x("//div[contains(@class, 'general-title')]//div[contains(@class, 'title-h4')]");
@@ -82,10 +90,92 @@ public class ControlActivitiesPage {
 
     // Кнопки "Обжаловать"
     private ElementsCollection appealButtons = $$x("//a[contains(text(), 'Обжаловать')]");
+    // Локатор элемента ссылки "Написать в поддержку"
+    private SelenideElement supportLink = $x("//a[contains(text(), 'Написать в')]");
+    // Тексты баннеров
+    private static final String ERP_BANNER_TEXT = "Если проверки нет в списке, проверьте её законность в Едином реестре проверок";
+    private static final String ERKNM_BANNER_TEXT = "Если проверки нет в списке, обратитесь в поддержку портала";
+
+    private final String EXPECTED_NO_CHECKS_FOUND_TEXT = "Проверок не найдено";
+    private final String EXPECTED_CHANGE_SEARCH_PARAMS_TEXT = "Попробуйте изменить параметры поиска";
+
+    private static final String SUPPORT_LINK_EXPECTED_URL = "https://www.gosuslugi.ru/newsearch?query=досудебное%20обжалование";
+
+    String decodedExpectedHref;
     AppConfig config = create(AppConfig.class);
 
     public ControlActivitiesPage openControlActivitiesPage() {
         open(config.controlActivitiesPage());
+        return this;
+    }
+
+    public ControlActivitiesPage clickSupportLinkWithSwitchBack(int times) {
+        for (int i = 0; i < times; i++) {
+            clickSupportLink().switchToOldWindow();
+        }
+        return this;
+    }
+
+    public ControlActivitiesPage clickSupportLink() {
+        supportLink.click();
+        return this;
+    }
+
+
+    @SneakyThrows
+    public ControlActivitiesPage scrollAndClickSupportLinks() {
+        executeJavaScript("arguments[0].scrollIntoView(true);", supportLink);
+        Thread.sleep(300);
+        supportLink.click();
+
+        return this;
+    }
+
+    public ControlActivitiesPage switchToNewWindow() {
+        switchTo().window(1);
+        return this;
+    }
+
+    public ControlActivitiesPage isNoChecksFoundVisible() {
+        noChecksFound.shouldBe(visible).shouldHave(text(EXPECTED_NO_CHECKS_FOUND_TEXT));
+        return this;
+    }
+
+    public ControlActivitiesPage isChangeSearchParamsVisible() {
+         changeSearchParams.shouldBe(visible).shouldHave(text(EXPECTED_CHANGE_SEARCH_PARAMS_TEXT));
+         return this;
+    }
+
+    public ControlActivitiesPage switchToOldWindow() {
+        switchTo().window(0);
+        return this;
+    }
+
+    public ControlActivitiesPage checkNumberOfOpenNewTabs(Integer number) {
+        int numberOfOpenTabs = WebDriverRunner.getWebDriver().getWindowHandles().size() - 1;
+        assertEquals(number, numberOfOpenTabs, "Количество открытых вкладок не соответствует ожидаемому");
+        return this;
+    }
+
+    public ControlActivitiesPage verifySupportLinkUrl() {
+        String actualHref = supportLink.getAttribute("href");
+        // Декодируем значение
+        String decodedHref = URLDecoder.decode(actualHref, StandardCharsets.UTF_8);
+        decodedExpectedHref = URLDecoder.decode(SUPPORT_LINK_EXPECTED_URL, StandardCharsets.UTF_8);
+        assertTrue(
+                decodedExpectedHref.equals(decodedHref),
+                "URL ссылки не соответствует ожидаемому. Ожидаемый: " + decodedExpectedHref + ", Фактический: " + decodedHref
+        );
+        return this;
+    }
+
+    public ControlActivitiesPage checkUrlSupportLink() {
+        String actualSupportLinkUrl = URLDecoder.decode(WebDriverRunner.url(), StandardCharsets.UTF_8);
+
+        assertTrue(
+                decodedExpectedHref.equals(actualSupportLinkUrl),
+                "URL ссылки не соответствует ожидаемому. Ожидаемый: " + decodedExpectedHref + ", Фактический: " + actualSupportLinkUrl
+        );
         return this;
     }
 
@@ -105,6 +195,13 @@ public class ControlActivitiesPage {
         headers.texts();
         return this;
     }
+
+    public ControlActivitiesPage checkHeadersVisibility() {
+        headers.stream().map(x->x.shouldBe(visible));
+        return this;
+    }
+
+
 
     public ControlActivitiesPage getCheckNumbers() {
         checkNumbers.texts();
@@ -199,8 +296,14 @@ public class ControlActivitiesPage {
         return this;
     }
 
-    public ControlActivitiesPage isTextBannerVisible() {
-        textBanner.shouldBe(visible);
+
+    public ControlActivitiesPage checkERPTextBannerContent() {
+        textBanner.shouldHave(text(ERP_BANNER_TEXT));
+        return this;
+    }
+
+    public ControlActivitiesPage checkERKNMTextBannerContent() {
+        textBanner.shouldHave(text(ERKNM_BANNER_TEXT));
         return this;
     }
 

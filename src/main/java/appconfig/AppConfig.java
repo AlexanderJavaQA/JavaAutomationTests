@@ -11,6 +11,9 @@ public interface AppConfig extends Config {
         @Key("smev_status_appeal_request")
         String smevStatusAppealRequest();
 
+        @Key("smev_status_appeal_request_dev2")
+        String smevStatusAppealRequestDev2();
+
         @Key("smev_broadcast_request")
         String smevBroadcastRequest();
 
@@ -26,10 +29,16 @@ public interface AppConfig extends Config {
         @Key("api_base_url")
         String apiBaseUrl();
 
+        @Key("api_base_url_dev2")
+        String apiBaseUrlDev2();
+
 
         // Repeated Appeal Form URL
         @Key("repeated_appeal_page")
         String repeatedAppealPage();
+
+        @Key("repeated_appeal_page_dev2")
+        String repeatedAppealPageDev2();
 
         // Profile URLs
         @Key("org_profile_page")
@@ -54,9 +63,15 @@ public interface AppConfig extends Config {
         @Key("kibana_discover_page")
         String kibanaDiscoverPage();
 
+        @Key("kibana_discover_page_dev2")
+        String kibanaDiscoverPageDev2();
+
         // Appeals All URLs
         @Key("my_appeals_page")
         String myAppealsPage();
+
+        @Key("my_appeals_page_dev2")
+        String myAppealsPageDev2();
 
 
         // User Credentials

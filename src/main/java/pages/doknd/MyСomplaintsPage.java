@@ -1,23 +1,23 @@
 package pages.doknd;
 
 import appconfig.AppConfig;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.aeonbits.owner.ConfigFactory;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class MyСomplaintsPage {
 
     // Текст, подтверждающий, что жалоба зарегистрирована в ведомстве
-    private SelenideElement registeredComplaintText = $x("//p[contains(text(), 'Жалоба зарегистрирована в ведомстве')]");
+    private ElementsCollection registeredComplaintText = $$x("//div[contains(text(), 'Жалоба зарегистрирована в ведомстве')]");
 
     // Текст, указывающий на наличие решения по жалобе
-    private SelenideElement complaintDecisionText = $x("//p[contains(text(), 'Решение')]");
+    private ElementsCollection complaintDecisionText = $$x("//div[contains(text(), 'Решение')]");
 
     // Текст, указывающий, что ведомство запрашивает дополнительную информацию
-    private SelenideElement additionalInfoRequestText = $x("//p[contains(text(), 'Ведомство запрашивает дополнительную информацию')]");
+    private ElementsCollection additionalInfoRequestText = $$x("//div[contains(text(), 'Ведомство запрашивает дополнительную информацию')]");
 
     private AppConfig config = ConfigFactory.create(AppConfig.class);
 
@@ -26,18 +26,24 @@ public class MyСomplaintsPage {
         return this;
     }
 
+    public MyСomplaintsPage openMyСomplaintsPageDev2() {
+        open(config.myAppealsPageDev2());
+        refresh();
+        return this;
+    }
+
     public MyСomplaintsPage clickRegisteredComplaint() {
-        registeredComplaintText.shouldBe(visible).click();
+        registeredComplaintText.get(1).shouldBe(visible).click();
         return this;
     }
 
     public MyСomplaintsPage clickComplaintDecision() {
-        complaintDecisionText.shouldBe(visible).click();
+        complaintDecisionText.get(1).shouldBe(visible).click();
         return this;
     }
 
     public MyСomplaintsPage clickRequestAdditionalInformation() {
-        additionalInfoRequestText.shouldBe(visible).click();
+        additionalInfoRequestText.get(1).shouldBe(visible).click();
         return this;
     }
 

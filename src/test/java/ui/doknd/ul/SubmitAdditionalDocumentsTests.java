@@ -20,25 +20,26 @@ public class SubmitAdditionalDocumentsTests extends BaseTestSelenide {
     public void loginAccount() {
         loginPage.openPage(config.appealsPage())
                 .clickButtonEnter()
-                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
+                .authAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
     }
+
 
     @ParameterizedTest
     @Order(2)
-    @ValueSource(strings = {"PEP", "UKEP"})
-    @DisplayName("Проверка подачи дополнительных документов")
+    @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
+    @DisplayName("Проверка подачи дополнительных документов с типом подписи ПЭП")
     public void shouldSubmitAdditionalDocumentsWithPEP(String typeSignature) {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
         String orderId = handleFilingComplaint.getNewOrderId();
 
-        elasticPage.openElasticInNewTabUat()
+        elasticPage.openElasticInNewTabDev2()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
                 .getValidKuberCorrelationId();
 
-        String messageId = elasticPage.getSmevMessageIdByCorrelation();
+        String messageId = elasticPage.getSmevMessageIdByCorrelationDev2();
 
-        smevPage.openSmevStatusAppealRequest()
+        smevPage.openSmevStatusAppealRequestDev2()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
@@ -46,7 +47,7 @@ public class SubmitAdditionalDocumentsTests extends BaseTestSelenide {
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        myComplaintsPage.openMyСomplaintsPage()
+        myComplaintsPage.openMyСomplaintsPageDev2()
                 .clickRegisteredComplaint();
         complaintProgressPage.clickAdditionalDocumentsButton();
         submitAdditionalDocumentsPage.setValueSubmitDocuments();

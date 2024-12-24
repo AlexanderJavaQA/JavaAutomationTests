@@ -34,7 +34,6 @@ public class BaseApiTests {
     public static String accTValueIp;
     private static boolean isSetupExecuted = false;
     protected static SmevPage smevPage = new SmevPage();
-    LoginPage loginPage = new LoginPage();
 
     protected static Stream<Arguments> userTypes() {
         return Stream.of(

@@ -15,16 +15,27 @@ public class ControlSupervisionTests extends BaseTestSelenide {
     @DisplayName("Авторизация на портале КНД под учетной записью ЮЛ")
     public void loginWithFLAccount() {
         loginPage.openPage(config.orgProfilePage())
-                 .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
+                 .authAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
     }
 
     @Test
-    @Order(2)
     @DisplayName("Проверка перехода на старницу Контрольные и профилактические мероприятия")
     public void performGoToSectionControlAndPreventionTest() {
         controlSupervisionPage.openControlSupervisionPage()
                 .waitForAndClickGoToSectionControlAndPrevention()
                 .verifyCurrentUrl("https://pgu-uat-betalk.test.gosuslugi.ru/org-profile/knd/inspect");
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("Проверка Отображения всех ссылок типов контроля, и их валидацию после клика по кнопке Показать ещё")
+    public void validateAllControlTypeLinksAfterExpanding() {
+        controlSupervisionPage.openControlSupervisionPage()
+                .isVisiblesAllControlsLink()
+                .clickShowAllControlsLink()
+                .getAccountTokenValue()
+                .validateTypesOfControlExistence()
+                .clickAndValidateAllControlTypeLinks();
     }
 
     @Test

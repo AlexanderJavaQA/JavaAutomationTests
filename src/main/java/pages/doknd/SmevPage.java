@@ -177,6 +177,11 @@ public class SmevPage {
         return this;
     }
 
+    public SmevPage openSmevStatusAppealRequestDev2() {
+        open(config.smevStatusAppealRequestDev2());
+        return this;
+    }
+
     public SmevPage createERKNMBroadcastRequest(String erknmId) {
         textareaXmlRequest.setValue("<erp:Broadcast xmlns:erp=\"urn://ru.gov.proc.erp.broadcast/3.0.1\" xmlns:erp_types=\"urn://ru.gov.proc.erp.broadcast/types/3.0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"urn://ru.gov.proc.erp.broadcast/3.0.1 ru.gov.proc.erp.broadcast.smev.xsd\">\n" +
                 "<erp_types:Inspection domainId=\"1040550000000001\" erpId=\"" + erknmId + "\" eventDate=\"2017-12-17T12:14:42Z\" eventType=\"CREATE\" guid=\"20170915-1311-0134-2344-000000383432\"/>\n" +

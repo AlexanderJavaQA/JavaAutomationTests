@@ -71,9 +71,24 @@ public class ElasticPage {
         return this;
     }
 
+    public ElasticPage openElasticInNewTabDev2() {
+        switchToNewTab();
+        open(config.kibanaDiscoverPageDev2());
+        return this;
+    }
+
     public String getSmevMessageIdByCorrelation() {
         newSmevMessageId = String.valueOf(
                 new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseUat())
+                        .findMessageIdsByCorrelation(сorrelationId).get(0));
+
+        System.out.println("SMEV Message ID: " + newSmevMessageId);
+        return newSmevMessageId;
+    }
+
+    public String getSmevMessageIdByCorrelationDev2() {
+        newSmevMessageId = String.valueOf(
+                new DataAccessObjectPostgres(DatabaseConnectPostgres.smevaDatabaseDev2())
                         .findMessageIdsByCorrelation(сorrelationId).get(0));
 
         System.out.println("SMEV Message ID: " + newSmevMessageId);

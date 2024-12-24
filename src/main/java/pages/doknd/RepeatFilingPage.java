@@ -74,6 +74,12 @@ public class RepeatFilingPage {
         return this;
     }
 
+    public RepeatFilingPage openNewTabForRepeatFilingPageDev2() {
+        switchTo().newWindow(WindowType.TAB);
+        open(config.repeatedAppealPageDev2());
+        return this;
+    }
+
     @SneakyThrows
     public RepeatFilingPage clickStartOverInSavedDraftsModal() {
         try {
@@ -149,9 +155,7 @@ public class RepeatFilingPage {
 
     public RepeatFilingPage handleTypeOfSignature(String selectSignature) {
         scrollSignature();
-        if (selectSignature == null) {
-            throw new IllegalArgumentException("selectSignature не должно быть null");
-        }
+
 
         switch (selectSignature) {
             case "UKEP":

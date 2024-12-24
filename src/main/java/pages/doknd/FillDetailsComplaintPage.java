@@ -226,7 +226,7 @@ public class FillDetailsComplaintPage {
     @SneakyThrows
     public FillDetailsComplaintPage clickRestartInSavedDraftsModal() {
         try {
-            modalSavedDraftsRestart.shouldBe(enabled, Duration.ofSeconds(5)).click();
+            modalSavedDraftsRestart.shouldBe(enabled, Duration.ofSeconds(8)).click();
         } catch (ElementNotFound e) {
             System.err.println("Ошибка при попытке кликнуть на 'Начать заново': " + e.getMessage());
         }

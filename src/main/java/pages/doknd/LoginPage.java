@@ -42,7 +42,7 @@ public class LoginPage {
         return this;
     }
 
-    public LoginPage authenticateWithAccountType (String login, String password, AccountType accountType) {
+    public LoginPage authAccountType(String login, String password, AccountType accountType) {
         loginField.setValue(login);
         passwordField.setValue(password);
         wideButton.click();

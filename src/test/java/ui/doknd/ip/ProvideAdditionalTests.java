@@ -20,7 +20,7 @@ public class ProvideAdditionalTests extends BaseTestSelenide {
     public void loginAccount() {
         loginPage.openPage(config.appealsPage())
                 .clickButtonEnter()
-                .authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.IP);
+                .authAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.IP);
     }
 
     @ParameterizedTest
@@ -31,14 +31,14 @@ public class ProvideAdditionalTests extends BaseTestSelenide {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
         String orderId = handleFilingComplaint.getNewOrderId();
 
-        elasticPage.openElasticInNewTabUat()
+        elasticPage.openElasticInNewTabDev2()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
                 .getValidKuberCorrelationId();
 
-        String messageId = elasticPage.getSmevMessageIdByCorrelation();
+        String messageId = elasticPage.getSmevMessageIdByCorrelationDev2();
 
-        smevPage.openSmevStatusAppealRequest()
+        smevPage.openSmevStatusAppealRequestDev2()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
@@ -50,9 +50,9 @@ public class ProvideAdditionalTests extends BaseTestSelenide {
                 .clickButtonOk();
 
 
-        myComplaintsPage.openMyСomplaintsPage()
+        myComplaintsPage.openMyСomplaintsPageDev2()
                 .clickRequestAdditionalInformation();
-        complaintProgressPage.clickAdditionalDocumentsButton();
+        complaintProgressPage.clickAdditionalInfoButton();
         submitAdditionalDocumentsPage.setValueSubmitDocuments();
 
         repeatFilingPage

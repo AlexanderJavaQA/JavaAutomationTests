@@ -1,11 +1,10 @@
 package ui.knd;
 
 import baseTest.BaseTestSelenide;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import pages.doknd.LoginPage;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Проверка элементов и действий на странице Контрольные мероприятия")
 public class ControlActivitiesTests extends BaseTestSelenide {
 
@@ -13,68 +12,80 @@ public class ControlActivitiesTests extends BaseTestSelenide {
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ЮЛ")
     public void loginWithFLAccount() {
-        loginPage.openPage(config.controlActivitiesPage()).authenticateWithAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
+        loginPage.openPage(config.controlActivitiesPage())
+                .authAccountType(config.userLoginBespalov(), config.userPasswordBespalov(), LoginPage.AccountType.UL);
     }
 
     @Test
     @DisplayName("Проверка перехода по вкладке ЕРП и ЕРКНМ")
-    public void shouldDisplayHeaderControlActivities() {
-        controlActivitiesPage.openControlActivitiesPage().isHeaderERPVisible().clickHeaderERP().isTextBannerVisible().isHeaderERKNMVisible().clickHeaderERKNM().isTextBannerVisible();
+    public void checkTabSwitchingERPAndERKNM() {
+        controlActivitiesPage
+                .openControlActivitiesPage()
+                .isHeaderERPVisible()
+                .clickHeaderERP()
+                .checkERPTextBannerContent()
+                .isHeaderERKNMVisible()
+                .clickHeaderERKNM()
+                .checkERKNMTextBannerContent();
     }
 
     @Test
-    @DisplayName("Проверка работы поля поиска по объекту")
-    public void shouldSearchByInputField() {
-        controlActivitiesPage.openControlActivitiesPage().setSearchInputField("Москва").getSearchInputFieldValue().clearSearchInputField();
+    @DisplayName("Проверка перехода по ссылке Написать в поддержку")
+    public void checkUrlSupportLink() {
+        controlActivitiesPage
+                .openControlActivitiesPage()
+                .verifySupportLinkUrl()
+                .clickSupportLink()
+                .switchToNewWindow()
+                .checkUrlSupportLink();
     }
 
     @Test
-    @DisplayName("Проверка открытия выпадающего меню сортировки")
-    public void shouldOpenSortDropdown() {
-        controlActivitiesPage.openControlActivitiesPage().openSortDropdown().isSortDropdownVisible();
+    @DisplayName("Проверка количества открытых новых вкладок после клика по ссылке Обратитесь в поддержку")
+    public void checkFiveTabsOpenedAfterClickingSupportLink() {
+        controlActivitiesPage
+                .openControlActivitiesPage()
+                .clickSupportLinkWithSwitchBack(5)
+                .checkNumberOfOpenNewTabs(5);
     }
 
     @Test
-    @DisplayName("Проверка выбора сортировки по возрастанию даты")
-    public void shouldSelectSortAscendingDate() {
-        controlActivitiesPage.openControlActivitiesPage().openSortDropdown().selectSortAscendingDate();
+    @Order(2)
+    @DisplayName("Проверка отображения сообщений 'Проверок не найдено' и 'Попробуйте изменить параметры поиска' при отсутствии результатов")
+    public void checkMessagesDisplayedForNoSearchResults() {
+        controlActivitiesPage
+                .openControlActivitiesPage()
+                .setSearchInputField("Тестовые данные")
+                .isNoChecksFoundVisible()
+                .isChangeSearchParamsVisible();
     }
 
     @Test
-    @DisplayName("Проверка выбора сортировки по убыванию даты")
-    public void shouldSelectSortDescendingDate() {
-        controlActivitiesPage.openControlActivitiesPage().openSortDropdown().selectSortDescendingDate();
+    @DisplayName("Проверка отображения заголовков КНО после очистки поиска")
+    public void checkHeadersDisplayedAfterClearingSearch() {
+        controlActivitiesPage
+                .openControlActivitiesPage()
+                .setSearchInputField("Тестовые данные")
+                .isNoChecksFoundVisible()
+                .isChangeSearchParamsVisible()
+                .clearSearchInputField()
+                .checkHeadersVisibility();
     }
 
     @Test
-    @DisplayName("Проверка открытия фильтров")
-    public void shouldOpenFilterPanel() {
-        controlActivitiesPage.openControlActivitiesPage().openFilterPanel().isFilterToggleButtonVisible();
-    }
+    @DisplayName("Проверка корректного переключения между вкладками 'Единый реестр проверок' и 'Единый реестр КНМ' при множественном переходе")
+    public void checkTabSwitchingBetweenERPAndERKNM() {
+        controlActivitiesPage
+                .openControlActivitiesPage()
+                .isHeaderERPVisible();
 
-    @Test
-    @DisplayName("Проверка открытия дропдауна 'Характер/вид мероприятия'")
-    public void shouldOpenEventTypeDropdown() {
-        controlActivitiesPage.openControlActivitiesPage().openEventTypeDropdown().isEventTypeDropdownVisible();
-    }
-
-    @Test
-    @DisplayName("Проверка клика по кнопке 'Обжаловать'")
-    public void shouldClickAppealButton() {
-        controlActivitiesPage.openControlActivitiesPage().clickAppealButton(0); // Клик по первой кнопке
-    }
-
-
-    @Test
-    @DisplayName("Проверка работы выпадающего списка сортировки по возрастанию даты")
-    public void testSortDropdownSelectAscendingDate() {
-        controlActivitiesPage.openControlActivitiesPage().openSortDropdown().isSortDropdownVisible().isSortAscendingDateOptionVisible().selectSortAscendingDate();
-    }
-
-    @Test
-    @DisplayName("Проверка работы выпадающего списка сортировки по возрастанию даты")
-    public void testSortDrdownSelectAscendingDate() {
-        controlActivitiesPage.openControlActivitiesPage().isFilterToggleButtonVisible().openFilterPanel().openEventTypeDropdown();
+        for (int i = 0; i < 30; i++) {
+            controlActivitiesPage.clickHeaderERP()
+                    .checkERPTextBannerContent()
+                    .isHeaderERKNMVisible()
+                    .clickHeaderERKNM()
+                    .checkERKNMTextBannerContent();
+        }
     }
 }
 
