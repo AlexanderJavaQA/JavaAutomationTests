@@ -20,12 +20,10 @@ public abstract class BaseTestSelenide {
     protected RepeatFilingPage repeatFilingPage = new RepeatFilingPage();
     protected SubmitAdditionalPage submitAdditionalDocumentsPage = new SubmitAdditionalPage();
     protected ControlSupervisionPage controlSupervisionPage = new ControlSupervisionPage();
-    protected  ComplaintProgressPage complaintDetailsPage = new ComplaintProgressPage();
-    protected  MyСomplaintsPage myComplaintsPage = new MyСomplaintsPage();
+   protected  MyСomplaintsPage myComplaintsPage = new MyСomplaintsPage();
     protected  ComplaintProgressPage complaintProgressPage = new ComplaintProgressPage();
     protected  ElasticPage elasticPage = new ElasticPage();
     protected ControlActivitiesPage controlActivitiesPage = new ControlActivitiesPage();
-    protected SigningComplaintPage signingComplaintPage = new SigningComplaintPage();
     protected AppConfig config = ConfigFactory.create(AppConfig.class);
 
     @BeforeAll

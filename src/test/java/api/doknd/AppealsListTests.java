@@ -106,7 +106,7 @@ public class AppealsListTests extends BaseApiTests {
 
         for (String extId : extIds) {
             List<StatusCode> statusCodes = new DataAccessObjectPostgres(DatabaseConnectPostgres
-                    .surveillanceDatabaseDev2()).getStatusCodeByOrderId(extId);
+                    .surveillanceDatabaseUat()).getStatusCodeByOrderId(extId);
 
             assertFalse(statusCodes.isEmpty(), "Список statusCode не должен быть пустым для extId: " + extId);
             assertNotEquals("0", statusCodes.get(0), "Проверка, что statusCode равен 0 для extId: " + extId);

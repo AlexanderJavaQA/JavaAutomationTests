@@ -4,10 +4,13 @@ import appconfig.AppConfig;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.ex.ElementNotFound;
 import lombok.SneakyThrows;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.util.List;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -29,6 +32,8 @@ public class ControlActivitiesPage {
     private SelenideElement textBanner = $x("//p[@class='mb-16']");
     // Поле ввода для поиска объекта по адресу, номеру или другим данным проверки
     private SelenideElement searchInputField = $x("//input[@placeholder='Адрес, номер или другие данные объекта проверки']");
+    // Поле ввода для поиска объекта по адресу, номеру или другим данным проверки после ввода текста
+    private SelenideElement searchInputFieldTextEntry = $x("//input[@aria-label='Адрес, номер или другие данные объекта проверки']");
     // Выпадающее меню для сортировки по дате
     private SelenideElement sortDropdown = $x("//lib-dropdown[@placeholder='Сортировка']");
     // Выпадающий элемент для сортировки по возрастанию даты
@@ -37,6 +42,9 @@ public class ControlActivitiesPage {
     private SelenideElement sortDescendingDateOption = $x("//span[@class='dropdown-item-text ng-star-inserted' and contains(text(), 'По убыванию даты')]");
     //Элемент отображающий текст после выбора сортировки по возрастанию
     private SelenideElement selectedSortingOption = $x("//div[@class='dropdown-value ng-star-inserted']//span[@class='selected-value-text ng-star-inserted' and contains(text(), 'По возрастанию даты')]");
+    // Элемент, представляющий текущую выбранную страницу в пагинации.
+    // Используется для проверки текущего состояния пагинации или для навигации по страницам.
+    private SelenideElement currentPagePointer = $x("//span[@class='small-text color-gosblue pointer current-page']");
     // Кнопка для открытия панели фильтрации
     private SelenideElement filterToggleButton = $x("//button[@class='inline-button ng-star-inserted']");
     // Выпадающий список для выбора характера/вида мероприятия
@@ -78,6 +86,8 @@ public class ControlActivitiesPage {
 
     // Лейбл для подзаголовка "Начало"
     private ElementsCollection startDateLabels = $$x("//div[contains(@class, 'start-date')]//div[contains(@class, 'info-label') and contains(text(), 'Начало')]");
+    // Коллекция для нахождения списка всех элементов в выпадающем списке "Показать"
+    private ElementsCollection pageSizeOptions = $$x("//div[@class='page-size-item small-text pointer ng-star-inserted']");
 
     // Даты начала проверок (например: "22.08.2022")
     private ElementsCollection startDateValues = $$x("//div[contains(@class, 'start-date')]//div[contains(@class, 'content')]");
@@ -109,10 +119,37 @@ public class ControlActivitiesPage {
         return this;
     }
 
+    public ControlActivitiesPage verifyFirstHeaderVisible() {
+        headers.get(0).shouldBe(visible);
+        return this;
+    }
+
+
+    public ControlActivitiesPage checkHeadersCount(int minSize, int maxHeaders) {
+        int headersCount = headers.size();
+        System.out.printf(String.valueOf(headersCount));
+        assertTrue(headersCount >= minSize && headersCount <= maxHeaders,
+                "Количество заголовков (" + headersCount + ") превышает допустимое значение: " + maxHeaders);
+
+        return this;
+    }
+
+
+    public ControlActivitiesPage getPageSizeOptionsText() {
+        List<String> pageSizeOptionTexts = pageSizeOptions.texts();
+        System.out.printf(pageSizeOptionTexts.toString());
+        return this;
+    }
+
     public ControlActivitiesPage clickSupportLinkWithSwitchBack(int times) {
         for (int i = 0; i < times; i++) {
             clickSupportLink().switchToOldWindow();
         }
+        return this;
+    }
+
+    public ControlActivitiesPage clickOnPageSizeOption(String optionText) {
+        pageSizeOptions.findBy(text(optionText)).click();
         return this;
     }
 
@@ -121,6 +158,24 @@ public class ControlActivitiesPage {
         return this;
     }
 
+
+    @SneakyThrows
+    public ControlActivitiesPage scrollAndClickCurrentPagePointer() {
+        executeJavaScript("arguments[0].scrollIntoView(true);", currentPagePointer);
+        Thread.sleep(300);
+        currentPagePointer.click();
+        return this;
+    }
+
+    public ControlActivitiesPage verifyCurrentPagePointerAndCheckHeaders() {
+        try {
+            currentPagePointer.shouldBe(visible, Duration.ofSeconds(4));
+        } catch (ElementNotFound e) {
+            checkHeadersCount(0, 10);
+            throw new RuntimeException("Элемент currentPagePointer не найден или не видим.");
+        }
+        return this;
+    }
 
     @SneakyThrows
     public ControlActivitiesPage scrollAndClickSupportLinks() {
@@ -142,8 +197,8 @@ public class ControlActivitiesPage {
     }
 
     public ControlActivitiesPage isChangeSearchParamsVisible() {
-         changeSearchParams.shouldBe(visible).shouldHave(text(EXPECTED_CHANGE_SEARCH_PARAMS_TEXT));
-         return this;
+        changeSearchParams.shouldBe(visible).shouldHave(text(EXPECTED_CHANGE_SEARCH_PARAMS_TEXT));
+        return this;
     }
 
     public ControlActivitiesPage switchToOldWindow() {
@@ -197,10 +252,9 @@ public class ControlActivitiesPage {
     }
 
     public ControlActivitiesPage checkHeadersVisibility() {
-        headers.stream().map(x->x.shouldBe(visible));
+        headers.stream().map(x -> x.shouldBe(visible));
         return this;
     }
-
 
 
     public ControlActivitiesPage getCheckNumbers() {
@@ -314,12 +368,17 @@ public class ControlActivitiesPage {
 
     // Методы для searchInputField
     public ControlActivitiesPage setSearchInputField(String text) {
-        searchInputField.shouldBe(enabled).setValue(text);
+        searchInputFieldTextEntry.shouldBe(enabled).setValue(text);
+        return this;
+    }
+
+    public ControlActivitiesPage clearSearchInputAfterTextEntry() {
+        searchInputFieldTextEntry.clear();
         return this;
     }
 
     public ControlActivitiesPage clearSearchInputField() {
-        searchInputField.shouldBe(visible).clear();
+        searchInputField.clear();
         return this;
     }
 

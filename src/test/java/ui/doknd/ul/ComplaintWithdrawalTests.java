@@ -31,20 +31,20 @@ public class ComplaintWithdrawalTests extends BaseTestSelenide {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
         String orderId = handleFilingComplaint.getNewOrderId();
 
-        elasticPage.openElasticInNewTabDev2()
+        elasticPage.openElasticInNewTabUat()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
                 .getValidKuberCorrelationId();
-        String messageId = elasticPage.getSmevMessageIdByCorrelationDev2();
+        String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-        smevPage.openSmevStatusAppealRequestDev2()
+        smevPage.openSmevStatusAppealRequest()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .setXmlRequest(orderId, "101")
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        myComplaintsPage.openMyСomplaintsPageDev2()
+        myComplaintsPage.openMyСomplaintsPage()
                 .clickRegisteredComplaint();
 
         complaintProgressPage.clickWithdrawalButton();

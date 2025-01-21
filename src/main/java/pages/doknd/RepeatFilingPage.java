@@ -3,6 +3,7 @@ package pages.doknd;
 import appconfig.AppConfig;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
+import lombok.Data;
 import lombok.SneakyThrows;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WindowType;
@@ -14,6 +15,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 
+@Data
 public class RepeatFilingPage {
 
     // Поле для загрузки файлов
@@ -174,7 +176,7 @@ public class RepeatFilingPage {
                 break;
 
         }
-        scrollIntoViewAndClick(buttonContinue);
+
         return this;
     }
 

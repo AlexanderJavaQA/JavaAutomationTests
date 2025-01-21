@@ -15,7 +15,7 @@ import org.junit.jupiter.api.*;
 @ExtendWith(RetryListener.class)
 public class RepeatFilingTests extends BaseTestSelenide {
 
-/*    @Test
+    @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ЮЛ")
     public void loginAccount() {
@@ -32,14 +32,14 @@ public class RepeatFilingTests extends BaseTestSelenide {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
         String orderId = handleFilingComplaint.getNewOrderId();
 
-        elasticPage.openElasticInNewTabDev2()
+        elasticPage.openElasticInNewTabUat()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
                 .getValidKuberCorrelationId();
 
-        String messageId = elasticPage.getSmevMessageIdByCorrelationDev2();
+        String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-        smevPage.openSmevStatusAppealRequestDev2()
+        smevPage.openSmevStatusAppealRequest()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
@@ -53,14 +53,15 @@ public class RepeatFilingTests extends BaseTestSelenide {
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        repeatFilingPage.openNewTabForRepeatFilingPageDev2()
+        repeatFilingPage.openNewTabForRepeatFilingPage()
                 .clickStartOverInSavedDraftsModal()
                 .setInspectionNumber(orderId)
                 .clickHighlightedInspection(orderId)
                 .setReasonForDisagreement()
+                .handleTypeOfSignature(typeSignature)
                 .uploadDocumentIfHidden()
                 .verifyFileUploaded()
-                .handleTypeOfSignature(typeSignature)
+                .scrollIntoViewAndClick(repeatFilingPage.getButtonContinue())
                 .handleSendInputAttachSignatureFile(typeSignature);
-    }*/
+    }
 }

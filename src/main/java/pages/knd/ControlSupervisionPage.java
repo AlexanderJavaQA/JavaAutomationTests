@@ -123,7 +123,7 @@ public class ControlSupervisionPage {
 
     public ControlSupervisionPage isVisiblesAllControlsLink() {
         try {
-            showAllControlsLink.shouldBe(visible, Duration.ofSeconds(3));
+            showAllControlsLink.shouldBe(visible, Duration.ofSeconds(5));
         } catch (ElementNotFound e) {
             throw new AssertionError("Элемент не видим: Ошибка: " + e.getMessage());
         }

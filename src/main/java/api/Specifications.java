@@ -26,7 +26,7 @@ public class Specifications {
         AppConfig config = create(AppConfig.class);
 
         return new RequestSpecBuilder()
-                .setBaseUri(config.apiBaseUrlDev2())
+                .setBaseUri(config.apiBaseUrl())
                 .setContentType(JSON)
                 .build();
     }

@@ -28,14 +28,14 @@ public class RepeatFilingTests extends BaseTestSelenide {
         handleFilingComplaint.checkProcedureViolationID_1("PEP");
         String orderId = handleFilingComplaint.getNewOrderId();
 
-        elasticPage.openElasticInNewTabDev2()
+        elasticPage.openElasticInNewTabUat()
                 .setOrderIdInQueryInput(orderId)
                 .clickUpdateButton()
                 .getValidKuberCorrelationId();
 
-        String messageId = elasticPage.getSmevMessageIdByCorrelationDev2();
+        String messageId = elasticPage.getSmevMessageIdByCorrelation();
 
-        smevPage.openSmevStatusAppealRequestDev2()
+        smevPage.openSmevStatusAppealRequest()
                 .clearMessageID()
                 .setMessageID(messageId)
                 .clearXmlRequest()
@@ -49,7 +49,7 @@ public class RepeatFilingTests extends BaseTestSelenide {
                 .clickButtonSubmit()
                 .clickButtonOk();
 
-        repeatFilingPage.openNewTabForRepeatFilingPageDev2()
+        repeatFilingPage.openNewTabForRepeatFilingPage()
                 .clickStartOverInSavedDraftsModal()
                 .setInspectionNumber(orderId)
                 .clickHighlightedInspection(orderId)
@@ -57,6 +57,7 @@ public class RepeatFilingTests extends BaseTestSelenide {
                 .handleTypeOfSignature(typeSignature)
                 .uploadDocumentIfHidden()
                 .verifyFileUploaded()
+                .scrollIntoViewAndClick(repeatFilingPage.getButtonContinue())
                 .handleSendInputAttachSignatureFile(typeSignature);
     }
 }

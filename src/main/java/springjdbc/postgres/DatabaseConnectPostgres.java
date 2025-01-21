@@ -37,7 +37,7 @@ public class DatabaseConnectPostgres {
     }
 
     public static JdbcTemplate surveillanceDatabaseUat() {
-        String dbUrl = "jdbc:postgresql://10.65.242.126:3011/surveillance";
+        String dbUrl = "jdbc:postgresql://10.65.242.130:3011/surveillance";
         String dbUsername = "surveillance";
         String dbPassword = "surveillance";
 

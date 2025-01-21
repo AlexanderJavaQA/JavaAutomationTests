@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 @DisplayName("Проверка подачи жалобы для ИП")
 public class ComplaintFilingTests extends BaseTestSelenide {
 
-   /* @Test
+    @Test
     @Order(1)
     @DisplayName("Авторизация на портале КНД под учетной записью ИП")
     public void loginAccount() {
@@ -73,12 +73,12 @@ public class ComplaintFilingTests extends BaseTestSelenide {
         handleFilingComplaint.extensionOfPrescriptionExecutionPeriodID_11(typeSignature);
     }
 
-   *//* @ParameterizedTest
+    @ParameterizedTest
     @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
     @DisplayName("Проверка подачи жалобы на несогласие с категорией риска ID_12")
     public void shouldSubmitComplaintForDisagreementWithRiskID_12(String typeSignature) {
         handleFilingComplaint.disagreeWithRiskCategoryAssignmentID_12(typeSignature);
-    }*//*
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {"PEP", "UKEP", "UNEP", "UKEPGK"})
@@ -99,5 +99,5 @@ public class ComplaintFilingTests extends BaseTestSelenide {
     @DisplayName("Проверка подачи жалобы на возражение на предостережение ID_15")
     public void shouldSubmitComplaintForObjectionToCautionID_15(String typeSignature) {
         handleFilingComplaint.disagreeObjectionCautionTestID_15(typeSignature);
-    }*/
+    }
 }

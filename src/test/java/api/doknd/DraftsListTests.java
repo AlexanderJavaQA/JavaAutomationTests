@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Проверка отображения и сортировки списка черновиков")
 public class DraftsListTests extends BaseApiTests {
 
-
     public void checkDraftsSortedDesc(String accTValue) {
         List<ItemsItem> dateLists = getDraftsList(accTValue, SORT_ORDER_DESC).getItems();
         List<String> dates = dateLists.stream()
@@ -52,7 +51,7 @@ public class DraftsListTests extends BaseApiTests {
 
         for (String extId : extIds) {
             List<StatusCode> statusCodes = new DataAccessObjectPostgres(DatabaseConnectPostgres
-                    .surveillanceDatabaseDev2()).getStatusCodeByOrderId(extId);
+                    .surveillanceDatabaseUat()).getStatusCodeByOrderId(extId);
             assertFalse(statusCodes.isEmpty(), "Список statusCode не должен быть пустым для extId: " + extId);
             assertEquals("0", statusCodes.get(0).getStatus_code(), "Проверка, что statusCode равен 0 для extId: " + extId);
         }
